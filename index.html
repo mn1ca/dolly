@@ -1,0 +1,193 @@
+<html>
+    <head>
+        <meta name='viewport' content='width=1280px, initial-scale=1.0'>
+        <meta charset='UTF-8'>
+
+        <title></title>
+
+        <!-- css -->
+        <link href='style.css' rel='stylesheet' type='text/css' media='all'>
+
+        <!-- favicon -->
+        <link rel='icon' href='assets/cursor/default.svg'>
+
+        <script type='module' src='script.js'></script>
+    </head>
+
+    <body><div id='wrapper'>
+        <div id='back-cover' class='book'>
+            <div id='tabs'>
+                <div class='active tab' id='face'>face</div>
+                <div class='tab' id='hair'>hair</div>
+                <div class='tab' id='eyebrows'>eyebrows</div>
+                <div class='tab' id='eyes'>eyes</div>
+                <div class='tab' id='nose'>nose</div>
+                <div class='tab' id='mouth'>mouth</div>
+                <div class='tab' id='accessory'>accessory</div>
+                <div class='tab' id='background'>background</div>
+                <div class='about tab' id='about'>about</div>
+
+            </div>
+            <div class='book right-page back'></div>
+            <div class='right-page'>
+
+                <div id='face-content' class='content'>
+                    <div class='container spacer'>
+                        <div class='setting' id='face2'></div>
+                        <div class='setting' id='face0'></div>
+
+                    </div>
+                </div>
+                <div id='hair-content' class='hide content'></div>
+                <div id='eyebrows-content' class='hide content'>
+                    <div class='container spacer'>
+                            <div class='setting' id='eyebrows2'></div>
+                            <div class='setting' id='eyebrows0'></div>
+                            <div class='setting' id='eyebrows1'></div>
+
+                    </div>
+
+                </div>
+
+                <div id='eyes-content' class='hide content'>
+                    <div class='container spacer'>
+                        <div class='setting' id='eyes0'></div>
+                        <div class='setting' id='eyes1'></div>
+                    </div>
+
+                    <div class='container'>
+
+                        <div class='gallery' id='eyelashes-gallery'>
+
+                        </div>
+
+                        <div class='spacer'>
+                            <div class='setting' id='eyelashes2'></div>
+                            <div class='block'></div>
+                            <div class='setting' id='eyelashes0'></div>
+                        </div>
+                    </div>
+
+
+                    <div class='container'>
+                        <div class='gallery' id='pupils-gallery'></div>
+                        <div class='spacer'>
+                            <div class='setting' id='pupils2'></div>
+                            <div class='block'></div>
+                            <div class='setting' id='pupils1'></div>
+
+                        </div>
+                    </div>
+
+                    <div class='container'>
+                        <div class='gallery' id='sparkles-gallery'></div>
+
+                        <div class='spacer'>
+                            <div class='setting bottom' id='sparkles2'></div>
+                            <div class='setting' id='sparkles0'></div>
+                            <div class='setting' id='sparkles1'></div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div id='nose-content' class='hide content'>
+                    <div class='container spacer'>
+                            <div class='setting' id='nose2'></div>
+                            <div class='setting' id='nose0'></div>
+                    </div>
+
+                    <div class='container'></div>
+
+                </div>
+
+
+                <div id='mouth-content' class='hide content'>
+                    <div class='container spacer'>
+                        <div class='setting' id='mouth2'></div>
+                        <div class='setting' id='mouth0'></div>
+                    </div>
+
+                </div>
+
+                <div id='accessory-content' class='hide content'></div>
+                <div id='background-content' class='hide content'></div>
+
+                <div id='about-content' class='hide content'>
+
+                    <div class='container'>
+                        <h1>info.</h1>
+                        <p>Feel free to use graphics for personal use without credit.</p>
+                        <p>Do not use for commercial or GenAI purposes. Or I will be very sad. And possibly quite angry.</p>
+
+                        <hr>
+
+                        <div class='spacer'>
+                            <span>github</span>
+                            <span>documentation</span>
+                        </div>
+                    </div>
+
+                    <div class='container'>
+                        <h1>credits</h1>
+                        <h2>references</h2>
+
+                        <ul>
+                            <li><a href='https://developer.mozilla.org/en-US/docs/Web/API/Path2D/Path2D' target='_blank'>
+                                rendering paths in <span class='capitals'>HTML</span> canvas</a>
+                                <span class='capitals'>(Mozilla)</span>
+                            </li>
+
+                            <li><a href='https://www.w3schools.com/howto/howto_js_rangeslider.asp' target='_blank'>
+                                range slider</a>
+                                <span class='capitals'>(W3Schools)</span>
+                            </li>
+
+                            <li><a href='https://stackoverflow.com/questions/70213968/how-input-accepts-only-hex-numbers' target='_blank'>
+                                hex code text input</a>
+                                <span class='capitals'>(Stack Overflow)</span>
+                            </li>
+
+                        </ul>
+
+                        <h2>typefaces</h2>
+                        <ul>
+
+                            <li><a href='https://fonts.google.com/specimen/Balsamiq+Sans' target='_blank'>
+                                Balsamiq Sans
+                            </a></li>
+
+                            <li><a href='https://fonts.google.com/specimen/Nanum+Pen+Script' target='_blank'>
+                                Nanum Pen Script
+                            </a></li>
+
+                        </ul>
+                    </div>
+
+                    <a href='https://mn1ca.fish' target='_blank'>
+                    <img src="/assets/button.gif" style="image-rendering: pixelated; margin: -10px 15px"></a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class='book left-page'>
+            <div id='canvas-back'>
+            <canvas id='canvas' height='512' width='512'>hi</canvas>
+            </div>
+
+            <div class='tape'></div>
+        </div>
+
+        dollymaker
+
+    </div></body>
+
+</html>

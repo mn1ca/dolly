@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="sparkle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M18.21,12c0,3.43-2.78,6.21-6.21,6.21s-6.21-2.78-6.21-6.21,2.78-6.21,6.21-6.21,6.21,2.78,6.21,6.21Z"/>
+</svg>
