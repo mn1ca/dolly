@@ -15,6 +15,7 @@
     </head>
 
     <body><div id='wrapper'>
+
         <div id='back-cover' class='book'>
             <div id='tabs'>
                 <div class='active tab' id='face'>face</div>
@@ -118,7 +119,8 @@
 
                     <div class='container'>
                         <h1>info.</h1>
-                        <p>Feel free to use graphics for personal use without credit.</p>
+                        <p>This dollmaker can be used to export 512x512 <span class='capitals'>png</span> and <span class='capitals'>gif</span> files of a customizable character.
+                        Feel free to use graphics for personal use without credit.</p>
                         <p>Do not use for commercial or GenAI purposes. Or I will be very sad. And possibly quite angry.</p>
 
                         <hr>
@@ -129,7 +131,7 @@
                         </div>
                     </div>
 
-                    <div class='container'>
+                    <div class='container scrollable'>
                         <h1>credits</h1>
                         <h2>references</h2>
 
@@ -149,6 +151,14 @@
                                 <span class='capitals'>(Stack Overflow)</span>
                             </li>
 
+                            <li><a href='https://css-tricks.com/stripes-css/' target='_blank'>
+                                striped</a>
+                                <span class='capitals'>(CSS Tricks)</span> /
+                                <a href='https://stackoverflow.com/questions/3540194/how-to-make-a-grid-like-graph-paper-grid-with-just-css' target='_blank'>
+                                grid</a>
+                                <span class='capitals'>(Stack Overflow)</span> backgrounds
+                            </li>
+
                         </ul>
 
                         <h2>typefaces</h2>
@@ -156,6 +166,14 @@
 
                             <li><a href='https://fonts.google.com/specimen/Balsamiq+Sans' target='_blank'>
                                 Balsamiq Sans
+                            </a></li>
+
+                            <li><a href='https://fonts.google.com/specimen/Nanum+Pen+Script' target='_blank'>
+                                Nanum Pen Script
+                            </a></li>
+
+                            <li><a href='https://fonts.google.com/specimen/Nanum+Pen+Script' target='_blank'>
+                                Nanum Pen Script
                             </a></li>
 
                             <li><a href='https://fonts.google.com/specimen/Nanum+Pen+Script' target='_blank'>
@@ -180,13 +198,22 @@
 
         <div class='book left-page'>
             <div id='canvas-back'>
-            <canvas id='canvas' height='512' width='512'>hi</canvas>
+            <canvas id='canvas' height='512' width='512'></canvas>
             </div>
 
             <div class='tape'></div>
         </div>
 
         dollymaker
+
+        <div id='cover' class='book'>
+
+            <div id='cover-label' class='book'>
+                <img src='assets/loading.svg' id='loading'>
+                <span>(loading)</span>
+            </div>
+
+        </div>
 
     </div></body>
 

@@ -39,7 +39,7 @@ let parts = {
         'offset': [0, 0],
         'mirrored': true,
 
-        'transform': 25,
+        'transform': 15,
 
         'family': ['eyes', 'pupils']
     },
@@ -91,6 +91,20 @@ let parts = {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // Force people to look at the loading animation cause I spent a lot of time on it!
+    const timeout = 0;
+    setTimeout( () => {
+
+        const tabs = document.getElementById('tabs');
+        tabs.style.display = 'flex';
+
+        const cover = document.getElementById('cover');
+        cover.style.transitionDuration = '4s';
+        cover.style.left = '-2500px';
+        setTimeout(() => {cover.remove();}, timeout);
+
+    }, timeout);
+
     const canvas = document.getElementById('canvas');
     onload();
 
@@ -108,7 +122,7 @@ function onload() {
     }
 
 
-    function createSlider(setting, left = '', right = '', p, i) {
+    function createSlider(setting, left = '', right = '', p, axis) {
         const slider = document.createElement('input');
 
         const value = (parts[p].transform) ? parts[p].transform : 15;
@@ -119,7 +133,7 @@ function onload() {
         slider.step = 1;
         slider.value = 0;
         slider.addEventListener('input', (event) => {
-            parts[p].offset[i] = parseInt(event.target.value);
+            parts[p].offset[axis] = parseInt(event.target.value);
             drawAll();
         });
 
@@ -131,11 +145,13 @@ function onload() {
         setting.append(imgLeft, slider, imgRight);
     }
 
+    // Add in all parts
     for (const p of Object.keys(parts)) {
 
         if (document.getElementById(`${p}-gallery`)) {
             console.log(Object.keys(data[p]).length);
 
+            // Add in all part variants
             for (let i = 0; i < Object.keys(data[p]).length; i++) {
                 const div = document.createElement('div');
                 const img = document.createElement('img');
@@ -147,7 +163,6 @@ function onload() {
             }
 
         }
-
 
         const settings = [0, 1, 2].map(num => document.getElementById(`${p}${num}`));
 
@@ -174,6 +189,7 @@ function onload() {
             const card = document.createElement('div');
             card.classList.add('color-card', 'book', 'hide');
 
+            // For color settings at the bottom, move card popup upwards
             if (settings[2].classList.contains('bottom'))
                 card.classList.add('bottom-card');
 
@@ -209,7 +225,16 @@ function onload() {
             }
 
 
-            const swatches = ['#ffffff', '#decdac', '#f5f497', '#cef498', '#b2eba3', '#7bdbad', '#98dcf9', '#cbbee2', '#f9c6d0', '#f0a292', '#b8b8b8', '#dfbb75', '#f3de7f', '#cbd466', '#93da3e', '#72bc9a', '#7eb7f1', '#e6b9ef', '#f67790', '#ff7560', '#76757a', '#cb9f45', '#f8e147', '#c2bc36', '#3fa719', '#47a4a4', '#81a1f1', '#a38fc3', '#af557d', '#e51c10', '#756e63', '#a65016', '#feb562', '#a09260', '#3c7802', '#1a615e', '#4250a0', '#815cb1', '#9a2037', '#ab140c', '#000000', '#5f390c', '#4b3d0b', '#5d6033', '#003b32', '#072c32', '#1e3164', '#461845', '#702f37', '#300901'];
+            const swatches =
+            ['#ffffff', '#decdac', '#f5f497', '#cef498', '#b2eba3', '#7bdbad', '#98dcf9', '#cbbee2', '#f5b3bd', '#fa9775',
+
+            '#b8b8b8', '#dfbb75', '#f3de7f', '#cbd466', '#93da3e', '#72bc9a', '#7eb7f1', '#e6b9ef', '#f67790', '#ff7560',
+
+            '#76757a', '#cb9f45', '#f8e147', '#c2bc36', '#3fa719', '#47a4a4', '#81a1f1', '#a38fc3', '#af557d', '#e51c10',
+
+            '#756e63', '#a65016', '#feb562', '#a09260', '#3c7802', '#1a615e', '#4250a0', '#815cb1', '#9a2037', '#ab140c',
+
+            '#000000', '#5f390c', '#4b3d0b', '#5d6033', '#003b32', '#072c32', '#1e3164', '#461845', '#702f37', '#300901'];
 
             const palette = document.createElement('div');
             palette.classList.add('palette');
@@ -222,12 +247,13 @@ function onload() {
                 palette.append(swatch);
             }
 
-
             card.append(palette);
             card.append(inputBox);
 
+            // Clicking on the paint button alternately opens/closes color card depending on current state
             button.onclick = () => {card.classList.toggle('hide')};
 
+            // Clicking outside of the color card closes it
             document.addEventListener('mousedown', () => {
                 if (!(card.contains(event.target) || button.contains(event.target))) card.classList.add('hide');
             });

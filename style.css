@@ -33,11 +33,7 @@ body {
     font-family: var(--f2);
     color: var(--text);
 
-
-
     background-color: var(--bg);
-    border: 1px solid var(--c);
-
 
     pointer-events: none;
 }
@@ -92,11 +88,60 @@ hr {
     margin: 15px auto;
 }
 
+#cover {
+    width: 1175px;
+    height: 675px;
+
+    position: absolute;
+    top: -5px;
+    left: -5px;
+
+    background-color: #c73f2a;
+
+    z-index: 200 !important;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cover-label {
+
+    width: 350px;
+    height: 200px;
+
+    background: repeating-linear-gradient(
+        0deg,
+        var(--b),
+        var(--d) 2px,
+        var(--a) 2px,
+        var(--a) 35px
+    );
+
+    border: 40px solid var(--a);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    font-family: var(--f1);
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--e);
+}
+
+#loading {
+    margin-top: 10px;
+    width: 250px;
+    height: 80px;
+}
+
 #canvas-back {
     width: calc(.7 * 512px);
     height: calc(.7 * 512px);
 
-    background-color: white;
+    background-color: #edf3fa;
 
     border-radius: 12px;
     border: 5px solid var(--c);
@@ -104,8 +149,6 @@ hr {
     position: relative;
     top: 60px;
     margin: auto;
-
-
 }
 
 canvas {
@@ -201,6 +244,8 @@ a:hover {
 
     background-color: var(--b);
     transform: rotate(-1deg);
+
+    z-index: -1;
 }
 
 .right-page {
@@ -211,13 +256,13 @@ a:hover {
 
     position: absolute;
     top: 5%;
-    right: 40px;
+    right: 60px;
 
     border-width: 0px;
 
     box-shadow: 5px 5px 20px 3px rgba(60,10,0,0.3);
 
-    z-index: -1;
+    z-index: -2;
 
     border-radius: 10px;
     padding: 30px 65px 30px;
@@ -227,7 +272,6 @@ a:hover {
 
 .right-page.back {
     height: 88.5%;
-    z-index: -2;
     margin-top: 1%;
     margin-right: -5px;
 
@@ -261,6 +305,10 @@ a:hover {
     margin: 25px 10px;
 }
 
+.container.scrollable {
+    max-height: 225px;
+}
+
 .container h1 {
     width: fit-content;
 
@@ -285,7 +333,7 @@ a:hover {
     max-height: 90px;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
     gap: 7px;
 
@@ -315,9 +363,9 @@ a:hover {
 
     position: absolute;
     top: 45px;
-    right: -75px;
+    right: -52px;
 
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: space-around;
 }
@@ -350,7 +398,6 @@ a:hover {
 }
 
 .tab.about {
-    border-color: white;
     background-color: var(--e);
     color: white;
 }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 80">
+  <defs>
+    <style>
+        .cls-1 {
+            fill: #fff;
+        }
+
+        .cls-3 {
+            fill: #c03627;
+        }
+
+        .cls-4 {
+            fill: #2c160c;
+        }
+
+        .dot {
+            fill: #7ea3d6;
+
+        }
+
+        @keyframes dot1 {
+            0%, 5% { opacity: 0; }
+            20%, 100% { opacity: 1; }
+        }
+
+        @keyframes dot2 {
+            0%, 15% { opacity: 0; }
+            30%, 100% { opacity: 1; }
+        }
+
+        @keyframes dot3 {
+            0%, 25% { opacity: 0; }
+            40%, 100% { opacity: 1; }
+        }
+
+        .dot1 { animation: dot1 3.5s infinite; }
+        .dot2 { animation: dot2 3.5s infinite; }
+        .dot3 { animation: dot3 3.5s infinite; }
+
+        #eraser {
+            animation: erase 3.5s infinite ease-in-out, opacity 3.5s infinite;
+
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+
+        #maskRect {
+            animation: erase 3.5s infinite ease-in-out;
+        }
+
+        @keyframes erase {
+            0%,40% {
+                transform: translateX(0px);
+            }
+
+            65%,100% {
+                transform: translateX(-165px);
+            }
+        }
+
+        @keyframes opacity {
+            0%, 35% { opacity: 0} 50%,70% { opacity: 1; } 85%, 100% { opacity: 0; }
+        }
+
+    </style>
+
+      <mask id='mask'>
+        <rect width='250' height='90' fill='#fff'/>
+        <rect id='maskRect'
+            x="200"
+            width="250"
+            height="80"
+            fill="black"/>
+      </mask>
+  </defs>
+
+    <g mask='url(#mask)'>
+        <circle class="dot dot1" cx="72.02" cy="55.86" r="11.22"/>
+        <circle class="dot dot2" cx="125" cy="55.86" r="11.22"/>
+        <circle class="dot dot3" cx="177.98" cy="55.86" r="11.22"/>
+    </g>
+
+  <g id='eraser'>
+    <path class="cls-3" d="M206.19,26.89h23.24v28.68c0,.39-.32.71-.71.71h-21.82c-.39,0-.71-.32-.71-.71v-28.68h0Z" transform="translate(319.79 238.49) rotate(-128.19)"/>
+    <path class="cls-1" d="M195.55,48.2h11.24c3.31,0,6,2.69,6,6v6.95h-23.24v-6.95c0-3.31,2.69-6,6-6Z" transform="translate(282.57 246.6) rotate(-128.19)"/>
+    <path class="cls-4" d="M220.03,25.06c1.19-.93,2.91-.73,3.84.46l10.99,13.97c.93,1.19.73,2.91-.46,3.84l-20.95,16.48-4.34,3.42c-3.22,2.54-7.9,1.98-10.43-1.25l-5.18-6.59c-2.54-3.22-1.98-7.9,1.25-10.43l4.34-3.42,20.95-16.48M218.36,22.94l-20.95,16.48-4.34,3.42c-4.39,3.45-5.15,9.83-1.7,14.22l5.18,6.59c3.45,4.39,9.83,5.15,14.22,1.7l4.34-3.42,20.95-16.48c2.35-1.85,2.76-5.27.91-7.62l-10.99-13.97c-1.85-2.35-5.27-2.76-7.62-.91h0Z"/>
+  </g>
+</svg>
