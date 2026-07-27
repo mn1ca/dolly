@@ -1,6 +1,6 @@
 <html>
     <head>
-        <meta name='viewport' content='width=1280px, initial-scale=1.0'>
+        <meta name='viewport' content='width=1280, initial-scale=1.0'>
         <meta charset='UTF-8'>
 
         <title></title>
@@ -10,8 +10,6 @@
 
         <!-- favicon -->
         <link rel='icon' href='assets/cursor/default.svg'>
-
-        <script type='module' src='script.js'></script>
     </head>
 
     <body><div id='wrapper'>
@@ -20,101 +18,196 @@
             <div id='tabs'>
                 <div class='active tab' id='face'>face</div>
                 <div class='tab' id='hair'>hair</div>
-                <div class='tab' id='eyebrows'>eyebrows</div>
                 <div class='tab' id='eyes'>eyes</div>
-                <div class='tab' id='nose'>nose</div>
-                <div class='tab' id='mouth'>mouth</div>
+                <div class='tab' id='eyebrows'>eyebrows</div>
+                <div class='fat tab' id='nose'>nose &<br>mouth</div>
                 <div class='tab' id='accessory'>accessory</div>
                 <div class='tab' id='background'>background</div>
-                <div class='about tab' id='about'>about</div>
+                <div class='special tab' id='about'>about</div>
+                <div class='special tab' id='gallery'><div class='asterisk'></div> gallery</div>
 
             </div>
             <div class='book right-page back'></div>
             <div class='right-page'>
 
+
+                <!--Face-->
                 <div id='face-content' class='content'>
-                    <div class='container spacer'>
-                        <div class='setting' id='face2'></div>
-                        <div class='setting' id='face0'></div>
 
+                            <button id="myButton">My button</button>
+
+                    <div class='container spacer'>
+                        <div class='setting' id='face-color'></div>
+                        <div class='block'></div>
+                        <div class='setting' id='face-y'></div>
                     </div>
+
+                    <div class='container'>
+                        <div class='big gallery' id='face-gallery'></div>
+                    </div>
+
+                    <div class='container'>
+                        <div class='gallery' id='faceMarkings-gallery'></div>
+                        <div class='spacer'>
+                            <div class='setting bottom' id='faceMarkings-color'></div>
+                            <div class='setting' id='faceMarkings-y'></div>
+                            <div class='setting' id='faceMarkings-x'></div>
+                        </div>
+                    </div>
+
                 </div>
-                <div id='hair-content' class='hide content'></div>
+
+
+                <!--Hair-->
+                <div id='hair-content' class='hide content'>
+
+                    <div class='container spacer'>
+                        <div class='setting' id='hair-color'></div>
+                        <div style='width: 370px'></div>
+                    </div>
+
+                    <div class='container'>
+                        <div class='gallery' id='hairFront-gallery'></div>
+                    </div>
+
+                    <div class='container'>
+                        <div class='gallery' id='hairBack-gallery'></div>
+                    </div>
+
+                    <div class='container'>
+                        <div class='gallery' id='hairAhoge-gallery'></div>
+                        <div class='spacer'>
+                            <div style='width: 370px'></div>
+                            <div class='setting' id='hairAhoge-flip'></div>
+                            <div class='setting' id='hairAhoge-mirror'></div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!--Eyebrows-->
                 <div id='eyebrows-content' class='hide content'>
-                    <div class='container spacer'>
-                            <div class='setting' id='eyebrows2'></div>
-                            <div class='setting' id='eyebrows0'></div>
-                            <div class='setting' id='eyebrows1'></div>
 
+                    <div class='container spacer'>
+                        <div class='setting' id='eyebrows-color'></div>
+                        <div class='setting' id='eyebrows-y'></div>
+                        <div class='setting' id='eyebrows-x'></div>
+                    </div>
+
+                    <div class='container'>
+                        <div class='gallery' id='eyebrows-gallery'></div>
                     </div>
 
                 </div>
 
+
+                <!--Eyes-->
                 <div id='eyes-content' class='hide content'>
                     <div class='container spacer'>
-                        <div class='setting' id='eyes0'></div>
-                        <div class='setting' id='eyes1'></div>
+                        <div class='setting' id='eyes-y'></div>
+                        <div class='setting' id='eyes-x'></div>
                     </div>
 
                     <div class='container'>
-
-                        <div class='gallery' id='eyelashes-gallery'>
-
-                        </div>
-
+                        <div class='scroll gallery' id='eyelashes-gallery'></div>
                         <div class='spacer'>
-                            <div class='setting' id='eyelashes2'></div>
+                            <div class='setting' id='eyelashes-color'></div>
                             <div class='block'></div>
-                            <div class='setting' id='eyelashes0'></div>
+                            <div class='setting' id='eyelashes-y'></div>
                         </div>
                     </div>
 
-
                     <div class='container'>
-                        <div class='gallery' id='pupils-gallery'></div>
+                        <div class='scroll gallery' id='pupils-gallery'></div>
                         <div class='spacer'>
-                            <div class='setting' id='pupils2'></div>
+                            <div class='bottom setting' id='pupils-color'></div>
                             <div class='block'></div>
-                            <div class='setting' id='pupils1'></div>
-
+                            <div class='setting' id='pupils-x'></div>
                         </div>
                     </div>
 
                     <div class='container'>
-                        <div class='gallery' id='sparkles-gallery'></div>
-
+                        <div class='scroll gallery' id='sparkles-gallery'></div>
                         <div class='spacer'>
-                            <div class='setting bottom' id='sparkles2'></div>
-                            <div class='setting' id='sparkles0'></div>
-                            <div class='setting' id='sparkles1'></div>
+                            <div class='setting bottom' id='sparkles-color'></div>
+                            <div class='setting' id='sparkles-y'></div>
+                            <div class='setting' id='sparkles-x'></div>
                         </div>
                     </div>
 
                 </div>
 
 
+                <!--Nose+mouth-->
                 <div id='nose-content' class='hide content'>
-                    <div class='container spacer'>
-                            <div class='setting' id='nose2'></div>
-                            <div class='setting' id='nose0'></div>
+
+                    <div class='container'>
+                        <div class='gallery' id='nose-gallery'></div>
+                        <div class='spacer'>
+                            <div class='setting' id='nose-color'></div>
+                            <div class='setting' id='nose-y'></div>
+                            <div class='setting' id='nose-scale'></div>
+                        </div>
                     </div>
 
-                    <div class='container'></div>
+                    <div class='container'>
+                        <div class='gallery' id='mouth-gallery'></div>
+                        <div class='spacer'>
+                            <div class='setting bottom' id='mouth-color'></div>
+                            <div class='block'></div>
+                            <div class='setting' id='mouth-y'></div>
+                        </div>
+                    </div>
 
                 </div>
 
 
-                <div id='mouth-content' class='hide content'>
-                    <div class='container spacer'>
-                        <div class='setting' id='mouth2'></div>
-                        <div class='setting' id='mouth0'></div>
+                <!--Accessory-->
+                <div id='accessory-content' class='hide content'>
+
+                    <div class='container'>
+                        <div class='gallery' id='accessoryFace-gallery'></div>
+                        <div class='spacer'>
+                            <div class='setting' id='accessoryFace-color'></div>
+                            <div class='setting' id='accessoryFace-y'></div>
+                            <div class='setting' id='accessoryFace-flip'></div>
+                        </div>
+                    </div>
+
+                    <div class='container'>
+                        <div class='gallery' id='accessoryHead-gallery'></div>
+                        <div class='spacer'>
+                            <div class='setting' id='accessoryHead-color'></div>
+                            <div class='setting' id='accessoryHead-x'></div>
+                            <div class='setting' id='accessoryHead-y'></div>
+                        </div>
+                        <div class='small spacer'>
+                            <div class='setting' id='accessoryHead-flip'></div>
+                            <div class='small block'></div>
+                            <div class='setting' id='accessoryHead-mirror'></div>
+                        </div>
                     </div>
 
                 </div>
 
-                <div id='accessory-content' class='hide content'></div>
-                <div id='background-content' class='hide content'></div>
 
+                <!--Background-->
+                <div id='background-content' class='hide content'>
+
+                    <div class='container'>
+                        <div class='gallery' id='outline-gallery'></div>
+                        <div class='spacer'>
+                            <div class='setting' id='outline-color'></div>
+                            <div class='block'></div>
+                            <div class='setting' id='outline-scale'></div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!--About-->
                 <div id='about-content' class='hide content'>
 
                     <div class='container'>
@@ -146,6 +239,11 @@
                                 <span class='capitals'>(W3Schools)</span>
                             </li>
 
+                            <li><a href='https://www.w3schools.com/howto/howto_css_switch.asp' target='_blank'>
+                                toggle switch</a>
+                                <span class='capitals'>(W3Schools)</span>
+                            </li>
+
                             <li><a href='https://stackoverflow.com/questions/70213968/how-input-accepts-only-hex-numbers' target='_blank'>
                                 hex code text input</a>
                                 <span class='capitals'>(Stack Overflow)</span>
@@ -158,6 +256,13 @@
                                 grid</a>
                                 <span class='capitals'>(Stack Overflow)</span> backgrounds
                             </li>
+
+                            <li><a href='https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/' target='_blank'>
+                                converting hex ↔ hsv</a>
+                                <span class='capitals'>(James Milner)</span>
+                            </li>
+
+
 
                         </ul>
 
@@ -184,37 +289,66 @@
                     </div>
 
                     <a href='https://mn1ca.fish' target='_blank'>
-                    <img src="/assets/button.gif" style="image-rendering: pixelated; margin: -10px 15px"></a>
+                    <img src='/assets/button.gif' title='more about me' style='image-rendering: pixelated; margin: -10px 15px'></a>
 
                 </div>
 
 
-            </div>
-
-        </div>
+                <div id='gallery-content' class='hide content'>
 
 
+                    <div id='gallery-form' class='book'>
+
+                        <div class='half' style='width: 70%'>
+                            <h1>Submit your own design here!</h1>
+                            <p>Please note that submissions are manually reviewed and may take a while to appear in the gallery.</p>
+                        </div>
+                        <div class='vertical-line'></div>
+                        <div class='half'>
+                    <form id='form'>
 
 
+                        <input type='text' id='name' name='Name' placeholder='Name' required>
+                        <input type='text' id='site' name='Site' placeholder='Website (optional)' required>
+                        <input type='text' id='title' name='Name' placeholder='Submission title' required>
+
+                        <div>
+                            <input type='text' id='code' name='Code' placeholder='Code' required>
+                        </div>
+
+                      <button type='submit' id='submitBtn'>Send</button>
+                    </form></div>
+                    </div>
+
+                </div>
+
+        </div></div>
+
+
+        <!--Left side-->
         <div class='book left-page'>
-            <div id='canvas-back'>
+            <div id='canvas-back' class='book'>
             <canvas id='canvas' height='512' width='512'></canvas>
             </div>
 
             <div class='tape'></div>
         </div>
 
-        dollymaker
 
+        <!--Loading screen-->
         <div id='cover' class='book'>
-
+            <div class='title'></div>
             <div id='cover-label' class='book'>
                 <img src='assets/loading.svg' id='loading'>
                 <span>(loading)</span>
             </div>
-
         </div>
 
-    </div></body>
+</div></body>
+
+    <!--script-->
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
+        <script type='module' src='script.js'></script>
 
 </html>
