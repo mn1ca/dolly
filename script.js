@@ -15,6 +15,13 @@ let parts = {
         'color': '#b8b8b8',
     },
 
+    'ears': {
+        'variant': 0,
+        'variant': 0,
+        'color': '#b8b8b8',
+        'mirrored': true,
+    },
+
     'face': {
         'variant': 0,
         'color': '#b8b8b8',
@@ -456,10 +463,12 @@ function changeColor(hex, p, input, button, sliders, sliderChange = true) {
         if (p === 'face') {
             parts['neck'].color = parts[p].color;
             parts['eyelids'].color = parts[p].color;
+            parts['ears'].color = parts[p].color;
 
         // Recolor hair
         } else if (p === 'hair') {
-            // parts['pupils'].color = parts[p].color;
+            parts['hairFront'].color = parts[p].color;
+            parts['hairAhoge'].color = parts[p].color;
         }
 
         // Update input and button to current hex/color
