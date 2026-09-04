@@ -937,15 +937,15 @@ button:hover {
     }
 }
 
-@media only screen and (max-width: 767px) {
+@media (max-aspect-ratio: 1.2/1) {
 
     body {
         overflow: hidden;
     }
 
     #narrow-notice {
-        width: 100vw;
-        height: 100vh;
+        width: 100%;
+        height: 100%;
         position: fixed;
         top: 0;
         left: 0;
@@ -956,6 +956,7 @@ button:hover {
         align-items: center;
         justify-content: center;
         text-align: center;
+        font-size: 2vh;
 
         padding: 10%;
 
