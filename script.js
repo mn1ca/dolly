@@ -20,6 +20,8 @@ let parts = {
         'variant': 0,
         'color': '#b8b8b8',
         'mirrored': true,
+
+        'matchPart': 'face'
     },
 
     'face': {
@@ -160,10 +162,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function onload() {
 
+    const noticeChoice = document.getElementById('notice-choice');
+    noticeChoice.onclick = () => {
+        document.getElementById('narrow-notice').style.pointerEvents = 'none';
+        document.getElementById('notice-response').classList.toggle('show');
+        setTimeout(() => {
+            document.getElementById('narrow-notice').classList.toggle('remove');
+        }, 400);
+        document.getElementById('narrow-notice').remove;
+        document.body.style.overflow = 'auto';
+    };
+
     const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about', 'gallery'];
     for (const c of tabs) {
         document.getElementById(c).onclick = () => {changeTabs(c)};
     }
+
+    const settingTypes = ['x', 'y', 'flip', 'mirror', 'scale', 'color'];
 
     function createSetting(setting, left = '', right = '', p, axis) {
 
@@ -262,20 +277,32 @@ function onload() {
                 if (i === 0) img.classList.add('unflippable');
 
                 div.append(img);
-                div.onclick = () => {parts[p].variant = i; drawAll()};
+                div.onclick = () => {
+                    parts[p].variant = i;
+
+                    // Hide color button if option is not colorable
+                    const colorButton = document.getElementById(`${p}-color`);
+                    if (colorButton) {
+                        if (data[p][i].mustMatch)
+                            colorButton.classList.add('hide');
+                        else
+                            colorButton.classList.remove('hide');
+                    }
+                    drawAll();
+                };
                 document.getElementById(`${p}-gallery`).append(div);
             }
 
         }
 
-        const settingTypes = ['x', 'y', 'flip', 'mirror', 'scale', 'color']
+        const settingTypes = ['x', 'y', 'flip', 'mirror', 'scale', 'color'];
         const settings = Object.fromEntries(settingTypes.map(s => [s, document.getElementById(`${p}-${s}`)]));
 
-        if (settings.x) {  // Slider for Y-displacement
+        if (settings.x) {  // Slider for X-displacement
             createSetting(settings.x, `arrows/in.svg`, `arrows/out.svg`, p, 0);
         }
 
-        if (settings.y) { // Slider for X-displacement
+        if (settings.y) { // Slider for Y-displacement
             createSetting(settings.y, `arrows/up.svg`, `arrows/down.svg`, p, 1);
         }
 
@@ -339,6 +366,7 @@ function colorSettings(p, settings) {
     const button = document.createElement('div');
     button.classList.add('color');
     button.style.backgroundColor = color;
+    button.id = `${p}-color-button`;
 
     const card = document.createElement('div');
     card.classList.add('color-card', 'book', 'hide');
@@ -349,13 +377,13 @@ function colorSettings(p, settings) {
 
     // Manual hex code input
     const input = document.createElement('input');
+    input.id = `${p}-color-input`;
     input.type = 'text';
     input.maxLength = 7;
     input.spellcheck = false;
     input.value = color;
 
     // Color sliders
-    let sliders = [];
     const sliderBox = document.createElement('div');
     sliderBox.classList.add('color-sliders');
 
@@ -364,6 +392,7 @@ function colorSettings(p, settings) {
     for (let i = 0; i < hsv.length; i++) {
         const slider = document.createElement('input');
         slider.classList.add(hsv[i]);
+        slider.id = `${p}-${hsv[i]}-slider`;
         slider.type = 'range';
         slider.min = 0;
         slider.max = 1;
@@ -371,15 +400,15 @@ function colorSettings(p, settings) {
         slider.value = values[i];
 
         slider.addEventListener('input', () => {
+            const sliders = hsv.map(x => document.getElementById(`${p}-${x}-slider`));
             const c = hsvToHex(sliders.map(x => x.value));
-            if (c !== `#${color}`) changeColor(c, p, input, button, sliders, false);
+            if (c !== `#${color}`) changeColor(c, p, false);
         });
 
-        sliders.push(slider);
         sliderBox.append(slider);
     }
 
-    input.addEventListener('input', () => { changeColor(event.target.value, p, input, button, sliders) });
+    input.addEventListener('input', () => { changeColor(event.target.value, p) });
 
     const inputBox = document.createElement('div');
     inputBox.classList.add('color-input');
@@ -391,8 +420,8 @@ function colorSettings(p, settings) {
         card.classList.add('skin');
 
         const skinSwatches =
-        ['#f4d5b7', '#f8d2a6', '#febea4', '#fcc48a', '#fcab84', '#fcb768',
-         '#ea9262', '#e0954e', '#dd7c3d', '#ae5629', '#8a401b', '#54361e'];
+        ['#f4d5b7', '#f8d2a6', '#febea4', '#ebbd94', '#fcab84', '#fac593',
+         '#d4987f', '#dea571', '#db9770', '#ad6749', '#8a401b', '#54361e'];
 
         const skinPalette = document.createElement('div');
         skinPalette.classList.add('palette', 'skin');
@@ -400,7 +429,7 @@ function colorSettings(p, settings) {
         for (let i = 0; i < skinSwatches.length; i++) {
             const swatch = document.createElement('div');
             swatch.style.backgroundColor = skinSwatches[i];
-            swatch.onclick = () => { changeColor(skinSwatches[i], p, input, button, sliders); }
+            swatch.onclick = () => { changeColor(skinSwatches[i], p); }
             skinPalette.append(swatch);
         }
 
@@ -425,7 +454,7 @@ function colorSettings(p, settings) {
         const swatch = document.createElement('div');
         swatch.style.backgroundColor = swatches[i];
         swatch.onclick = () => {
-            changeColor(swatches[i], p, input, button,  sliders);
+            changeColor(swatches[i], p);
         }
         palette.append(swatch);
     }
@@ -439,7 +468,7 @@ function colorSettings(p, settings) {
     card.append(spacer);
 
     // Clicking on the paint button alternately opens/closes color card depending on current state
-    button.onclick = () => {card.classList.toggle('hide')};
+    button.onclick = () => {card.classList.toggle('hide');};
 
     // Clicking outside of the color card closes it
     document.addEventListener('mousedown', () => {
@@ -451,7 +480,13 @@ function colorSettings(p, settings) {
 
 
 // Changes color of selected part
-function changeColor(hex, p, input, button, sliders, sliderChange = true) {
+function changeColor(hex, p, sliderChange = true) {
+
+    const button = document.getElementById(`${p}-color-button`);
+    const input = document.getElementById(`${p}-color-input`);
+    const hsv = ['hue', 'saturation', 'value'];
+    const sliders = hsv.map(x => document.getElementById(`${p}-${x}-slider`));
+
 
     const format = /^#?[0-9a-fA-F]{6}$/; // Accept hex codes with/without "#" in front
 
@@ -463,7 +498,8 @@ function changeColor(hex, p, input, button, sliders, sliderChange = true) {
         if (p === 'face') {
             parts['neck'].color = parts[p].color;
             parts['eyelids'].color = parts[p].color;
-            parts['ears'].color = parts[p].color;
+
+            changeColor(parts[p].color, 'ears');
 
         // Recolor hair
         } else if (p === 'hair') {
@@ -633,7 +669,7 @@ function draw(p, stroke = false) {
         return;
 
     } else {
-        ctx.fillStyle = part.color;
+        ctx.fillStyle = data[p][parts[p].variant].mustMatch ? parts.face.color : part.color;
         ctx.fill(path);
     }
 
