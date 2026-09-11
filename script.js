@@ -110,25 +110,29 @@ let parts = {
         'scaleFactor': 4/5
     },
 
+    'accessoryFace': {
+        'variant': 0,
+        'color': '#57514a',
+        'offset': [0, 0],
+        'flip': 0,
+        'mirrored': false,
+    },
+
     'hair': {
-        'color': '#000',
+        'color': '#756e63',
     },
 
     'hairFront': {
         'variant': 0,
+        'color': '#756e63'
     },
 
     'hairAhoge': {
         'variant': 0,
+        'color': '#756e63'
     },
 
-    'accessoryFace': {
-        'variant': 0,
-        'color': '#000000',
-        'offset': [0, 0],
-        'flip': 0,
-        'mirrored': false,
-    }
+
 }
 
 
@@ -325,7 +329,7 @@ function onload() {
 
     }
 
-        tippy('.tooltip', {
+    tippy('.tooltip', {
         content(reference) {
             if (reference.classList.contains('flip')) {
               return 'flip';
@@ -334,9 +338,27 @@ function onload() {
             else if (reference.classList.contains('mirror')) {
               return 'mirror';
             }
+
+            else if (reference.classList.contains('about')) {
+              return 'i made this!';
+            }
+
+            else if (reference.classList.contains('pencil')) {
+                return 'I look like a pencil!';
+            }
         },
 
         theme: 'dolly',
+      });
+
+    tippy('.about-tooltip', {
+        content(reference) {
+            if (reference.classList.contains('me')) {
+              return 'i made this!';
+            }
+        },
+
+        theme: 'about'
       });
 }
 
@@ -420,7 +442,7 @@ function colorSettings(p, settings) {
         card.classList.add('skin');
 
         const skinSwatches =
-        ['#f4d5b7', '#f8d2a6', '#febea4', '#ebbd94', '#fcab84', '#fac593',
+        ['#f2cfb6', '#f8d2a6', '#febea4', '#ebbd94', '#fcab84', '#fac593',
          '#d4987f', '#dea571', '#db9770', '#ad6749', '#8a401b', '#54361e'];
 
         const skinPalette = document.createElement('div');
