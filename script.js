@@ -608,7 +608,10 @@ function hsvToHex(hsv) {
 function drawAll() {
     const ctx = canvas.getContext('2d');
     ctx.reset();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Temp. background
+    ctx.fillStyle = '#e1eaf5';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const forbidden = ['eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
 
