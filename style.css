@@ -331,8 +331,11 @@ a:hover {
     margin: -10px 0 0 10px;
 }
 
-.container {
+.content > :first-child {
+  margin-top: 2px !important;
+}
 
+.container {
     background-color: white;
     border-radius: 20px;
 
@@ -346,7 +349,11 @@ a:hover {
 
 #about-content .container {
     padding: 25px 20px 15px;
-    margin: 25px 10px;
+    margin: 25px 10px !important;
+}
+
+#hair-content .container {
+    margin: 5px 10px;
 }
 
 .container.scrollable {
@@ -388,6 +395,10 @@ a:hover {
 
 .scroll.gallery {
     max-height: 90px;
+}
+
+.tall.gallery {
+    max-height: 115px;
 }
 
 .big.gallery {
@@ -484,6 +495,10 @@ a:hover {
     cursor: var(--c2);
 }
 
+.color:hover {
+    border: 2.45px solid white;
+}
+
 .setting {
     display: inline-flex;
     align-items: center;
@@ -496,10 +511,10 @@ a:hover {
 
 .color-card {
     width: 420px;
-    height: 260px;
+    height: 275px;
 
     position: absolute;
-    margin-top: 300px;
+    margin-top: 308px;
     margin-left: 15px;
 
     padding: 20px;
@@ -512,12 +527,12 @@ a:hover {
 }
 
 .color-card.skin {
-    margin-top: 380px;
-    height: 350px;
+    margin-top: 400px;
+    height: 365px;
 }
 
 .bottom-card {
-    margin-top: -300px !important;
+    margin-top: -308px !important;
 }
 
 .palette {
@@ -575,7 +590,7 @@ a:hover {
     border-radius: 100px;
     border: 3px solid var(--d);
     padding: 5 7px;
-    margin-top: 15px;
+    margin-top: 28.5px;
 }
 
 .color-input::before {
@@ -596,12 +611,14 @@ a:hover {
 
 .color-sliders input[type='range'] {
     width: 100% !important;
-    height: 12px;
+    height: 16px;
     margin-bottom: 8px;
 
     border-radius: 100px;
-    border: 2px solid white;
+    border: 2.15px solid white;
     outline: 3px solid var(--d);
+
+    cursor: var(--c2);
 }
 
 .color-sliders input[type='range']::before {
@@ -620,11 +637,11 @@ a:hover {
 }
 
 .color-sliders input[type='range']::-webkit-slider-thumb {
-    width: 19px;
-    height: 8px;
+    width: 25px;
+    height: 10px;
 
-    margin-top: 7px;
-    margin-left: -2px;
+    margin-top: 8px;
+    margin-left: -2.5px;
 
     background-image: url(assets/slider-pointer.svg);
     background-size: cover;

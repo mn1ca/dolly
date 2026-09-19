@@ -10,6 +10,17 @@ let parts = {
         'scale': 1,
     },
 
+    'hairBack': {
+        'variant': 0,
+        'color': '#756e63'
+    },
+
+    'hairAhoge': {
+        'variant': 0,
+        'color': '#756e63',
+        'offset': [0, 0]
+    },
+
     'neck': {
         'variant': 0,
         'color': '#b8b8b8',
@@ -127,11 +138,6 @@ let parts = {
         'color': '#756e63'
     },
 
-    'hairAhoge': {
-        'variant': 0,
-        'color': '#756e63'
-    },
-
 
 }
 
@@ -182,13 +188,11 @@ function onload() {
         document.getElementById(c).onclick = () => {changeTabs(c)};
     }
 
-    const settingTypes = ['x', 'y', 'flip', 'mirror', 'scale', 'color'];
-
     function createSetting(setting, left = '', right = '', p, axis) {
 
         let input;
 
-         // For flip
+         // Flip
         if (axis === 2) {
 
             input = document.createElement('label');
@@ -212,7 +216,7 @@ function onload() {
             input.append(toggle);
             input.append(slider);
 
-        // For mirror
+        // Mirror
         } else if (axis === 3) {
 
             input = document.createElement('input');
@@ -224,6 +228,7 @@ function onload() {
                 drawAll();
             });
 
+        // Scale
         } else if (axis === 4) {
             input = document.createElement('input');
 
@@ -238,6 +243,7 @@ function onload() {
                 drawAll();
             });
 
+        // X/Y-axis displacement
         } else {
             input = document.createElement('input');
             const value = (parts[p].transform) ? parts[p].transform : 15;
@@ -253,7 +259,6 @@ function onload() {
                 drawAll();
             });
         }
-
 
         const imgLeft = document.createElement('img');
         imgLeft.src = `/assets/${left}`;
@@ -292,6 +297,7 @@ function onload() {
                         else
                             colorButton.classList.remove('hide');
                     }
+
                     drawAll();
                 };
                 document.getElementById(`${p}-gallery`).append(div);
@@ -329,6 +335,7 @@ function onload() {
 
     }
 
+    // Tooltips
     tippy('.tooltip', {
         content(reference) {
             if (reference.classList.contains('flip')) {
@@ -339,12 +346,8 @@ function onload() {
               return 'mirror';
             }
 
-            else if (reference.classList.contains('about')) {
-              return 'i made this!';
-            }
-
             else if (reference.classList.contains('pencil')) {
-                return 'I look like a pencil!';
+                return 'i look like a pencil!';
             }
         },
 
@@ -526,6 +529,7 @@ function changeColor(hex, p, sliderChange = true) {
         // Recolor hair
         } else if (p === 'hair') {
             parts['hairFront'].color = parts[p].color;
+            parts['hairBack'].color = parts[p].color;
             parts['hairAhoge'].color = parts[p].color;
         }
 
@@ -707,6 +711,21 @@ function draw(p, stroke = false) {
         ctx.globalAlpha = shape.modifier[3]; // Opacity
 
         ctx.fill(modPath);
+        ctx.restore();
+    }
+
+    if (shape.darken) {
+        ctx.save();
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, 600);
+        gradient.addColorStop(1, 'rgba(0,0,0,0.1)');
+        gradient.addColorStop(0, 'rgba(0,0,0,0)');
+
+        ctx.fillStyle = gradient;
+        ctx.globalCompositeOperation = 'multiply'; // Blend mode
+        //ctx.globalAlpha = shadow[2]; // Opacity
+
+        ctx.fill(path);
         ctx.restore();
     }
 
