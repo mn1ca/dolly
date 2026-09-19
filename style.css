@@ -716,8 +716,8 @@ input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default look */
     appearance: none;
 
-    width: 42px;
-    height: 22px;
+    width: 32px;
+    height: 18px;
 
     margin: 7px 0.5px 0;
 
@@ -731,18 +731,23 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 input[type='range']::before, input[type='range']::after {
-    content: '●';
+
+    border-radius: 100px;
+    background-color: var(--d);
     color: var(--d);
-    font-size: 20px;
+
+    content: '';
+    font-size: 9px;
+    padding: 0 5px;
 
     position: relative;
-    top: -9.5px;
+    top: -2px;
     margin: -2px;
 }
 
 
 input[type='range']::-webkit-slider-thumb:hover {
-    transform: scale(1.15);
+    transform: scale(1.05);
 }
 
 input[type='checkbox'] {
