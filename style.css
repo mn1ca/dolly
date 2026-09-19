@@ -510,12 +510,12 @@ a:hover {
 }
 
 .color-card {
-    width: 420px;
-    height: 275px;
+    width: 500px;
+    height: 350px;
 
     position: absolute;
-    margin-top: 308px;
-    margin-left: 15px;
+    margin-top: 385px;
+    margin-left: 20px;
 
     padding: 20px;
     outline: 3px solid var(--a);
@@ -523,16 +523,16 @@ a:hover {
 
     background-color: var(--b);
 
-    z-index: 100 !important;
+    z-index: 1000 !important;
 }
 
 .color-card.skin {
-    margin-top: 400px;
-    height: 365px;
+    margin-top: 475px;
+    height: 440px;
 }
 
 .bottom-card {
-    margin-top: -308px !important;
+    margin-top: -385px !important;
 }
 
 .palette {
@@ -589,16 +589,16 @@ a:hover {
 
     border-radius: 100px;
     border: 3px solid var(--d);
-    padding: 5 7px;
-    margin-top: 28.5px;
+    padding: 6px 8px;
+    margin-top: 65px;
 }
 
 .color-input::before {
     content: '#';
     font-weight: bold;
-    font-size: 20px;
+    font-size: 22px;
 
-    margin-right: 2px;
+    margin-right: 8px;
 }
 
 .color-sliders {
@@ -611,8 +611,8 @@ a:hover {
 
 .color-sliders input[type='range'] {
     width: 100% !important;
-    height: 16px;
-    margin-bottom: 8px;
+    height: 26px;
+    margin-bottom: 12px;
 
     border-radius: 100px;
     border: 2.15px solid white;
@@ -623,11 +623,11 @@ a:hover {
 
 .color-sliders input[type='range']::before {
     position: relative;
-    top: -1px;
-    left: -15px;
+    top: 4px;
+    left: -23px;
 
     font-family: var(--f2);
-    font-size: 12px;
+    font-size: 16px;
     font-weight: bold;
     opacity: .65;
 }
@@ -637,10 +637,10 @@ a:hover {
 }
 
 .color-sliders input[type='range']::-webkit-slider-thumb {
-    width: 25px;
-    height: 10px;
+    width: 32px;
+    height: 14px;
 
-    margin-top: 8px;
+    margin-top: 14px;
     margin-left: -2.5px;
 
     background-image: url(assets/slider-pointer.svg);
