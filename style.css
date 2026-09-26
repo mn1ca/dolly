@@ -104,10 +104,8 @@ h2::after {
 .small.spacer {
     width: fit-content;
     justify-content: flex-end;
-    margin: 10px 28px 0 auto;
+    margin: 14px 28px 0 auto;
 
-    padding: 10px 0 0 60px;
-    border-top: 3px solid var(--b);
 }
 
 .small.block {
@@ -512,13 +510,13 @@ a:hover {
 
 .color-card {
     width: 500px;
-    height: 350px;
+    height: 330px;
 
     position: absolute;
-    margin-top: 385px;
+    margin-top: 365px;
     margin-left: 20px;
 
-    padding: 20px;
+    padding: 24px;
     outline: 3px solid var(--a);
     outline-offset: -8px;
 
@@ -528,12 +526,12 @@ a:hover {
 }
 
 .color-card.skin {
-    margin-top: 475px;
-    height: 440px;
+    margin-top: 465px;
+    height: 430px;
 }
 
 .bottom-card {
-    margin-top: -385px !important;
+    margin-top: -365px !important;
 }
 
 .palette {
@@ -583,6 +581,12 @@ a:hover {
     left: 40px;
 }
 
+.color-card .spacer {
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: -15px;
+}
+
 .color-input {
     width: fit-content;
     height: 40px;
@@ -591,20 +595,19 @@ a:hover {
     border-radius: 100px;
     border: 3px solid var(--d);
     padding: 6px 8px;
-    margin-top: 65px;
 }
 
 .color-input::before {
     content: '#';
     font-weight: bold;
-    font-size: 22px;
+    font-size: 20px;
 
     margin-right: 8px;
 }
 
 .color-sliders {
-    width: 58%;
-    margin: -5px 0 0 32px;
+    width: 65%;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -612,8 +615,8 @@ a:hover {
 
 .color-sliders input[type='range'] {
     width: 100% !important;
-    height: 26px;
-    margin-bottom: 12px;
+    height: 22px;
+    margin-top: 12px;
 
     border-radius: 100px;
     border: 2.15px solid white;
@@ -622,29 +625,19 @@ a:hover {
     cursor: var(--c2);
 }
 
-.color-sliders input[type='range']::before {
-    position: relative;
-    top: 4px;
-    left: -28px;
-
-    font-family: var(--f2);
-    font-size: 16px;
-    font-weight: bold;
-    opacity: .65;
-
-    background: none;
-}
-
-.color-sliders input[type='range']::after {
-    background: none;
+.color-sliders input[type='range']::before, .color-sliders input[type='range']::after  {
+    display: none;
 }
 
 .color-sliders input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+
     width: 32px;
     height: 14px;
 
-    margin-top: 14px;
-    margin-left: -2.5px;
+    margin-top: 13px;
+    margin-left: -1px;
 
     background-image: url(assets/slider-pointer.svg);
     background-size: cover;
@@ -659,25 +652,12 @@ a:hover {
 .color-sliders .hue {
     background: linear-gradient(to right, #e0828a, #fcd162, #b7e082, #8dc7ba, #b2b5db, #ab84c2, #e0828a);
 }
-
-.color-sliders .hue::before {
-    content: 'H';
-}
-
 .color-sliders .saturation {
     background: linear-gradient(to right, #ccc, #e0828a);
 }
 
-.color-sliders .saturation::before {
-    content: 'S';
-}
-
 .color-sliders .value {
     background: linear-gradient(to right, #666, #eee);
-}
-
-.color-sliders .value::before {
-    content: 'V';
 }
 
 input[type='text'] {
@@ -707,7 +687,7 @@ input[type='range'] {
     -webkit-appearance: none;  /* Override default CSS styles */
     appearance: none;
 
-    width: 130px;
+    width: 110px;
     height: 0;
     border-bottom: 6px dotted var(--c);
 

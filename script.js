@@ -4,6 +4,11 @@ let activeTab = 'face';
 
 let parts = {
 
+    'background': {
+        'variant': 0,
+        'color': '#c1331c',
+    },
+
     'outline': {
         'variant': 1,
         'color': '#ffffff',
@@ -124,9 +129,7 @@ let parts = {
     'accessoryFace': {
         'variant': 0,
         'color': '#57514a',
-        'offset': [0, 0],
-        'flip': 0,
-        'mirrored': false,
+        'offset': [0, 0]
     },
 
     'hair': {
@@ -137,6 +140,15 @@ let parts = {
         'variant': 0,
         'color': '#756e63'
     },
+
+    'accessoryHead': {
+        'variant': 0,
+        'color': '#57514a',
+        'offset': [0, 0],
+
+        'transform': 30,
+        'excludeTransform': true
+    }
 
 
 }
@@ -155,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.write('<img src="'+img+'"/>');*/
 
     // Force people to look at the loading animation cause I spent a lot of time on it!
-    const timeout = 0;
+    const timeout = 0 //3200;
     setTimeout( () => {
 
         const tabs = document.getElementById('tabs');
@@ -172,6 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function onload() {
 
+    // Show screen size notice for narrow displays
     const noticeChoice = document.getElementById('notice-choice');
     noticeChoice.onclick = () => {
         document.getElementById('narrow-notice').style.pointerEvents = 'none';
@@ -182,6 +195,8 @@ function onload() {
         document.getElementById('narrow-notice').remove;
         document.body.style.overflow = 'auto';
     };
+
+
 
     const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about', 'gallery'];
     for (const c of tabs) {
@@ -366,21 +381,7 @@ function onload() {
 }
 
 
-// Change page to active tab
-function changeTabs(tab) {
-    if (activeTab === tab) return;
-
-    document.getElementById(activeTab).classList.remove('active');
-    document.getElementById(`${activeTab}-content`).classList.add('hide');
-
-    document.getElementById(tab).classList.add('active');
-    document.getElementById(`${tab}-content`).classList.remove('hide');
-    activeTab = tab;
-
-    return;
-}
-
-
+// Add in color settings
 function colorSettings(p, settings) {
 
     const color = parts[p].color.slice(1);
@@ -504,6 +505,21 @@ function colorSettings(p, settings) {
 }
 
 
+// Change page to active tab
+function changeTabs(tab) {
+    if (activeTab === tab) return;
+
+    document.getElementById(activeTab).classList.remove('active');
+    document.getElementById(`${activeTab}-content`).classList.add('hide');
+
+    document.getElementById(tab).classList.add('active');
+    document.getElementById(`${tab}-content`).classList.remove('hide');
+    activeTab = tab;
+
+    return;
+}
+
+
 // Changes color of selected part
 function changeColor(hex, p, sliderChange = true) {
 
@@ -516,22 +532,24 @@ function changeColor(hex, p, sliderChange = true) {
     const format = /^#?[0-9a-fA-F]{6}$/; // Accept hex codes with/without "#" in front
 
     if (format.test(hex)) {
+
         // Add "#" to hex if necessary
-        parts[p].color = (hex[0] == '#') ? hex : `#${hex}`;
+        hex = (hex[0] == '#') ? hex : `#${hex}`;
 
         // Recolor neck and eyelids to skintone
         if (p === 'face') {
-            parts['neck'].color = parts[p].color;
-            parts['eyelids'].color = parts[p].color;
+            parts['neck'].color = parts['eyelids'].color = hex;
 
-            changeColor(parts[p].color, 'ears');
+            // Recolor ears if they must match, or if they match the previous skintone
+            if (data.ears[parts.ears.variant].mustMatch || parts.ears.color === parts[p].color)
+                changeColor(hex, 'ears');
 
         // Recolor hair
         } else if (p === 'hair') {
-            parts['hairFront'].color = parts[p].color;
-            parts['hairBack'].color = parts[p].color;
-            parts['hairAhoge'].color = parts[p].color;
+            parts['hairFront'].color = parts['hairBack'].color = parts['hairAhoge'].color = hex;
         }
+
+        parts[p].color = hex;
 
         // Update input and button to current hex/color
         input.value = parts[p].color.slice(1);
@@ -555,7 +573,6 @@ function hexToHSV(hex) {
 
     if (hex[0] === '#') hex = hex.slice(1);
 
-    // 1. Convert hex (base 16) to RGB (base 10) and divide by 255
     const r = parseInt(hex.substring(0, 2), 16) / 255;
     const g = parseInt(hex.substring(2, 4), 16) / 255;
     const b = parseInt(hex.substring(4, 6), 16) / 255;
@@ -566,13 +583,12 @@ function hexToHSV(hex) {
 
     let h = 0;
     if (delta) {
-        if (max === r) {
+        if (max === r)
             h = ((g - b) / delta) % 6;
-        } else if (max === g) {
+        else if (max === g)
             h = (b - r) / delta + 2;
-        } else {
+        else
             h = (r - g) / delta + 4
-        }
 
         h = Math.round(h * 60);
         if (h < 0) h += 360;
@@ -608,12 +624,12 @@ function hsvToHex(hsv) {
 function drawAll() {
     const ctx = canvas.getContext('2d');
     ctx.reset();
-
-    // Temp. background
     ctx.fillStyle = '#e1eaf5';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    const forbidden = ['eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
+    const forbidden = ['background', 'eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
+
+    drawPart('background');
 
     // Outline
     if (parts['outline'].variant) {
@@ -636,7 +652,9 @@ function drawPart(p, outline = false) {
 
     draw(p, outline);
 
-    if (parts[p].mirrored && !data[p][parts[p].variant].preventMirror) {
+    // Mirror if mirror setting is active & current part does not prevent mirror
+    // Or if current part requires mirroring
+    if ((parts[p].mirrored && !data[p][parts[p].variant].preventMirror) || data[p][parts[p].variant].mirrored) {
         ctx.save();
         ctx.translate(canvas.width, 0);
         ctx.scale(-1, 1);
@@ -660,15 +678,28 @@ function draw(p, stroke = false) {
     const shape = data[p][part.variant];
     const path = new Path2D(shape.d);
 
+    // Flip single-sided parts if toggled
+    if (part.flip) {
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+    }
+
     if (part.offset && p !== 'face') {
 
         // Calculate offset from
         // Part
         // Face
         // Part's "family" (parts containing current part)
-        let offset = [part.offset[0] + parts['face'].offset[0], part.offset[1] + parts['face'].offset[1]];
+        let offset = [part.offset[0], part.offset[1]];
+
         if (part.family)
             part.family.forEach((i) => { offset[0] += parts[i].offset[0]; offset[1] += parts[i].offset[1]; });
+
+        if (!part.excludeTransform)
+            offset = [offset[0] + parts['face'].offset[0], offset[1] + parts['face'].offset[1]];
+
+        if (shape.preventOffset)
+            offset[shape.preventOffset - 1] = 0;
 
         ctx.translate(-1 * offset[0], offset[1]);
     }
@@ -681,25 +712,18 @@ function draw(p, stroke = false) {
         ctx.translate(-centerX, -centerY);
     }
 
-    // Flip single-sided parts if toggled
-    if (part.flip) {
-        ctx.translate(canvas.width, 0);
-        ctx.scale(-1, 1);
-    }
-
     if (stroke) {
         const outlineSettings = parts['outline'];
         ctx.lineWidth = 16 * outlineSettings.scale ** 2;
         ctx.strokeStyle = outlineSettings.color;
-        ctx.lineJoin = 'round';
-        ctx.lineCap = 'round';
+        ctx.lineJoin = ctx.lineCap = 'round';
 
         ctx.stroke(path);
         ctx.restore();
         return;
 
     } else {
-        ctx.fillStyle = data[p][parts[p].variant].mustMatch ? parts.face.color : part.color;
+        ctx.fillStyle = data[p][parts[p].variant].mustMatch ? parts[part.matchPart].color : part.color;
         ctx.fill(path);
     }
 
