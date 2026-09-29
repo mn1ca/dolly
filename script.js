@@ -31,6 +31,11 @@ let parts = {
         'color': '#b8b8b8',
     },
 
+    'clothes': {
+        'variant': 0,
+        'color': '#fff'
+    },
+
     'ears': {
         'variant': 0,
         'variant': 0,
@@ -409,6 +414,9 @@ function colorSettings(p, settings) {
     input.spellcheck = false;
     input.value = color;
 
+    const paintbrush = document.createElement('div');
+    paintbrush.classList.add('paintbrush');
+
     // Color sliders
     const sliderBox = document.createElement('div');
     sliderBox.classList.add('color-sliders');
@@ -439,14 +447,14 @@ function colorSettings(p, settings) {
     const inputBox = document.createElement('div');
     inputBox.classList.add('color-input');
     inputBox.append(input);
-
+    inputBox.append(paintbrush);
 
     // Add skintone preset swatches
     if (p === 'face') {
         card.classList.add('skin');
 
         const skinSwatches =
-        ['#f2cfb6', '#f8d2a6', '#febea4', '#ebbd94', '#fcab84', '#fac593',
+        ['#f0ceb6', '#f7d3b2', '#facea5', '#f2c8b6', '#e6b5a1', '#ebbd94',
          '#d4987f', '#dea571', '#db9770', '#ad6749', '#8a401b', '#54361e'];
 
         const skinPalette = document.createElement('div');
@@ -468,9 +476,9 @@ function colorSettings(p, settings) {
 
     '#b8b8b8', '#dfbb75', '#f3de7f', '#cbd466', '#93da3e', '#72bc9a', '#7eb7f1', '#e6b9ef', '#f67790', '#ff7560',
 
-    '#76757a', '#cb9f45', '#f8e147', '#c2bc36', '#3fa719', '#47a4a4', '#81a1f1', '#a38fc3', '#af557d', '#e51c10',
+    '#76757a', '#cb9f45', '#f8e147', '#c2bc36', '#56a630', '#47a4a4', '#81a1f1', '#a38fc3', '#af557d', '#e51c10',
 
-    '#756e63', '#a65016', '#feb562', '#a09260', '#3c7802', '#1a615e', '#4250a0', '#815cb1', '#9a2037', '#ab140c',
+    '#756e63', '#a65016', '#feb562', '#a09260', '#53782e', '#1a615e', '#4c599e', '#815cb1', '#9a2037', '#ab140c',
 
     '#000000', '#5f390c', '#4b3d0b', '#5d6033', '#003b32', '#072c32', '#1e3164', '#461845', '#702f37', '#300901'];
 
@@ -489,7 +497,11 @@ function colorSettings(p, settings) {
 
     const spacer = document.createElement('div');
     spacer.classList.add('spacer');
-    spacer.append(inputBox);
+
+    const left = document.createElement('div');
+    left.append(inputBox);
+
+    spacer.append(left);
     spacer.append(sliderBox);
     card.append(spacer);
 
