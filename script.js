@@ -1,6 +1,7 @@
 import data from '/assets/parts/data.json' with { type: 'json' };
 
 let activeTab = 'face';
+let activeAccessory = 1;
 
 let parts = {
 
@@ -33,7 +34,7 @@ let parts = {
 
     'clothes': {
         'variant': 0,
-        'color': '#fff'
+        'color': '#807871'
     },
 
     'ears': {
@@ -206,6 +207,11 @@ function onload() {
     const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about', 'gallery'];
     for (const c of tabs) {
         document.getElementById(c).onclick = () => {changeTabs(c)};
+    }
+
+    const pageTurn = document.querySelectorAll('.page-turner');
+    for (const p of pageTurn) {
+        p.onclick = changePage;
     }
 
     function createSetting(setting, left = '', right = '', p, axis) {
@@ -521,6 +527,14 @@ function colorSettings(p, settings) {
 function changeTabs(tab) {
     if (activeTab === tab) return;
 
+    if (tab === 'accessory') {
+        document.getElementById('right-page').style.backgroundImage = 'url(assets/pagination/page.svg)';
+        document.getElementById('right-page').style.backgroundColor = 'rgba(0,0,0,0)';
+    } else {
+        document.getElementById('right-page').style.backgroundImage = 'none';
+        document.getElementById('right-page').style.backgroundColor = 'var(--a)';
+    }
+
     document.getElementById(activeTab).classList.remove('active');
     document.getElementById(`${activeTab}-content`).classList.add('hide');
 
@@ -529,6 +543,13 @@ function changeTabs(tab) {
     activeTab = tab;
 
     return;
+}
+
+
+function changePage() {
+
+    document.getElementById(`accessory-page1`).classList.toggle('hide');
+    document.getElementById(`accessory-page2`).classList.toggle('hide');
 }
 
 

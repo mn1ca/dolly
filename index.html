@@ -40,7 +40,7 @@
 
             </div>
             <div class='book right-page back'></div>
-            <div class='right-page'>
+            <div class='right-page' id='right-page'>
 
 
                 <!--Face-->
@@ -194,18 +194,10 @@
                 <!--Accessory-->
                 <div id='accessory-content' class='hide content'>
 
-                    <div class='container'>
-                        <div class='gallery' id='accessoryFace-gallery'></div>
-                        <div class='spacer'>
-                            <div class='setting' id='accessoryFace-color'></div>
-                            <div style='width: 85px'></div>
-                            <div class='setting' id='accessoryFace-y'></div>
-                            <div class='setting' id='accessoryFace-flip'></div>
-                        </div>
-                    </div>
+                    <div id='accessory-page1'>
 
                     <div class='container'>
-                        <div class='scroll gallery' id='accessoryHead-gallery'></div>
+                        <div class='scroll big gallery' id='accessoryHead-gallery'></div>
                         <div class='spacer'>
                             <div class='setting' id='accessoryHead-color'></div>
                             <div class='setting' id='accessoryHead-y'></div>
@@ -219,13 +211,37 @@
                     </div>
 
                     <div class='container'>
-                        <div class='scroll gallery' id='clothes-gallery'></div>
+                        <div class='big gallery' id='accessoryFace-gallery'></div>
+                        <div class='spacer'>
+                            <div class='setting' id='accessoryFace-color'></div>
+                            <div style='width: 85px'></div>
+                            <div class='setting' id='accessoryFace-y'></div>
+                            <div class='setting' id='accessoryFace-flip'></div>
+                        </div>
+                    </div>
+
+
+                    <div class='page-turner'><span class='capitals'>page</span>&nbsp;1/2</div>
+                    <div class='page-corner'></div>
+                </div>
+
+                <div id='accessory-page2' class='hide'>
+                    <div class='container'>
+                        <div class='scroll big gallery' id='clothes-gallery'></div>
 
                         <div class='spacer'>
-                            <div class='setting' id='clothes-color'></div>
-                            <div style='width: 380px'></div>
+                            <div class='setting bottom' id='clothes-color'></div>
+                            <div style='width: 280px'></div>
+                            <div class='setting' id='clothes-flip'></div>
                         </div>
+                    </div>
 
+                    <div class='container'>
+                        <div class='gallery'><div></div></div>
+                    </div>
+
+                    <div class='page-turner'><span class='capitals'>page</span>&nbsp;2/2</div>
+                    <div class='page-corner'></div>
                     </div>
 
 
@@ -273,7 +289,7 @@
                         </div>
                     </div>
 
-                    <div class='container scrollable'>
+                    <div class='container scroll'>
                         <h1>credits</h1>
                         <h2>references</h2>
 

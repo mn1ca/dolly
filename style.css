@@ -102,7 +102,7 @@ h2::after {
 .small.spacer {
     width: fit-content;
     justify-content: flex-end;
-    margin: 14px 28px 0 auto;
+    margin: 8px 28px 0 auto;
 
 }
 
@@ -293,14 +293,13 @@ a:hover {
     height: 90%;
 
     background-color: var(--a);
+    background-size: cover;
 
     position: absolute;
     top: 5%;
     right: 60px;
 
     border-width: 0px;
-
-    box-shadow: 5px 5px 20px 3px rgba(60,10,0,0.3);
 
     z-index: -2;
 
@@ -311,6 +310,11 @@ a:hover {
 }
 
 .right-page.back {
+    background-image: none !important;
+    background-color: #d1c2b9;
+
+    box-shadow: 5px 5px 20px 3px rgba(60,10,0,0.3);
+
     height: 88.5%;
     margin-top: 1%;
     margin-right: -5px;
@@ -349,11 +353,17 @@ a:hover {
     overflow-y: auto;
 }
 
-#hair-content .container {
-    margin: 5px 10px;
+#hair-content .gallery,
+#accessory-content .gallery {
+    margin-top: -8px;
 }
 
-.container.scrollable {
+#hair-content .container,
+#accessory-content .container {
+    margin: 8px 10px;
+}
+
+.container.scroll {
     max-height: 225px;
 }
 
@@ -392,6 +402,10 @@ a:hover {
 
 .scroll.gallery {
     max-height: 90px;
+}
+
+.scroll.big.gallery {
+    max-height: 160px;
 }
 
 .tall.gallery {
@@ -476,6 +490,57 @@ a:hover {
     width: 120%;
     transition-duration: 0;
     cursor: var(--c1);
+}
+
+.page-turner {
+
+    width: 200px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--d);
+
+    cursor: var(--c2);
+
+    position: absolute;
+    bottom: 20px;
+    right: -28px;
+
+    z-index: 100;
+}
+
+.page-turner::after {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 8px;
+    letter-spacing: -10px;
+    content: '—————>';
+}
+
+.page-turner:hover {
+    opacity: .5;
+}
+
+.page-turner:hover + .page-corner {
+    background-image: url(assets/pagination/corner-hover.svg);
+}
+
+.page-corner {
+    height: 73px;
+    width: 98px;
+    background-image: url(assets/pagination/corner-default.svg);
+    background-size: cover;
+
+    position: absolute;
+    bottom: 20px;
+    right: -26.5px;
+}
+
+.page-corner:hover {
+    background-image: url(assets/pagination/corner-hover.svg);
 }
 
 .color {
