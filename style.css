@@ -191,6 +191,18 @@ hr {
     margin: auto;
 }
 
+.circle {
+    width: calc(.6 * 512px);
+    height: calc(.6 * 512px);
+    position: absolute;
+    top: calc(.025 * 512px);
+    left: calc(.025 * 512px);
+
+    border: 2px solid gray;
+    border-radius: 1000px;
+
+}
+
 canvas {
     background-size: 52px 52px;
     background-image:
