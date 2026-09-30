@@ -194,10 +194,10 @@
                 <!--Accessory-->
                 <div id='accessory-content' class='hide content'>
 
-                    <div id='accessory-page1'>
+                    <!--<div id='accessory-page1'>-->
 
                     <div class='container'>
-                        <div class='scroll big gallery' id='accessoryHead-gallery'></div>
+                        <div class='scroll tall gallery' id='accessoryHead-gallery'></div>
                         <div class='spacer'>
                             <div class='setting' id='accessoryHead-color'></div>
                             <div class='setting' id='accessoryHead-y'></div>
@@ -211,40 +211,36 @@
                     </div>
 
                     <div class='container'>
-                        <div class='big gallery' id='accessoryFace-gallery'></div>
+                        <div class='gallery' id='accessoryFace-gallery'></div>
                         <div class='spacer'>
-                            <div class='setting' id='accessoryFace-color'></div>
+                            <div class='setting bottom' id='accessoryFace-color'></div>
                             <div style='width: 85px'></div>
                             <div class='setting' id='accessoryFace-y'></div>
                             <div class='setting' id='accessoryFace-flip'></div>
                         </div>
                     </div>
 
-
+                    <!--
                     <div class='page-turner'><span class='capitals'>page</span>&nbsp;1/2</div>
                     <div class='page-corner'></div>
-                </div>
+                    </div>-->
 
-                <div id='accessory-page2' class='hide'>
+                    <!--<div id='accessory-page2' class='hide'>-->
                     <div class='container'>
-                        <div class='scroll big gallery' id='clothes-gallery'></div>
+                        <div class='scroll gallery' id='clothes-gallery'></div>
 
                         <div class='spacer'>
-                            <div class='setting bottom' id='clothes-color'></div>
+                            <div class='setting' id='clothes-color'></div>
                             <div style='width: 280px'></div>
                             <div class='setting' id='clothes-flip'></div>
                         </div>
                     </div>
 
-                    <div class='container'>
-                        <div class='gallery'><div></div></div>
-                    </div>
 
+                    <!--
                     <div class='page-turner'><span class='capitals'>page</span>&nbsp;2/2</div>
                     <div class='page-corner'></div>
-                    </div>
-
-
+                    </div>-->
 
                 </div>
 
@@ -262,9 +258,16 @@
                     </div>
 
                     <div class='container'>
-                        <div class='gallery' id='background-gallery'></div>
+                        <div class='big gallery' id='background-gallery'>
+                            <input type='file' name='image-input' id='image-input' accept='image/*'>
+                            <label for='image-input' class='tooltip upload'>
+                                <div><img src='assets/parts/background/-1.svg'></div>
+                            </label>
+
+
+                        </div>
                         <div class='spacer'>
-                            <div class='setting' id='background-color'></div>
+                            <div class='setting bottom double' id='background-color'></div>
                             <div style='width: 370px'></div>
                         </div>
                     </div>
@@ -328,8 +331,18 @@
                             </li>
 
                             <li><a href='https://atomiks.github.io/tippyjs/' target='_blank'>
-                               js tooltips</a>
-                                <span class='capitals'>(tippy)</span>
+                                js tooltips</a>
+                                <span class='capitals'>(Tippy)</span>
+                            </li>
+
+                            <li><a href='https://stackoverflow.com/questions/63151823/how-to-display-a-picture-from-file-input-to-canvas' target='_blank'>
+                                using photo file input in canvas</a>
+                                <span class='capitals'>(Stack Overflow)</span>
+                            </li>
+
+                            <li><a href='https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/' target='_blank'>
+                                styling file input</a>
+                                <span class='capitals'>(Codrops)</span>
                             </li>
 
 

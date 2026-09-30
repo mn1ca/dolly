@@ -353,13 +353,11 @@ a:hover {
     overflow-y: auto;
 }
 
-#hair-content .gallery,
-#accessory-content .gallery {
+#hair-content .gallery {
     margin-top: -8px;
 }
 
-#hair-content .container,
-#accessory-content .container {
+#hair-content .container {
     margin: 8px 10px;
 }
 
@@ -499,7 +497,7 @@ a:hover {
 
     display: flex;
     align-items: center;
-    font-size: 18px;
+    font-size: 22px;
     font-weight: bold;
     color: var(--d);
 
@@ -517,7 +515,7 @@ a:hover {
     font-weight: bold;
     margin-left: 8px;
     letter-spacing: -10px;
-    content: '—————>';
+    content: '———>';
 }
 
 .page-turner:hover {
@@ -547,7 +545,7 @@ a:hover {
     width: 50px;
     height: 20px;
 
-    margin-left: 1px;
+    margin: 0 4px;
 
     background-color: black;
     border-radius: 100px;
@@ -559,6 +557,10 @@ a:hover {
 
 .color:hover {
     border: 2.45px solid white;
+}
+
+.double .color {
+    width: 35px;
 }
 
 .setting {
@@ -912,6 +914,20 @@ input:checked + .slider:before {
 
     top: 8px;
     margin-right: 3px;
+}
+
+/*https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/*/
+#image-input {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+#image-input + label {
+    cursor: var(--c1);
 }
 
 form input[type='text'] {

@@ -8,6 +8,8 @@ let parts = {
     'background': {
         'variant': 0,
         'color': '#c1331c',
+        'color2': '#ff7560',
+        'img': '',
     },
 
     'outline': {
@@ -19,12 +21,6 @@ let parts = {
     'hairBack': {
         'variant': 0,
         'color': '#756e63'
-    },
-
-    'hairAhoge': {
-        'variant': 0,
-        'color': '#756e63',
-        'offset': [0, 0]
     },
 
     'neck': {
@@ -44,6 +40,12 @@ let parts = {
         'mirrored': true,
 
         'matchPart': 'face'
+    },
+
+    'hairAhoge': {
+        'variant': 0,
+        'color': '#756e63',
+        'offset': [0, 0]
     },
 
     'face': {
@@ -149,7 +151,7 @@ let parts = {
 
     'accessoryHead': {
         'variant': 0,
-        'color': '#57514a',
+        'color': '#d4d4d4',
         'offset': [0, 0],
 
         'transform': 30,
@@ -167,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     onload();
     hsvToHex(hexToHSV('#c1331c'));
 
-    drawAll();
+    drawAll(true);
     /*
     const img = canvas.toDataURL('image/png');
     document.write('<img src="'+img+'"/>');*/
@@ -203,16 +205,37 @@ function onload() {
     };
 
 
-
+    // Add tab change functionality
     const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about', 'gallery'];
     for (const c of tabs) {
         document.getElementById(c).onclick = () => {changeTabs(c)};
     }
 
+    const imageInput = document.getElementById('image-input');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    imageInput.addEventListener('change',  function(e) {
+
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+
+        img.onload = () => {
+            URL.revokeObjectURL(img.src);
+            parts.background.variant = -1;
+            parts.background.img = img;
+            drawAll();
+        };
+    });
+
+    /*
     const pageTurn = document.querySelectorAll('.page-turner');
     for (const p of pageTurn) {
         p.onclick = changePage;
-    }
+    }*/
 
     function createSetting(setting, left = '', right = '', p, axis) {
 
@@ -372,8 +395,8 @@ function onload() {
               return 'mirror';
             }
 
-            else if (reference.classList.contains('pencil')) {
-                return 'i look like a pencil!';
+            else if (reference.classList.contains('upload')) {
+                return 'upload image';
             }
         },
 
@@ -395,131 +418,140 @@ function onload() {
 // Add in color settings
 function colorSettings(p, settings) {
 
-    const color = parts[p].color.slice(1);
-
     const img = document.createElement('img');
     img.src = `/assets/paint.svg`;
 
-    const button = document.createElement('div');
-    button.classList.add('color');
-    button.style.backgroundColor = color;
-    button.id = `${p}-color-button`;
+    // Creates button and attached color card
+    function createButton(color, secondColor = false) {
 
-    const card = document.createElement('div');
-    card.classList.add('color-card', 'book', 'hide');
+        const second = (!secondColor) ? '' : '2';
 
-    // For color settings at the bottom, move card popup upwards
-    if (settings.color.classList.contains('bottom'))
-        card.classList.add('bottom-card');
+        const button = document.createElement('div');
+        button.classList.add('color');
+        button.style.backgroundColor = color;
+        button.id = `${p}-color-button${second}`;
 
-    // Manual hex code input
-    const input = document.createElement('input');
-    input.id = `${p}-color-input`;
-    input.type = 'text';
-    input.maxLength = 7;
-    input.spellcheck = false;
-    input.value = color;
+        const card = document.createElement('div');
+        card.classList.add('color-card', 'book', 'hide');
 
-    const paintbrush = document.createElement('div');
-    paintbrush.classList.add('paintbrush');
+        // For color settings at the bottom, move card popup upwards
+        if (settings.color.classList.contains('bottom'))
+            card.classList.add('bottom-card');
 
-    // Color sliders
-    const sliderBox = document.createElement('div');
-    sliderBox.classList.add('color-sliders');
+        // Manual hex code input
+        const input = document.createElement('input');
+        input.id = `${p}-color-input${second}`;
+        input.type = 'text';
+        input.maxLength = 7;
+        input.spellcheck = false;
+        input.value = color;
 
-    const values = hexToHSV(color);
-    const hsv = ['hue', 'saturation', 'value'];
-    for (let i = 0; i < hsv.length; i++) {
-        const slider = document.createElement('input');
-        slider.classList.add(hsv[i]);
-        slider.id = `${p}-${hsv[i]}-slider`;
-        slider.type = 'range';
-        slider.min = 0;
-        slider.max = 1;
-        slider.step = .01;
-        slider.value = values[i];
+        // Color sliders
+        const sliderBox = document.createElement('div');
+        sliderBox.classList.add('color-sliders');
 
-        slider.addEventListener('input', () => {
-            const sliders = hsv.map(x => document.getElementById(`${p}-${x}-slider`));
-            const c = hsvToHex(sliders.map(x => x.value));
-            if (c !== `#${color}`) changeColor(c, p, false);
+        const values = hexToHSV(color);
+        const hsv = ['hue', 'saturation', 'value'];
+        for (let i = 0; i < hsv.length; i++) {
+
+            const slider = document.createElement('input');
+            slider.classList.add(hsv[i]);
+            slider.id = `${p}-${hsv[i]}-slider${second}`;
+            slider.type = 'range';
+            slider.min = 0;
+            slider.max = 1;
+            slider.step = .01;
+            slider.value = values[i];
+
+            slider.addEventListener('input', () => {
+                const sliders = hsv.map(x => document.getElementById(id));
+                const c = hsvToHex(sliders.map(x => x.value));
+                if (c !== `#${color}`) changeColor(c, p, false, secondColor);
+            });
+
+            sliderBox.append(slider);
+        }
+
+        input.addEventListener('input', () => { changeColor(event.target.value, p) });
+
+        const inputBox = document.createElement('div');
+        inputBox.classList.add('color-input');
+        inputBox.append(input);
+
+        // Add skintone preset swatches
+        if (p === 'face') {
+            card.classList.add('skin');
+
+            const skinSwatches =
+            ['#f0ceb6', '#f7d3b2', '#facea5', '#f2c8b6', '#e6b5a1', '#ebbd94',
+             '#d4987f', '#dea571', '#db9770', '#ad6749', '#8a401b', '#54361e'];
+
+            const skinPalette = document.createElement('div');
+            skinPalette.classList.add('palette', 'skin');
+
+            for (let i = 0; i < skinSwatches.length; i++) {
+                const swatch = document.createElement('div');
+                swatch.style.backgroundColor = skinSwatches[i];
+                swatch.onclick = () => { changeColor(skinSwatches[i], p, true, secondColor); }
+                skinPalette.append(swatch);
+            }
+
+            card.append(skinPalette);
+        }
+
+        // Add general preset swatches
+        const swatches =
+        ['#ffffff', '#decdac', '#f5f497', '#cef498', '#b2eba3', '#7bdbad', '#98dcf9', '#cbbee2', '#f5b3bd', '#fa9775',
+
+        '#b8b8b8', '#dfbb75', '#f3de7f', '#cbd466', '#93da3e', '#72bc9a', '#7eb7f1', '#e6b9ef', '#f67790', '#ff7560',
+
+        '#76757a', '#cb9f45', '#f8e147', '#c2bc36', '#56a630', '#47a4a4', '#81a1f1', '#a38fc3', '#af557d', '#e51c10',
+
+        '#756e63', '#a65016', '#feb562', '#a09260', '#53782e', '#1a615e', '#4c599e', '#815cb1', '#9a2037', '#ab140c',
+
+        '#000000', '#5f390c', '#4b3d0b', '#5d6033', '#003b32', '#072c32', '#1e3164', '#461845', '#702f37', '#300901'];
+
+        const palette = document.createElement('div');
+        palette.classList.add('palette');
+        for (let i = 0; i < 50; i++) {
+            const swatch = document.createElement('div');
+            swatch.style.backgroundColor = swatches[i];
+            swatch.onclick = () => {
+                changeColor(swatches[i], p, true, secondColor);
+            }
+            palette.append(swatch);
+        }
+
+        card.append(palette);
+
+        const spacer = document.createElement('div');
+        spacer.classList.add('spacer');
+
+        spacer.append(inputBox);
+        spacer.append(sliderBox);
+        card.append(spacer);
+
+        // Clicking on the paint button alternately opens/closes color card depending on current state
+        button.onclick = () => {card.classList.toggle('hide');};
+
+        // Clicking outside of the color card closes it
+        document.addEventListener('mousedown', () => {
+            if (!(card.contains(event.target) || button.contains(event.target))) card.classList.add('hide');
         });
 
-        sliderBox.append(slider);
+        return [button, card];
     }
 
-    input.addEventListener('input', () => { changeColor(event.target.value, p) });
-
-    const inputBox = document.createElement('div');
-    inputBox.classList.add('color-input');
-    inputBox.append(input);
-    inputBox.append(paintbrush);
-
-    // Add skintone preset swatches
-    if (p === 'face') {
-        card.classList.add('skin');
-
-        const skinSwatches =
-        ['#f0ceb6', '#f7d3b2', '#facea5', '#f2c8b6', '#e6b5a1', '#ebbd94',
-         '#d4987f', '#dea571', '#db9770', '#ad6749', '#8a401b', '#54361e'];
-
-        const skinPalette = document.createElement('div');
-        skinPalette.classList.add('palette', 'skin');
-
-        for (let i = 0; i < skinSwatches.length; i++) {
-            const swatch = document.createElement('div');
-            swatch.style.backgroundColor = skinSwatches[i];
-            swatch.onclick = () => { changeColor(skinSwatches[i], p); }
-            skinPalette.append(swatch);
-        }
-
-        card.append(skinPalette);
-    }
-
-    // Add general preset swatches
-    const swatches =
-    ['#ffffff', '#decdac', '#f5f497', '#cef498', '#b2eba3', '#7bdbad', '#98dcf9', '#cbbee2', '#f5b3bd', '#fa9775',
-
-    '#b8b8b8', '#dfbb75', '#f3de7f', '#cbd466', '#93da3e', '#72bc9a', '#7eb7f1', '#e6b9ef', '#f67790', '#ff7560',
-
-    '#76757a', '#cb9f45', '#f8e147', '#c2bc36', '#56a630', '#47a4a4', '#81a1f1', '#a38fc3', '#af557d', '#e51c10',
-
-    '#756e63', '#a65016', '#feb562', '#a09260', '#53782e', '#1a615e', '#4c599e', '#815cb1', '#9a2037', '#ab140c',
-
-    '#000000', '#5f390c', '#4b3d0b', '#5d6033', '#003b32', '#072c32', '#1e3164', '#461845', '#702f37', '#300901'];
-
-    const palette = document.createElement('div');
-    palette.classList.add('palette');
-    for (let i = 0; i < 50; i++) {
-        const swatch = document.createElement('div');
-        swatch.style.backgroundColor = swatches[i];
-        swatch.onclick = () => {
-            changeColor(swatches[i], p);
-        }
-        palette.append(swatch);
-    }
-
-    card.append(palette);
-
-    const spacer = document.createElement('div');
-    spacer.classList.add('spacer');
-
-    const left = document.createElement('div');
-    left.append(inputBox);
-
-    spacer.append(left);
-    spacer.append(sliderBox);
-    card.append(spacer);
-
-    // Clicking on the paint button alternately opens/closes color card depending on current state
-    button.onclick = () => {card.classList.toggle('hide');};
-
-    // Clicking outside of the color card closes it
-    document.addEventListener('mousedown', () => {
-        if (!(card.contains(event.target) || button.contains(event.target))) card.classList.add('hide');
-    });
-
+    const color = parts[p].color.slice(1);
+    let [button, card] = createButton(color);
     settings.color.append(img, button, card);
+
+    if (settings.color.classList.contains('double')) {
+        const color2 = parts[p].color2.slice(1);
+        [button, card] = createButton(color2, true);
+        settings.color.append(button, card);
+    }
+
 }
 
 
@@ -527,13 +559,14 @@ function colorSettings(p, settings) {
 function changeTabs(tab) {
     if (activeTab === tab) return;
 
+    /* // Change page within accessory tab
     if (tab === 'accessory') {
         document.getElementById('right-page').style.backgroundImage = 'url(assets/pagination/page.svg)';
         document.getElementById('right-page').style.backgroundColor = 'rgba(0,0,0,0)';
     } else {
         document.getElementById('right-page').style.backgroundImage = 'none';
         document.getElementById('right-page').style.backgroundColor = 'var(--a)';
-    }
+    }*/
 
     document.getElementById(activeTab).classList.remove('active');
     document.getElementById(`${activeTab}-content`).classList.add('hide');
@@ -545,21 +578,24 @@ function changeTabs(tab) {
     return;
 }
 
-
+/*
+// Change pages within tab
 function changePage() {
-
     document.getElementById(`accessory-page1`).classList.toggle('hide');
     document.getElementById(`accessory-page2`).classList.toggle('hide');
 }
+*/
 
 
-// Changes color of selected part
-function changeColor(hex, p, sliderChange = true) {
+// Change color of selected part
+function changeColor(hex, p, sliderChange = true, secondColor = false) {
 
-    const button = document.getElementById(`${p}-color-button`);
-    const input = document.getElementById(`${p}-color-input`);
+    const second = (!secondColor) ? '' : '2';
+
+    const button = document.getElementById(`${p}-color-button${second}`);
+    const input = document.getElementById(`${p}-color-input${second}`);
     const hsv = ['hue', 'saturation', 'value'];
-    const sliders = hsv.map(x => document.getElementById(`${p}-${x}-slider`));
+    const sliders = hsv.map(x => document.getElementById(`${p}-${x}-slider${second}`));
 
 
     const format = /^#?[0-9a-fA-F]{6}$/; // Accept hex codes with/without "#" in front
@@ -577,16 +613,16 @@ function changeColor(hex, p, sliderChange = true) {
             if (data.ears[parts.ears.variant].mustMatch || parts.ears.color === parts[p].color)
                 changeColor(hex, 'ears');
 
-        // Recolor hair
+        // Recolor all hair parts
         } else if (p === 'hair') {
             parts['hairFront'].color = parts['hairBack'].color = parts['hairAhoge'].color = hex;
         }
 
-        parts[p].color = hex;
+        parts[p][`color${second}`] = hex;
 
         // Update input and button to current hex/color
-        input.value = parts[p].color.slice(1);
-        button.style.backgroundColor = parts[p].color;
+        input.value = parts[p][`color${second}`].slice(1);
+        button.style.backgroundColor = parts[p][`color${second}`];
 
         // Update sliders
         if (sliderChange) {
@@ -598,6 +634,26 @@ function changeColor(hex, p, sliderChange = true) {
 
         drawAll();
     }
+}
+
+
+// Converts HSV values into a hex code
+// https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/
+function hsvToHex(hsv) {
+
+    let [h, s, v] = hsv;
+    h *= 360;
+
+    const f = (n) => {
+        const k = (n + h / 60) % 6;
+        const colorComponent = v - v * s * Math.max(0, Math.min(k, 4 - k, 1));
+        const rgbInt = Math.round(255 * colorComponent);
+
+        // Convert to hex and pad with a leading zero if single-digit
+        return rgbInt.toString(16).padStart(2, '0');
+    };
+
+    return `#${f(5)}${f(3)}${f(1)}`;
 }
 
 
@@ -634,35 +690,18 @@ function hexToHSV(hex) {
 }
 
 
-// Converts HSV values into a hex code
-// https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/
-function hsvToHex(hsv) {
+function drawAll(excludeBg = false) {
 
-    let [h, s, v] = hsv;
-    h *= 360;
-
-    const f = (n) => {
-        const k = (n + h / 60) % 6;
-        const colorComponent = v - v * s * Math.max(0, Math.min(k, 4 - k, 1));
-        const rgbInt = Math.round(255 * colorComponent);
-
-        // Convert to hex and pad with a leading zero if single-digit
-        return rgbInt.toString(16).padStart(2, '0');
-    };
-
-    return `#${f(5)}${f(3)}${f(1)}`;
-}
-
-
-function drawAll() {
-    const ctx = canvas.getContext('2d');
-    ctx.reset();
-    ctx.fillStyle = '#e1eaf5';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (!excludeBg) {
+        const ctx = canvas.getContext('2d');
+        ctx.reset();
+        ctx.fillStyle = '#e1eaf5';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
 
     const forbidden = ['background', 'eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
 
-    drawPart('background');
+    drawBg();
 
     // Outline
     if (parts['outline'].variant) {
@@ -791,6 +830,65 @@ function draw(p, stroke = false) {
     }
 
     ctx.restore();
+}
+
+
+function drawBg() {
+    const background = parts.background;
+    const ctx = canvas.getContext('2d');
+    const path = new Path2D('M0,0h512v512H0V0Z');
+
+    let gradient;
+
+    switch(background.variant) {
+        case -1:
+
+            // Scale image according to shorter side
+            const shorterWidth = (background.img.width < background.img.height) ? true : false;
+            const scale = (shorterWidth) ? canvas.width / background.img.width : canvas.height / background.img.height;
+
+            const width = scale * background.img.width;
+            const height = scale * background.img.height;
+
+            if (shorterWidth)
+                ctx.drawImage(background.img, 0, (height - canvas.height) / -2, width, height);
+            else
+                ctx.drawImage(background.img, (width - canvas.width) / -2, 0, width, height);
+
+            return;
+
+        case 0:
+            return;
+        case 1:
+            ctx.fillStyle = background.color;
+            console.log('hi');
+            break;
+        case 2:
+            gradient = ctx.createLinearGradient(0, 0, 0, 512);
+            gradient.addColorStop(0, background.color);
+            gradient.addColorStop(1, background.color2);
+            ctx.fillStyle = gradient;
+            break;
+        case 3:
+            gradient = ctx.createLinearGradient(0, 0, 512, 0);
+            gradient.addColorStop(0, background.color);
+            gradient.addColorStop(1, background.color2);
+            ctx.fillStyle = gradient;
+            break;
+        case 3:
+            gradient = ctx.createLinearGradient(0, 0, 512, 0);
+            gradient.addColorStop(0, background.color);
+            gradient.addColorStop(1, background.color2);
+            ctx.fillStyle = gradient;
+            break;
+        case 4:
+            gradient = ctx.createRadialGradient(256, 300, 120, 256, 300, 256);
+            gradient.addColorStop(0, background.color);
+            gradient.addColorStop(1, background.color2);
+            ctx.fillStyle = gradient;
+    }
+
+    ctx.fill(path);
 }
 
 
