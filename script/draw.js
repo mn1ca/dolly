@@ -8,6 +8,28 @@ export function drawAll(excludeBg = false) {
         ctx.reset();
         ctx.fillStyle = '#e1eaf5';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.beginPath();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#c3d8fa';
+
+        const width = 512;
+        const height = 512;
+        const gridCellSize = 52;
+
+        for (let x = 0; x <= canvas.width; x += gridCellSize) {
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+        }
+
+        for (let y = 0; y <= canvas.height; y += gridCellSize) {
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+        }
+
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
     }
 
     const forbidden = ['background', 'eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
@@ -42,7 +64,10 @@ function drawPart(p, outline = false) {
         ctx.translate(canvas.width, 0);
         ctx.scale(-1, 1);
 
-        draw(p, outline);
+        const secondColor = (p === 'pupils') ? parts[p].heterochromia : false;
+        if (p === 'pupils') console.log(parts[p].heterochromia, secondColor);
+
+        draw(p, outline, secondColor);
         ctx.restore();
     }
 
@@ -50,7 +75,7 @@ function drawPart(p, outline = false) {
 }
 
 
-function draw(p, stroke = false) {
+function draw(p, stroke = false, secondColor = false) {
 
     const ctx = canvas.getContext('2d');
     ctx.save();
@@ -107,7 +132,14 @@ function draw(p, stroke = false) {
         return;
 
     } else {
-        ctx.fillStyle = data[p][parts[p].variant].mustMatch ? parts[part.matchPart].color : part.color;
+
+        if (!secondColor)
+            ctx.fillStyle = data[p][parts[p].variant].mustMatch ? parts[part.matchPart].color : part.color;
+        else {
+            ctx.fillStyle = part.color2;
+            console.log(ctx.fillStyle);
+        }
+
         ctx.fill(path);
     }
 

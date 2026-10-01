@@ -64,7 +64,11 @@ export let parts = {
 
     'pupils': {
         'variant': 0,
+
+        'heterochromia': false,
         'color': '#000000',
+        'color2': '#756e63',
+
         'offset': [0, 0],
         'mirrored': true,
 

@@ -6,7 +6,7 @@ import {drawAll} from '/script/draw.js';
 export function colorSettings(p, settings) {
 
     const img = document.createElement('img');
-    img.src = `/assets/paint.svg`;
+    img.src = `/assets/icons/paint.svg`;
 
     // Creates button and attached color card
     function createButton(color, secondColor = false) {
@@ -51,7 +51,7 @@ export function colorSettings(p, settings) {
             slider.value = values[i];
 
             slider.addEventListener('input', () => {
-                const sliders = hsv.map(x => document.getElementById(id));
+                const sliders = hsv.map(x => document.getElementById(`${p}-${x}-slider${second}`));
                 const c = hsvToHex(sliders.map(x => x.value));
                 if (c !== `#${color}`) changeColor(c, p, false, secondColor);
             });
@@ -114,7 +114,38 @@ export function colorSettings(p, settings) {
         const spacer = document.createElement('div');
         spacer.classList.add('spacer');
 
-        spacer.append(inputBox);
+        const left = document.createElement('div');
+
+        if (p === 'pupils') {
+            const heterochromia = document.createElement('div');
+            heterochromia.classList.add('heterochromia');
+
+            const toggle = document.createElement('input');
+            toggle.type = 'checkbox';
+            toggle.classList.add('hc', 'tooltip');
+
+            toggle.addEventListener('change', () => {
+                parts[p].heterochromia = toggle.checked;
+                const toggles = document.querySelectorAll(`.hc`);
+            toggles.forEach(t => t.checked = toggle.checked);
+                drawAll();
+            });
+
+            heterochromia.append(toggle);
+
+            const icon = document.createElement('img');
+            icon.src = `/assets/icons/heterochromia.svg`;
+            heterochromia.append(icon);
+
+
+
+
+
+            left.append(heterochromia);
+        }
+
+        left.append(inputBox);
+        spacer.append(left);
         spacer.append(sliderBox);
         card.append(spacer);
 
@@ -171,6 +202,13 @@ export function changeColor(hex, p, sliderChange = true, secondColor = false) {
         // Recolor all hair parts
         } else if (p === 'hair') {
             parts['hairFront'].color = parts['hairBack'].color = parts['hairAhoge'].color = hex;
+        }
+
+        // Toggle heterochromia if second pupil color is selected
+        if (p === 'pupils' && secondColor) {
+            parts[p].heterochromia = true;
+            const toggles = document.querySelectorAll(`.hc`);
+            toggles.forEach(t => t.checked = true);
         }
 
         parts[p][`color${second}`] = hex;

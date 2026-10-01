@@ -7,22 +7,22 @@ let activeTab = 'face';
 //let activeAccessory = 1;
 
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const canvas = document.getElementById('canvas');
-    formStuff();
     onload();
-
     drawAll(true);
 
     /*const img = canvas.toDataURL('image/png');
     document.write('<img src="'+img+'"/>');*/
+});
 
 
-
-
+// Clear grid background for print view
+window.addEventListener('beforeprint', () => {
+    const ctx = canvas.getContext('2d');
+    ctx.reset();
+    drawAll(true);
 });
 
 
@@ -43,9 +43,9 @@ function loadingScreen() {
 }
 
 
-// Show screen size notice for narrow displays
+// Allows closing functionality for the narrow screen size notice
 function showNarrowNotice() {
-   const noticeChoice = document.getElementById('notice-choice');
+    const noticeChoice = document.getElementById('notice-choice');
     noticeChoice.onclick = () => {
         document.getElementById('narrow-notice').style.pointerEvents = 'none';
         document.getElementById('notice-response').classList.toggle('show');
@@ -167,7 +167,7 @@ function createSetting(setting, left = '', right = '', p, axis) {
 }
 
 
-// Add in all part variants
+// Add in all parts
 function populateParts() {
     for (const p of Object.keys(parts)) {
 
@@ -205,23 +205,23 @@ function populateParts() {
         const settings = Object.fromEntries(settingTypes.map(s => [s, document.getElementById(`${p}-${s}`)]));
 
         if (settings.x) {  // Slider for X-displacement
-            createSetting(settings.x, `arrows/in.svg`, `arrows/out.svg`, p, 0);
+            createSetting(settings.x, `icons/arrows/in.svg`, `icons/arrows/out.svg`, p, 0);
         }
 
         if (settings.y) { // Slider for Y-displacement
-            createSetting(settings.y, `arrows/up.svg`, `arrows/down.svg`, p, 1);
+            createSetting(settings.y, `icons/arrows/up.svg`, `icons/arrows/down.svg`, p, 1);
         }
 
         if (settings.flip) { // Toggle for left/right position
-            createSetting(settings.flip, `arrows/left.svg`, `arrows/right.svg`, p, 2);
+            createSetting(settings.flip, `icons/arrows/left.svg`, `icons/arrows/right.svg`, p, 2);
         }
 
         if (settings.mirror) { // Toggle for mirroring
-            createSetting(settings.mirror, `arrows/flip.svg`, ``, p, 3);
+            createSetting(settings.mirror, `icons/arrows/flip.svg`, ``, p, 3);
         }
 
         if (settings.scale) { // Slider for size
-            createSetting(settings.scale, `arrows/small.svg`, `arrows/big.svg`, p, 4);
+            createSetting(settings.scale, `icons/arrows/small.svg`, `icons/arrows/big.svg`, p, 4);
         }
 
         if (settings.color) {  // Change color
@@ -240,12 +240,10 @@ function onload() {
     loadingScreen();
 
     // Add tab change functionality
-    const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about', 'gallery'];
+    const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about'];
     for (const c of tabs) {
         document.getElementById(c).onclick = () => {changeTabs(c)};
     }
-
-
 
     /*
     const pageTurn = document.querySelectorAll('.page-turner');
@@ -262,6 +260,10 @@ function onload() {
 
             else if (reference.classList.contains('mirror')) {
               return 'mirror';
+            }
+
+            else if (reference.classList.contains('hc')) {
+                return 'heterochromia';
             }
 
             else if (reference.classList.contains('upload')) {
@@ -308,13 +310,14 @@ function changeTabs(tab) {
     return;
 }
 
+
 /*
 // Change pages within tab
 function changePage() {
     document.getElementById(`accessory-page1`).classList.toggle('hide');
     document.getElementById(`accessory-page2`).classList.toggle('hide');
 }
-*/
+
 
 function formStuff() {
     document.getElementById('form').addEventListener('submit', function(e) {
@@ -353,4 +356,4 @@ function formStuff() {
             submitBtn.disabled = false;
         });
     });
-}
+}*/

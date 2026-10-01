@@ -36,7 +36,7 @@
                 <div class='tab' id='accessory'>accessory</div>
                 <div class='tab' id='background'>background</div>
                 <div class='special tab' id='about'>about</div>
-                <div class='special tab' id='gallery'><div class='asterisk'></div> gallery</div>
+                <!--<div class='special tab' id='gallery'><div class='asterisk'></div> gallery</div>-->
 
             </div>
             <div class='book right-page back'></div>
@@ -149,7 +149,7 @@
                     <div class='container'>
                         <div class='scroll gallery' id='pupils-gallery'></div>
                         <div class='spacer'>
-                            <div class='bottom setting' id='pupils-color'></div>
+                            <div class='double bottom setting' id='pupils-color'></div>
                             <div class='block'></div>
                             <div class='setting' id='pupils-x'></div>
                         </div>
@@ -279,7 +279,7 @@
                 <div id='about-content' class='hide content'>
 
                     <div class='container'>
-                        <h1>info.</h1>
+                        <h1 class='highlighter'>info.</h1>
                         <p>This dollmaker can be used to export 512x512 <span class='capitals'>png</span> and <span class='capitals'>gif</span> files of a customizable character.
                         Feel free to use graphics for personal use without credit.</p>
                         <p>Do not use for commercial or GenAI purposes. Or I will be very sad. And possibly quite angry.</p>
@@ -287,13 +287,13 @@
                         <hr>
 
                         <div class='spacer'>
-                            <span>github</span>
+                            <span>source code</span>
                             <span>documentation</span>
                         </div>
                     </div>
 
                     <div class='container scroll'>
-                        <h1>credits</h1>
+                        <h1 class='highlighter'>credits</h1>
                         <h2>references</h2>
 
                         <ul>
@@ -331,8 +331,8 @@
                             </li>
 
                             <li><a href='https://atomiks.github.io/tippyjs/' target='_blank'>
-                                js tooltips</a>
-                                <span class='capitals'>(Tippy)</span>
+                                tooltips</a>
+                                <span class='capitals'>(Tippy.js)</span>
                             </li>
 
                             <li><a href='https://stackoverflow.com/questions/63151823/how-to-display-a-picture-from-file-input-to-canvas' target='_blank'>
@@ -345,6 +345,10 @@
                                 <span class='capitals'>(Codrops)</span>
                             </li>
 
+                            <li><a href='https://sunnytea.org/codes' target='_blank'>
+                                highlighter text effect</a>
+                                <span class='capitals'>(Sunnytea)</span>
+                            </li>
 
                         </ul>
 
@@ -404,7 +408,7 @@
             <canvas id='canvas' height='512' width='512'></canvas>
                 <div class='circle'></div>
             </div>
-            <div class='tape'></div>
+            <div class='tape highlighter'></div>
         </div>
 
 
