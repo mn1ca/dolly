@@ -26,6 +26,11 @@
             </div>
         </div>
 
+        <img id='idcard' src='assets/id/2.svg'>
+        <div id='text'>
+            <div><strong>card variant ✦</strong><span id='roll'></span></div>—<br>
+            You can also download your ID as an image at <strong style='text-decoration: underline'>dolly.mn1ca.fish/idcard</strong> !</div>
+
         <div id='back-cover' class='book'>
             <div id='tabs'>
                 <div class='active tab' id='face'>face</div>
@@ -230,7 +235,7 @@
                         <div class='scroll gallery' id='clothes-gallery'></div>
 
                         <div class='spacer'>
-                            <div class='setting' id='clothes-color'></div>
+                            <div class='bottom setting' id='clothes-color'></div>
                             <div style='width: 280px'></div>
                             <div class='setting' id='clothes-flip'></div>
                         </div>
@@ -292,83 +297,105 @@
                         </div>
                     </div>
 
-                    <div class='container scroll'>
+                    <div class='container'>
                         <h1 class='highlighter'>credits</h1>
-                        <h2>references</h2>
 
-                        <ul>
-                            <li><a href='https://developer.mozilla.org/en-US/docs/Web/API/Path2D/Path2D' target='_blank'>
-                                rendering paths in <span class='capitals'>HTML</span> canvas</a>
-                                <span class='capitals'>(Mozilla)</span>
-                            </li>
+                        <div class='scroll'>
+                            <h2>references</h2>
 
-                            <li><a href='https://www.w3schools.com/howto/howto_js_rangeslider.asp' target='_blank'>
-                                range slider</a>
-                                <span class='capitals'>(W3Schools)</span>
-                            </li>
+                            <ul>
+                                <li><a href='https://developer.mozilla.org/en-US/docs/Web/API/Path2D/Path2D' target='_blank'>
+                                    rendering paths in <span class='capitals'>HTML</span> canvas</a>
+                                    <span class='capitals'>(Mozilla)</span>
+                                </li>
 
-                            <li><a href='https://www.w3schools.com/howto/howto_css_switch.asp' target='_blank'>
-                                toggle switch</a>
-                                <span class='capitals'>(W3Schools)</span>
-                            </li>
+                                <li><a href='https://www.w3schools.com/howto/howto_js_rangeslider.asp' target='_blank'>
+                                    range slider</a>
+                                    <span class='capitals'>(W3Schools)</span>
+                                </li>
 
-                            <li><a href='https://stackoverflow.com/questions/70213968/how-input-accepts-only-hex-numbers' target='_blank'>
-                                hex code text input</a>
-                                <span class='capitals'>(Stack Overflow)</span>
-                            </li>
+                                <li><a href='https://www.w3schools.com/howto/howto_css_switch.asp' target='_blank'>
+                                    toggle switch</a>
+                                    <span class='capitals'>(W3Schools)</span>
+                                </li>
 
-                            <li><a href='https://css-tricks.com/stripes-css/' target='_blank'>
-                                striped</a>
-                                <span class='capitals'>(CSS Tricks)</span> /
-                                <a href='https://stackoverflow.com/questions/3540194/how-to-make-a-grid-like-graph-paper-grid-with-just-css' target='_blank'>
-                                grid</a>
-                                <span class='capitals'>(Stack Overflow)</span> backgrounds
-                            </li>
+                                <li><a href='https://stackoverflow.com/questions/70213968/how-input-accepts-only-hex-numbers' target='_blank'>
+                                    hex code text input</a>
+                                    <span class='capitals'>(Stack Overflow)</span>
+                                </li>
 
-                            <li><a href='https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/' target='_blank'>
-                                converting hex ⇌ hsv</a>
-                                <span class='capitals'>(James Milner)</span>
-                            </li>
+                                <li><a href='https://css-tricks.com/stripes-css/' target='_blank'>
+                                    striped</a>
+                                    <span class='capitals'>(CSS Tricks)</span> /
+                                    <a href='https://stackoverflow.com/questions/3540194/how-to-make-a-grid-like-graph-paper-grid-with-just-css' target='_blank'>
+                                    grid</a>
+                                    <span class='capitals'>(Stack Overflow)</span> backgrounds
+                                </li>
+                                <li><a href='https://stackoverflow.com/questions/11735856/draw-a-grid-on-an-html-5-canvas-element' target='_blank'>
+                                    drawing grids in <span class='capitals'>HTML</span> canvas</a>
+                                    <span class='capitals'>(Stack Overflow)</span>
+                                </li>
 
-                            <li><a href='https://atomiks.github.io/tippyjs/' target='_blank'>
-                                tooltips</a>
-                                <span class='capitals'>(Tippy.js)</span>
-                            </li>
+                                <li><a href='https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/' target='_blank'>
+                                    converting hex ⇌ hsv</a>
+                                    <span class='capitals'>(James Milner)</span>
+                                </li>
 
-                            <li><a href='https://stackoverflow.com/questions/63151823/how-to-display-a-picture-from-file-input-to-canvas' target='_blank'>
-                                using photo file input in canvas</a>
-                                <span class='capitals'>(Stack Overflow)</span>
-                            </li>
+                                <li><a href='https://atomiks.github.io/tippyjs/' target='_blank'>
+                                    tooltips</a>
+                                    <span class='capitals'>(Tippy.js)</span>
+                                </li>
 
-                            <li><a href='https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/' target='_blank'>
-                                styling file input</a>
-                                <span class='capitals'>(Codrops)</span>
-                            </li>
+                                <li><a href='https://stackoverflow.com/questions/63151823/how-to-display-a-picture-from-file-input-to-canvas' target='_blank'>
+                                    using photo file input in <span class='capitals'>HTML</span> canvas</a>
+                                    <span class='capitals'>(Stack Overflow)</span>
+                                </li>
 
-                            <li><a href='https://sunnytea.org/codes' target='_blank'>
-                                highlighter text effect</a>
-                                <span class='capitals'>(Sunnytea)</span>
-                            </li>
+                                <li><a href='https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/' target='_blank'>
+                                    styling file input</a>
+                                    <span class='capitals'>(Codrops)</span>
+                                </li>
 
-                        </ul>
+                                <li><a href='https://sunnytea.org/codes' target='_blank'>
+                                    highlighter text effect</a>
+                                    <span class='capitals'>(Sunnytea)</span>
+                                </li>
 
-                        <h2>typefaces</h2>
-                        <ul>
+                                <li><a href='https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage' target='_blank'>
+                                    local storage</a>
+                                    <span class='capitals'>(Mozilla)</span>
+                                </li>
 
-                            <li><a href='https://fonts.google.com/specimen/Balsamiq+Sans' target='_blank'>
-                                Balsamiq Sans
-                            </a></li>
 
-                            <li><a href='https://fonts.google.com/specimen/Nanum+Pen+Script' target='_blank'>
-                                Nanum Pen Script
-                            </a></li>
+                            </ul>
 
-                        </ul>
+                            <h2>typefaces</h2>
+                            <ul>
+
+                                <li><a href='https://fonts.google.com/specimen/Balsamiq+Sans' target='_blank'>
+                                    Balsamiq Sans
+                                </a></li>
+
+                                <li><a href='https://fonts.google.com/specimen/Nanum+Pen+Script' target='_blank'>
+                                    Nanum Pen Script
+                                </a></li>
+
+                            </ul>
+                        </div>
                     </div>
 
-                    <a href='https://mn1ca.fish' target='_blank'>
-                    <img src='/assets/button.gif' class='about-tooltip me' alt='i made this!' style='image-rendering: pixelated; margin: -10px 15px'></a>
+                    <div class='buttons'>
+                        <a href='https://mn1ca.fish' target='_blank'>
+                        <img src='/assets/buttons/mn1ca.gif' class='me' alt='mn1ca site button' style='image-rendering: pixelated'></a>
 
+                        <a href='https://ko-fi.com/mn1ca' target='_blank'>
+                        <img src='/assets/buttons/coffee.png' class='coffee' alt='buy me a coffee' style='height: 32px'></a>
+
+                        <details>
+                            <summary><img src='/assets/buttons/dolly.gif' class='site' alt='site button'></summary>
+                            <div class='t'><textarea readonly>&lt;a href='https://dolly.' target='_blank'&gt;&lt;img src= '★'&gt;&lt;/a&gt;</textarea></div>
+                        </details>
+                    </div>
                 </div>
 
 

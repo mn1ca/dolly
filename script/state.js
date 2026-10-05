@@ -2,8 +2,8 @@ export let parts = {
 
     'background': {
         'variant': 0,
-        'color': '#c1331c',
-        'color2': '#ff7560',
+        'color': '#f3de7f',
+        'color2': '#fffee8',
         'img': '',
     },
 
@@ -130,7 +130,7 @@ export let parts = {
 
         'transform': 10,
         'scale': 1,
-        'scaleFactor': 4/5
+        'scaleFactor': .76
     },
 
     'accessoryFace': {
@@ -156,4 +156,12 @@ export let parts = {
         'transform': 30,
         'excludeTransform': true
     }
-}
+};
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    let stored = localStorage.getItem('parts');
+    if (stored)
+        parts = JSON.parse(stored);
+});

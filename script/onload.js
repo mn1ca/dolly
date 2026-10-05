@@ -4,6 +4,7 @@ import {colorSettings, changeColor} from '/script/color.js';
 import {drawAll} from '/script/draw.js';
 
 let activeTab = 'face';
+let idVariant;
 //let activeAccessory = 1;
 
 
@@ -23,6 +24,14 @@ window.addEventListener('beforeprint', () => {
     const ctx = canvas.getContext('2d');
     ctx.reset();
     drawAll(true);
+
+    const colors = ['cf5fa4', 'f491b0', 'f37576', 'c6805d', 'fcb772', 'f9d565', 'b1c949', '59b7a5', '4bbde9', '9190c6', 'ac62a7', '829ab9']
+
+    rollID();
+    document.getElementById('idcard').src = `assets/id/${idVariant}.svg`;
+    const chance = (idVariant === 11) ? ' 1/144' : ` ${idVariant + 1 }/11`;
+    document.getElementById('roll').textContent = chance;
+    document.getElementById('idcard').style.borderColor = canvas.style.borderColor = colors[idVariant];
 });
 
 
@@ -141,12 +150,14 @@ function createSetting(setting, left = '', right = '', p, axis) {
         default: // X/Y displacement
             input = document.createElement('input');
             const value = (parts[p].transform) ? parts[p].transform : 15;
+            const xy = (!axis) ? 'x' : 'y';
 
             input.type = 'range';
             input.step = 1;
             input.value = 0;
             input.min = -1 * value;
             input.max = value;
+            input.id = `${p}-${xy}-slider`;
 
             input.addEventListener('input', (event) => {
                 parts[p].offset[axis] = parseInt(event.target.value);
@@ -194,6 +205,30 @@ function populateParts() {
                             colorButton.classList.remove('hide');
                     }
 
+                    // Disable displacement settings if necessary
+                    const xSetting = document.getElementById(`${p}-x`);
+                    const ySetting = document.getElementById(`${p}-y`);
+
+                    if (xSetting || ySetting) {
+                        if (data[p][i].preventOffset) {
+
+                            const xy = (!(data[p][i].preventOffset - 1)) ? 'x' : 'y';
+                            document.getElementById(`${p}-${xy}`).classList.add('forbidden');
+                            const slider = document.getElementById(`${p}-${xy}-slider`);
+                            slider.disabled = true;
+
+                        } else {
+
+                            if (xSetting) {
+                                xSetting.classList.remove('forbidden');
+                                document.getElementById(`${p}-x-slider`).disabled = false;
+                            } else {
+                                ySetting.classList.remove('forbidden');
+                                document.getElementById(`${p}-y-slider`).disabled = false;
+                            }
+                        }
+                    }
+
                     drawAll();
                 };
                 document.getElementById(`${p}-gallery`).append(div);
@@ -228,6 +263,19 @@ function populateParts() {
             colorSettings(p, settings);
         }
     }
+}
+
+
+function rollID() {
+    const roll = Math.random();
+    const lucky = 0.0069;
+
+    if (roll < lucky)
+        idVariant = 11;
+    else
+       idVariant = Math.floor(Math.random() * 12);
+
+    localStorage.setItem('idVariant', idVariant);
 }
 
 
@@ -274,10 +322,18 @@ function onload() {
         theme: 'dolly',
       });
 
-    tippy('.about-tooltip', {
+    tippy('.buttons img', {
         content(reference) {
             if (reference.classList.contains('me')) {
               return 'i made this!';
+            }
+
+            else if (reference.classList.contains('site')) {
+              return 'link this site!';
+            }
+
+            else if (reference.classList.contains('coffee')) {
+              return 'i panhandle!';
             }
         },
 

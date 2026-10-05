@@ -48,6 +48,9 @@ export function drawAll(excludeBg = false) {
         if (!forbidden.includes(p))
             drawPart(p);
     }
+
+
+    localStorage.setItem('parts', JSON.stringify(parts));
 }
 
 
@@ -183,6 +186,7 @@ function drawBg() {
     const path = new Path2D('M0,0h512v512H0V0Z');
 
     let gradient;
+    const stripeSize = 80;
 
     switch(background.variant) {
         case -1:
@@ -205,7 +209,6 @@ function drawBg() {
             return;
         case 1:
             ctx.fillStyle = background.color;
-            console.log('hi');
             break;
         case 2:
             gradient = ctx.createLinearGradient(0, 0, 0, 512);
@@ -227,9 +230,76 @@ function drawBg() {
             break;
         case 4:
             gradient = ctx.createRadialGradient(256, 300, 120, 256, 300, 256);
-            gradient.addColorStop(0, background.color);
-            gradient.addColorStop(1, background.color2);
+            gradient.addColorStop(1, background.color);
+            gradient.addColorStop(0, background.color2);
             ctx.fillStyle = gradient;
+            break;
+
+        case 5: // Vertical Stripes
+            ctx.reset();
+            ctx.fillStyle = background.color;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.lineWidth = 30;
+            ctx.strokeStyle = background.color2;
+
+            for (let x = 0; x <= canvas.width; x += stripeSize) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+            }
+
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+            return;
+
+        case 6: // Horizontal Stripes
+            ctx.reset();
+            ctx.fillStyle = background.color;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath();
+            ctx.lineWidth = 30;
+            ctx.strokeStyle = background.color2;
+
+            for (let y = 0; y <= canvas.height; y += stripeSize) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+            }
+
+            ctx.stroke();
+            ctx.closePath();
+            ctx.restore();
+            return;
+
+        case 7: // Polka dots
+            ctx.fillStyle = background.color;
+              ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const xSpacing = 80;
+            const ySpacing = 30;
+            const radius = 8;
+            ctx.fillStyle = background.color2;
+
+            let row = true;
+
+            for (let y = 20; y < canvas.height + ySpacing; y += ySpacing) {
+
+                row = !row; // Alternate spacing between rows
+
+                for (let x = 20; x < canvas.width + xSpacing; x += xSpacing) {
+
+                    let xPosition = (row) ? x : x + xSpacing / 2;
+                    ctx.beginPath();
+                    ctx.arc(xPosition, y, radius, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+            return;
+
+        default:
+            return;
     }
 
     ctx.fill(path);
