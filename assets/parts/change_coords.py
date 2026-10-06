@@ -4,7 +4,7 @@ import re
 INPUT_FILE = "./data.json"
 OUTPUT_FILE = "./output.json"
 
-SHIFT_Y = -15
+SHIFT_Y = -2
 
 # Matches M/m followed by an X,Y coordinate
 MOVE_RE = re.compile(

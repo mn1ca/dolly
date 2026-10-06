@@ -5,9 +5,10 @@ import {drawAll} from '/script/draw.js';
 
 let activeTab = 'face';
 let idVariant;
-let bootup = true;
-//let activeAccessory = 1;
 
+const today = new Date().toDateString();
+const lastOpened = localStorage.getItem('opened');
+const openedToday = (today === lastOpened);
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -22,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Loads all the stuff
 function onload() {
+
+    if (!openedToday)
+        localStorage.setItem('opened', today);
 
     showNarrowNotice();
     imageInput();
@@ -94,10 +98,18 @@ window.addEventListener('beforeprint', () => {
 
 window.addEventListener('afterprint', () => {canvas.style.borderColor = 'var(--e)'})
 
+
+function sameDay(d1, d2) {
+    return d1.getFullYear() === d2.getFullYear() &&
+           d1.getMonth() === d2.getMonth() &&
+           d1.getDate() === d2.getDate();
+}
+
+
 function loadingScreen() {
 
     // Force people to look at the loading animation cause I spent a lot of time on it!
-    const timeout = 1800;
+    const timeout = (openedToday) ? 0 : 2300;
     setTimeout( () => {
 
         const tabs = document.getElementById('tabs');
@@ -114,6 +126,13 @@ function loadingScreen() {
 
 // Allows closing functionality for the narrow screen size notice
 function showNarrowNotice() {
+
+    if (localStorage.getItem('seenNotice') && openedToday) {
+        document.getElementById('narrow-notice').style.display = 'none';
+        document.getElementById('narrow-notice').remove;
+        return;
+    }
+
     const noticeChoice = document.getElementById('notice-choice');
     noticeChoice.onclick = () => {
         document.getElementById('narrow-notice').style.pointerEvents = 'none';
@@ -123,6 +142,7 @@ function showNarrowNotice() {
         }, 400);
         document.getElementById('narrow-notice').remove;
         document.body.style.overflow = 'auto';
+        localStorage.setItem('seenNotice', JSON.stringify(true));
     };
 }
 
