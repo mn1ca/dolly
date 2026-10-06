@@ -1,6 +1,6 @@
 <html data-theme="6">
     <head>
-        <meta name='viewport' content='width=device-width'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
         <meta charset='UTF-8'>
 
         <title></title>
@@ -283,6 +283,8 @@
             ctx.reset();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawID(input.id);
+
+
           });
 
           input.addEventListener('blur', () => {
@@ -337,8 +339,8 @@
         img.onload = function() {
 
             // ID card
+            ctx.reset();
             ctx.drawImage(img, 0, 0, 512, 341);
-
 
             ctx.translate(20, 120);
             ctx.scale(.4, .4);
@@ -372,8 +374,6 @@
             if (text !== 'birth') ctx.fillText(fields.birth, 272, 76);
             if (text !== 'location') ctx.fillText(fields.location, 248, 115);
         };
-
-        ctx.reset();
     }
 </script>
 </html>
