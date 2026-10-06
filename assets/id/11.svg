@@ -42,10 +42,10 @@
     <linearGradient id="linear-gradient" x1=".98" y1="2.59" x2="224.94" y2="147.86" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#fbd7e6"/>
       <stop offset=".33" stop-color="#f9f3c7"/>
-      <stop offset=".56" stop-color="#e3f0e6"/>
+      <stop offset=".56" stop-color="#e3f0e6"/>e
       <stop offset=".69" stop-color="#daf0f5"/>
       <stop offset=".99" stop-color="#fcdadc"/>
-      <stop offset=".99" stop-color="#fcdbdd"/>
+      <stop offset=".99" stop-color="s"/>
       <stop offset="1" stop-color="#fff"/>
     </linearGradient>
     <linearGradient id="linear-gradient-2" x1="183.01" y1="-.34" x2="225.25" y2="29.29" gradientTransform="translate(-26.04)" gradientUnits="userSpaceOnUse">

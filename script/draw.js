@@ -2,7 +2,6 @@ import data from '/assets/parts/data.json' with { type: 'json' };
 import {parts} from '/script/state.js';
 
 export function drawAll(excludeBg = false) {
-
     if (!excludeBg) {
         const ctx = canvas.getContext('2d');
         ctx.reset();
@@ -68,7 +67,6 @@ function drawPart(p, outline = false) {
         ctx.scale(-1, 1);
 
         const secondColor = (p === 'pupils') ? parts[p].heterochromia : false;
-        if (p === 'pupils') console.log(parts[p].heterochromia, secondColor);
 
         draw(p, outline, secondColor);
         ctx.restore();
@@ -140,7 +138,6 @@ function draw(p, stroke = false, secondColor = false) {
             ctx.fillStyle = data[p][parts[p].variant].mustMatch ? parts[part.matchPart].color : part.color;
         else {
             ctx.fillStyle = part.color2;
-            console.log(ctx.fillStyle);
         }
 
         ctx.fill(path);

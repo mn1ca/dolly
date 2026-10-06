@@ -5,6 +5,7 @@ import {drawAll} from '/script/draw.js';
 
 let activeTab = 'face';
 let idVariant;
+let bootup = true;
 //let activeAccessory = 1;
 
 
@@ -17,6 +18,63 @@ document.addEventListener('DOMContentLoaded', () => {
     /*const img = canvas.toDataURL('image/png');
     document.write('<img src="'+img+'"/>');*/
 });
+
+
+// Loads all the stuff
+function onload() {
+
+    showNarrowNotice();
+    imageInput();
+    populateParts();
+    loadingScreen();
+
+    // Add tab change functionality
+    const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about'];
+    for (const c of tabs) {
+        document.getElementById(c).onclick = () => {changeTabs(c)};
+    }
+
+    // Tooltips
+    tippy('.tooltip', {
+        content(reference) {
+            if (reference.classList.contains('flip')) {
+              return 'flip';
+            }
+
+            else if (reference.classList.contains('mirror')) {
+              return 'mirror';
+            }
+
+            else if (reference.classList.contains('hc')) {
+                return 'heterochromia';
+            }
+
+            else if (reference.classList.contains('upload')) {
+                return 'upload image';
+            }
+        },
+
+        theme: 'dolly',
+      });
+
+    tippy('.buttons img', {
+        content(reference) {
+            if (reference.classList.contains('me')) {
+              return 'i made this!';
+            }
+
+            else if (reference.classList.contains('site')) {
+              return 'link this site!';
+            }
+
+            else if (reference.classList.contains('coffee')) {
+              return 'i panhandle!';
+            }
+        },
+
+        theme: 'about'
+      });
+}
 
 
 // Clear grid background for print view
@@ -34,10 +92,12 @@ window.addEventListener('beforeprint', () => {
     document.getElementById('idcard').style.borderColor = canvas.style.borderColor = colors[idVariant];
 });
 
+window.addEventListener('afterprint', () => {canvas.style.borderColor = 'var(--e)'})
 
 function loadingScreen() {
+
     // Force people to look at the loading animation cause I spent a lot of time on it!
-    const timeout = 0 //3200;
+    const timeout = 1800;
     setTimeout( () => {
 
         const tabs = document.getElementById('tabs');
@@ -279,82 +339,9 @@ function rollID() {
 }
 
 
-// Loads all the stuff
-function onload() {
-
-    showNarrowNotice();
-    imageInput();
-    populateParts();
-    loadingScreen();
-
-    // Add tab change functionality
-    const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about'];
-    for (const c of tabs) {
-        document.getElementById(c).onclick = () => {changeTabs(c)};
-    }
-
-    /*
-    const pageTurn = document.querySelectorAll('.page-turner');
-    for (const p of pageTurn) {
-        p.onclick = changePage;
-    }*/
-
-    // Tooltips
-    tippy('.tooltip', {
-        content(reference) {
-            if (reference.classList.contains('flip')) {
-              return 'flip';
-            }
-
-            else if (reference.classList.contains('mirror')) {
-              return 'mirror';
-            }
-
-            else if (reference.classList.contains('hc')) {
-                return 'heterochromia';
-            }
-
-            else if (reference.classList.contains('upload')) {
-                return 'upload image';
-            }
-        },
-
-        theme: 'dolly',
-      });
-
-    tippy('.buttons img', {
-        content(reference) {
-            if (reference.classList.contains('me')) {
-              return 'i made this!';
-            }
-
-            else if (reference.classList.contains('site')) {
-              return 'link this site!';
-            }
-
-            else if (reference.classList.contains('coffee')) {
-              return 'i panhandle!';
-            }
-        },
-
-        theme: 'about'
-      });
-}
-
-
-
 // Change page to active tab
 function changeTabs(tab) {
     if (activeTab === tab) return;
-
-    /* // Change page within accessory tab
-    if (tab === 'accessory') {
-        document.getElementById('right-page').style.backgroundImage = 'url(assets/pagination/page.svg)';
-        document.getElementById('right-page').style.backgroundColor = 'rgba(0,0,0,0)';
-    } else {
-        document.getElementById('right-page').style.backgroundImage = 'none';
-        document.getElementById('right-page').style.backgroundColor = 'var(--a)';
-    }*/
 
     document.getElementById(activeTab).classList.remove('active');
     document.getElementById(`${activeTab}-content`).classList.add('hide');

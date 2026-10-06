@@ -1,0 +1,331 @@
+<html data-theme="6">
+    <head>
+        <meta name='viewport' content='width=1280px'>
+        <meta charset='UTF-8'>
+
+        <title></title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+        <style>
+
+            [data-theme='0'] {
+                --bg: #f5e1ed;
+                --main: #cf5fa4;
+                --text: #9e2374;
+            }
+
+            [data-theme='1'] {
+                --bg: #fce8f1;
+                --main: #f491b0;
+                --text: #bc2060 ;
+            }
+
+            [data-theme='2'] {
+                --bg: #fce8f1;
+                --main: #f37576;
+                --text: #961a36;
+            }
+
+            [data-theme='3'] {
+                --bg: #f7d4b4;
+                --main: #c6805d;
+                --text: #75491d;
+            }
+
+            [data-theme='4'] {
+                --bg: #f4ead0;
+                --main: #fcb772;
+                --text: #ce6828;
+            }
+
+            [data-theme='5'] {
+                --bg: #fef9da;
+                --main: #f9d565;
+                --text: #c87a29;
+            }
+
+            [data-theme='6'] {
+                --bg: #eaedcf;
+                --main: #b1c949;
+                --text: #4e8a3f;
+            }
+
+            [data-theme='7'] {
+                --bg: #cdeae9;
+                --main: #59b7a5;
+                --text: #126b77;
+            }
+
+            [data-theme='8'] {
+                --bg: #d4eef8;
+                --main: #4bbde9;
+                --text: #315ba9;
+            }
+
+            [data-theme='9'] {
+                --bg: #d6e5f2;
+                --main: #9190c6;
+                --text: #4556a6;
+            }
+
+            [data-theme='10'] {
+                --bg: #ebdeed;
+                --main: #ac62a7;
+                --text: #5a2976;
+            }
+
+            [data-theme='11'] {
+                --bg: linear-gradient(135deg, #fcdbdd, #fcdbdd, #f9f3c7, #f9f3c7, #e3f0e6, #e3f0e6, #daf0f5, #daf0f5, #fcdadc, #fcdbdd, #f9f3c7, #fcdbdd, #fcdbdd);
+                --main: #fff;
+                --text: #829ab9;
+            }
+
+            @keyframes gradient {
+                0% {
+                    background-position: 0% 0%;
+                }
+
+                100% {
+                    background-position: 100% 100%;
+                }
+
+            }
+
+            html, body {
+                font-family: 'Balsamiq Sans', sans-serif;
+                background: var(--bg);
+                background-size: 1000% 1000%;
+                animation: gradient 12s ease-out infinite;
+                color: var(--text);
+                cursor: url(/assets/cursor/default.svg), default;
+            }
+
+            canvas {
+                position: relative;
+                display: block;
+                padding: 3px;
+                border: 2px solid var(--main);
+                border-radius: 20px;
+                margin: auto;
+
+                transform: scale(.85);
+            }
+
+            #name {
+                top: 163px;
+                left: 723px;
+                width: 160px;
+            }
+
+            #birth {
+                top: 202.5px;
+                left: 761px;
+                width: 120px;
+            }
+
+            #location {
+                top: 242px;
+                left: 736px;
+                width: 120px;
+            }
+
+            input[type='text'], input[type='text']:focus {
+                position: absolute;
+                border: none;
+                outline: none;
+                background: transparent;
+                font-family: sans-serif;
+                font-size: 12px;
+                color: var(--text);
+                cursor: url(/assets/cursor/text.svg), text;
+                text-transform: uppercase;
+            }
+
+            input[type='text']::placeholder {
+                color: var(--text);
+                opacity: .5;
+                text-transform: none;
+            }
+
+            #menu {
+                width: 400px;
+                display: flex;
+                justify-content: space-around;
+                position: relative;
+                margin: auto;
+            }
+
+            #menu div {
+                color: var(--text);
+                cursor: url(/assets/cursor/pointer.svg), pointer;
+            }
+
+            #menu div:hover {
+                transform: scale(1.05);
+                filter: brightness(1.15);
+                transition-duration: .5s;
+            }
+
+            .arrow::after {
+                content: '<——';
+                letter-spacing: -10px;
+                margin-right: 16px;
+            }
+
+            a, a:visited {
+                text-decoration: none;
+            }
+
+            ::selection {
+                background-color: var(--main);
+                color: #fff;
+            }
+
+        </style>
+
+        <!-- favicon -->
+        <link rel='icon' href='/assets/cursor/default.svg'>
+    </head>
+
+
+<body>
+    <canvas id='canvas' height='341' width='512'></canvas>
+    <input type='text' id='name' placeholder='( click to edit )'>
+    <input type='text' id='birth' placeholder='( click to edit )'>
+    <input type='text' id='location' placeholder='( click to edit )'>
+
+    <div id='menu'>
+        <a href='/index.html'>
+            <div><span class='arrow'></span>go back</div>
+        </a>
+        <span>✦</span>
+        <div id='download'>save image</div>
+        <span>✦</span>
+        <div id='reroll'>reroll variant</div>
+    </div>
+</body>
+
+
+<script type='module'>
+    import {drawAll} from '/script/draw.js';
+
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let idVariant;
+        let fields = {
+            'name': '',
+            'birth': '',
+            'location': ''
+        }
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+        idVariant = localStorage.getItem('idVariant');
+        if (!idVariant) idVariant = rollID();
+        document.documentElement.setAttribute('data-theme', idVariant);
+
+        document.getElementById('download').onclick = download;
+        document.getElementById('reroll').addEventListener('click', () => {
+            rollID();
+            document.documentElement.setAttribute('data-theme', idVariant);
+            drawID();
+        });
+
+        document.querySelectorAll('input').forEach(input => {
+
+          input.addEventListener('click', () => {
+              input.style.opacity = 1;
+              drawID(input.id);
+          });
+
+          input.addEventListener('blur', () => {
+            fields[input.id] = input.value.toUpperCase();
+            drawID();
+            input.style.opacity = 0;
+          });
+
+        });
+
+        drawID();
+    });
+
+
+    function download() {
+        const dataURL = canvas.toDataURL('image/png');
+
+        const link = document.createElement('a');
+        link.download = 'id-card.png';
+        link.href = dataURL;
+        link.click();
+    }
+
+
+    function rollID() {
+        const roll = Math.random();
+        console.log(roll);
+        const lucky = 0.007;
+
+        while (true) {
+
+            if (roll < lucky)
+                idVariant = 11;
+            else
+               idVariant = Math.floor(Math.random() * 11);
+
+            if (idVariant.toString() !== localStorage.getItem('idVariant'))
+                break;
+        }
+
+        localStorage.setItem('idVariant', idVariant);
+    }
+
+
+    function drawID(text = '') {
+
+        const img = new Image();
+        img.src = `/assets/id/${idVariant}.svg`;
+        img.onload = function() {
+
+            // ID card
+            ctx.drawImage(img, 0, 0);
+
+
+            ctx.translate(20, 120);
+            ctx.scale(.4, .4);
+
+            // Border
+            const color = window.getComputedStyle(document.body).getPropertyValue('--main');
+            ctx.beginPath();
+            ctx.lineWidth = 14;
+            ctx.strokeStyle = color;
+            ctx.fillStyle = '#fff';
+            ctx.roundRect(0, -3, canvas.width + 3, canvas.width + 3, 20);
+            ctx.fill();
+
+            // Photo
+            ctx.translate(0, -8);
+            ctx.save();
+            ctx.clip();
+
+            drawAll(true);
+            ctx.restore();
+            ctx.stroke();
+
+            //Text
+            const textColor = window.getComputedStyle(document.body).getPropertyValue('--text');
+            ctx.scale(3,3);
+            ctx.fillStyle = textColor;
+            ctx.font = '12px sans-serif';
+            if (text !== 'name') ctx.fillText(fields.name, 235, 38);
+            if (text !== 'birth') ctx.fillText(fields.birth, 272, 76);
+            if (text !== 'location') ctx.fillText(fields.location, 248, 115);
+
+        };
+
+        ctx.reset();
+    }
+</script>
+</html>
