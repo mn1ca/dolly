@@ -25,7 +25,7 @@ export let parts = {
 
     'clothes': {
         'variant': 0,
-        'color': '#807871'
+        'color': '#969696'
     },
 
     'ears': {

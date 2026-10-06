@@ -233,9 +233,9 @@ function drawBg() {
             break;
 
         case 5: // Vertical Stripes
-            ctx.reset();
+            ctx.save();
             ctx.fillStyle = background.color;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fill(path);
 
             ctx.beginPath();
             ctx.lineWidth = 30;
@@ -243,7 +243,7 @@ function drawBg() {
 
             for (let x = 0; x <= canvas.width; x += stripeSize) {
                 ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
+                ctx.lineTo(x, canvas.height * 2);
             }
 
             ctx.stroke();
@@ -252,15 +252,15 @@ function drawBg() {
             return;
 
         case 6: // Horizontal Stripes
-            ctx.reset();
+            ctx.save();
             ctx.fillStyle = background.color;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fill(path);
 
             ctx.beginPath();
             ctx.lineWidth = 30;
             ctx.strokeStyle = background.color2;
 
-            for (let y = 0; y <= canvas.height; y += stripeSize) {
+            for (let y = 0; y <= canvas.height  * 2; y += stripeSize) {
                 ctx.moveTo(0, y);
                 ctx.lineTo(canvas.width, y);
             }
@@ -271,8 +271,10 @@ function drawBg() {
             return;
 
         case 7: // Polka dots
+
+            ctx.save();
             ctx.fillStyle = background.color;
-              ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fill(path);
 
             const xSpacing = 80;
             const ySpacing = 30;
@@ -281,11 +283,11 @@ function drawBg() {
 
             let row = true;
 
-            for (let y = 20; y < canvas.height + ySpacing; y += ySpacing) {
+            for (let y = 20; y < canvas.height * 2 + ySpacing; y += ySpacing) {
 
                 row = !row; // Alternate spacing between rows
 
-                for (let x = 20; x < canvas.width + xSpacing; x += xSpacing) {
+                for (let x = 20; x < canvas.width  * 2 + xSpacing; x += xSpacing) {
 
                     let xPosition = (row) ? x : x + xSpacing / 2;
                     ctx.beginPath();
@@ -293,6 +295,7 @@ function drawBg() {
                     ctx.fill();
                 }
             }
+            ctx.restore();
             return;
 
         default:

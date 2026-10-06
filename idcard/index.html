@@ -78,7 +78,7 @@
             }
 
             [data-theme='11'] {
-                --bg: linear-gradient(135deg, #fcdbdd, #fcdbdd, #f9f3c7, #f9f3c7, #e3f0e6, #e3f0e6, #daf0f5, #daf0f5, #fcdadc, #fcdbdd, #f9f3c7, #fcdbdd, #fcdbdd);
+                --bg: linear-gradient(135deg, #fcdbdd, #fcdbdd, #f9f3c7, #f9f3c7, #e3f0e6, #e3f0e6, #daf0f5, #daf0f5, #fcdbdd, #fcdbdd, #fcdbdd);
                 --main: #fff;
                 --text: #829ab9;
             }
@@ -86,6 +86,10 @@
             @keyframes gradient {
                 0% {
                     background-position: 0% 0%;
+                }
+
+                98% {
+                    background-position: 82% 82%;
                 }
 
                 100% {
@@ -103,10 +107,13 @@
                 cursor: url(/assets/cursor/default.svg), default;
             }
 
-            canvas {
+            #wrapper {
+                width: 512px;
                 position: relative;
-                display: block;
-                padding: 3px;
+                margin: auto;
+            }
+
+            canvas {
                 border: 2px solid var(--main);
                 border-radius: 20px;
                 margin: auto;
@@ -115,25 +122,25 @@
             }
 
             #name {
-                top: 163px;
-                left: 723px;
+                top: -193px;
+                left: 295px;
                 width: 160px;
             }
 
             #birth {
-                top: 202.5px;
-                left: 761px;
+                top: -155px;
+                left: 168px;
                 width: 120px;
             }
 
             #location {
-                top: 242px;
-                left: 736px;
+                top: -115px;
+                left: 19px;
                 width: 120px;
             }
 
             input[type='text'], input[type='text']:focus {
-                position: absolute;
+                position: relative;
                 border: none;
                 outline: none;
                 background: transparent;
@@ -180,8 +187,8 @@
             }
 
             ::selection {
-                background-color: var(--main);
-                color: #fff;
+                background-color: var(--text);
+                color: var(--main);
             }
 
         </style>
@@ -192,13 +199,14 @@
 
 
 <body>
+    <div id='wrapper'>
     <canvas id='canvas' height='341' width='512'></canvas>
     <input type='text' id='name' placeholder='( click to edit )'>
     <input type='text' id='birth' placeholder='( click to edit )'>
     <input type='text' id='location' placeholder='( click to edit )'>
-
+        </div>
     <div id='menu'>
-        <a href='/index.html'>
+        <a href='/'>
             <div><span class='arrow'></span>go back</div>
         </a>
         <span>✦</span>
@@ -221,6 +229,7 @@
             'location': ''
         }
 
+
     window.addEventListener('DOMContentLoaded', () => {
 
         idVariant = localStorage.getItem('idVariant');
@@ -229,7 +238,7 @@
 
         document.getElementById('download').onclick = download;
         document.getElementById('reroll').addEventListener('click', () => {
-            rollID();
+            idVariant = rollID();
             document.documentElement.setAttribute('data-theme', idVariant);
             drawID();
         });
@@ -265,21 +274,21 @@
 
     function rollID() {
         const roll = Math.random();
-        console.log(roll);
         const lucky = 0.007;
-
+        let variant;
         while (true) {
 
             if (roll < lucky)
-                idVariant = 11;
+                variant = 11;
             else
-               idVariant = Math.floor(Math.random() * 11);
+               variant = Math.floor(Math.random() * 11);
 
-            if (idVariant.toString() !== localStorage.getItem('idVariant'))
+            if (variant.toString() !== localStorage.getItem('idVariant'))
                 break;
         }
 
-        localStorage.setItem('idVariant', idVariant);
+        localStorage.setItem('idVariant', variant);
+        return variant;
     }
 
 
@@ -298,11 +307,9 @@
 
             // Border
             const color = window.getComputedStyle(document.body).getPropertyValue('--main');
-            ctx.beginPath();
-            ctx.lineWidth = 14;
-            ctx.strokeStyle = color;
-            ctx.fillStyle = '#fff';
+
             ctx.roundRect(0, -3, canvas.width + 3, canvas.width + 3, 20);
+            ctx.fillStyle = '#f7f1e9';
             ctx.fill();
 
             // Photo
@@ -311,8 +318,13 @@
             ctx.clip();
 
             drawAll(true);
+            ctx.beginPath();
+            ctx.roundRect(0, -3, canvas.width + 3, canvas.width + 3, 20);
             ctx.restore();
+            ctx.lineWidth = 14;
+            ctx.strokeStyle = color;
             ctx.stroke();
+
 
             //Text
             const textColor = window.getComputedStyle(document.body).getPropertyValue('--text');

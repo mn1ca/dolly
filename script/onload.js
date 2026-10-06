@@ -38,6 +38,11 @@ function onload() {
         document.getElementById(c).onclick = () => {changeTabs(c)};
     }
 
+    document.getElementById('reset').addEventListener('click', () => {
+        localStorage.clear();
+        location.reload();
+    });
+
     // Tooltips
     tippy('.tooltip', {
         content(reference) {
@@ -185,6 +190,12 @@ function createSetting(setting, left = '', right = '', p, axis) {
 
             const toggle = document.createElement('input');
             toggle.type = 'checkbox';
+            toggle.checked = parts[p].flip;
+
+            if (toggle.checked) {
+                const images = document.querySelectorAll(`#${p}-gallery img`);
+                images.forEach(i => i.classList.toggle('flipped'));
+            }
 
             toggle.addEventListener('change', () => {
                 parts[p].flip = toggle.checked;
@@ -205,6 +216,7 @@ function createSetting(setting, left = '', right = '', p, axis) {
             input = document.createElement('input');
             input.type = 'checkbox';
             input.classList.add('mirror', 'tooltip');
+            input.checked = parts[p].mirrored;
 
             input.addEventListener('change', () => {
                 parts[p].mirrored = input.checked;
@@ -217,9 +229,9 @@ function createSetting(setting, left = '', right = '', p, axis) {
 
             input.type = 'range';
             input.step = 0.02;
-            input.value = 1;
             input.min = 1;
             input.max = 1.65;
+            input.value = parts[p].scale;
 
             input.addEventListener('input', (event) => {
                 parts[p].scale = parseFloat(event.target.value);
@@ -234,15 +246,24 @@ function createSetting(setting, left = '', right = '', p, axis) {
 
             input.type = 'range';
             input.step = 1;
-            input.value = 0;
             input.min = -1 * value;
             input.max = value;
+            input.value = (!axis) ? parts[p].offset[0] : parts[p].offset[1];
+
             input.id = `${p}-${xy}-slider`;
 
             input.addEventListener('input', (event) => {
                 parts[p].offset[axis] = parseInt(event.target.value);
                 drawAll();
             });
+
+            const variant = parts[p].variant;
+            if (variant) {
+                if (data[p][variant].preventOffset - 1 === axis) {
+                    setting.classList.add('forbidden');
+                    input.disabled = true;
+                }
+            }
     }
 
     const imgLeft = document.createElement('img');
@@ -353,7 +374,7 @@ function rollID() {
     if (roll < lucky)
         idVariant = 11;
     else
-       idVariant = Math.floor(Math.random() * 12);
+       idVariant = Math.floor(Math.random() * 11);
 
     localStorage.setItem('idVariant', idVariant);
 }

@@ -284,11 +284,18 @@
                 <div id='about-content' class='hide content'>
 
                     <div class='container'>
+
                         <h1 class='highlighter'>info.</h1>
+                        <div class='scroll' style='max-height: 110px'>
                         <p>This dollmaker can be used to export 512x512 <span class='capitals'>png</span> and <span class='capitals'>gif</span> files of a customizable character.
                         Feel free to use graphics for personal use without credit.</p>
                         <p>Do not use for commercial or GenAI purposes. Or I will be very sad. And possibly quite angry.</p>
-
+                        <br>
+                        <div class='note'>
+                            <span class='capitals'><span class='asterisk'></span>note: </span>
+                            <p>Character settings and other site information are stored in the browser. You can reset this by clearing your localStorage, or by clicking <span id='reset'>here</span>.</p>
+                        </div>
+                            </div>
                         <hr>
 
                         <div class='spacer'>
@@ -303,7 +310,7 @@
                         <div class='scroll'>
                             <h2>references</h2>
 
-                            <ul>
+                            <ul style='line-height: 1.3'>
                                 <li><a href='https://developer.mozilla.org/en-US/docs/Web/API/Path2D/Path2D' target='_blank'>
                                     rendering paths in <span class='capitals'>HTML</span> canvas</a>
                                     <span class='capitals'>(Mozilla)</span>
@@ -361,10 +368,22 @@
                                     <span class='capitals'>(Sunnytea)</span>
                                 </li>
 
+                               <li><a href='https://nenrikido.neocities.org/blog/post/making-a-preloader/' target='_blank'>
+                                    preloader</a>
+                                    <span class='capitals'>(Nenrikido)</span>
+                                </li>
+
                                 <li><a href='https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage' target='_blank'>
                                     local storage</a>
                                     <span class='capitals'>(Mozilla)</span>
                                 </li>
+
+                                <li><a href='https://codepen.io/P1N2O/pen/pyBNzX' target='_blank'>
+                                    moving gradient</a>
+                                    <span class='capitals'>(@pin2o /codepen)</span>
+                                </li>
+
+
 
 
                             </ul>
@@ -380,6 +399,9 @@
                                     Nanum Pen Script
                                 </a></li>
 
+                                <li><a href='https://www.dafont.com/rascal.font' target='_blank'>
+                                    Rascal
+                                </a></li>
                             </ul>
                         </div>
                     </div>
@@ -455,5 +477,7 @@
         <script src="https://unpkg.com/@popperjs/core@2"></script>
         <script src="https://unpkg.com/tippy.js@6"></script>
         <script type='module' src='script/onload.js'></script>
+        <script defer src="/_vercel/insights/script.js"></script>
+
 
 </html>
