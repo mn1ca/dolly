@@ -40,7 +40,8 @@ export let parts = {
     'hairAhoge': {
         'variant': 0,
         'color': '#756e63',
-        'offset': [0, 0]
+        'offset': [0, 0],
+        'excludeTransform': true
     },
 
     'face': {

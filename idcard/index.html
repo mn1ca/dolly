@@ -1,6 +1,6 @@
 <html data-theme="6">
     <head>
-        <meta name='viewport' content='width=1280px'>
+        <meta name='viewport' content='width=device-width'>
         <meta charset='UTF-8'>
 
         <title></title>
@@ -105,6 +105,19 @@
                 animation: gradient 12s ease-out infinite;
                 color: var(--text);
                 cursor: url(/assets/cursor/default.svg), default;
+
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            img {
+                width: calc(.9 * 512px);
+                position: absolute;
+                top: 20px;
+                left: 26px;
+
+                border: 2px solid var(--main);
+                border-radius: 28px;
             }
 
             #wrapper {
@@ -115,7 +128,7 @@
 
             canvas {
                 border: 2px solid var(--main);
-                border-radius: 20px;
+                border-radius: 28px;
                 margin: auto;
 
                 transform: scale(.85);
@@ -157,23 +170,29 @@
                 text-transform: none;
             }
 
-            #menu {
+            .menu {
                 width: 400px;
                 display: flex;
                 justify-content: space-around;
                 position: relative;
                 margin: auto;
+                margin-top: -12px;
             }
 
-            #menu div {
+            .menu div {
                 color: var(--text);
                 cursor: url(/assets/cursor/pointer.svg), pointer;
+                border-bottom: 3px dotted;
             }
 
-            #menu div:hover {
+            .menu div:hover {
                 transform: scale(1.05);
                 filter: brightness(1.15);
                 transition-duration: .5s;
+            }
+
+            .arrow {
+
             }
 
             .arrow::after {
@@ -188,7 +207,11 @@
 
             ::selection {
                 background-color: var(--text);
-                color: var(--main);
+                color: white;
+            }
+
+            .hide {
+                display: none;
             }
 
         </style>
@@ -204,16 +227,25 @@
     <input type='text' id='name' placeholder='( click to edit )'>
     <input type='text' id='birth' placeholder='( click to edit )'>
     <input type='text' id='location' placeholder='( click to edit )'>
-        </div>
-    <div id='menu'>
+
+    <div id='main-menu' class='menu'>
         <a href='/'>
-            <div><span class='arrow'></span>go back</div>
+            <div>go back</div>
         </a>
         <span>✦</span>
-        <div id='download'>save image</div>
+        <div id='download'>download image</div>
         <span>✦</span>
         <div id='reroll'>reroll variant</div>
     </div>
+
+    <div id='download-menu' class='hide menu'>
+        <div id='restart'>restart</div>
+        <span>✦</span>
+        <span style='font-size: 80%; line-height: 1.8'>right click / long press on the image to save it</span>
+    </div>
+
+    </div>
+
 </body>
 
 
@@ -237,6 +269,7 @@
         document.documentElement.setAttribute('data-theme', idVariant);
 
         document.getElementById('download').onclick = download;
+        document.getElementById('restart').onclick = () => {location.reload()};
         document.getElementById('reroll').addEventListener('click', () => {
             idVariant = rollID();
             document.documentElement.setAttribute('data-theme', idVariant);
@@ -246,12 +279,16 @@
         document.querySelectorAll('input').forEach(input => {
 
           input.addEventListener('click', () => {
-              input.style.opacity = 1;
-              drawID(input.id);
+            input.style.opacity = 1;
+            ctx.reset();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawID(input.id);
           });
 
           input.addEventListener('blur', () => {
             fields[input.id] = input.value.toUpperCase();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.reset();
             drawID();
             input.style.opacity = 0;
           });
@@ -264,11 +301,12 @@
 
     function download() {
         const dataURL = canvas.toDataURL('image/png');
+        const img = document.createElement('img');
+        img.src = dataURL;
+        document.getElementById('wrapper').append(img);
 
-        const link = document.createElement('a');
-        link.download = 'id-card.png';
-        link.href = dataURL;
-        link.click();
+        document.getElementById('main-menu').classList.add('hide');
+        document.getElementById('download-menu').classList.remove('hide');
     }
 
 
@@ -321,10 +359,9 @@
             ctx.beginPath();
             ctx.roundRect(0, -3, canvas.width + 3, canvas.width + 3, 20);
             ctx.restore();
-            ctx.lineWidth = 14;
+            ctx.lineWidth = 18;
             ctx.strokeStyle = color;
             ctx.stroke();
-
 
             //Text
             const textColor = window.getComputedStyle(document.body).getPropertyValue('--text');
@@ -334,7 +371,6 @@
             if (text !== 'name') ctx.fillText(fields.name, 235, 38);
             if (text !== 'birth') ctx.fillText(fields.birth, 272, 76);
             if (text !== 'location') ctx.fillText(fields.location, 248, 115);
-
         };
 
         ctx.reset();

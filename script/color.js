@@ -137,10 +137,6 @@ export function colorSettings(p, settings) {
             icon.src = `/assets/icons/heterochromia.svg`;
             heterochromia.append(icon);
 
-
-
-
-
             left.append(heterochromia);
         }
 
