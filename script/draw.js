@@ -178,6 +178,9 @@ function draw(p, stroke = false, secondColor = false) {
 
 
 function drawBg() {
+    const canvasWidth = 512;
+    const canvasHeight = 512;
+
     const background = parts.background;
     const ctx = canvas.getContext('2d');
     const path = new Path2D('M0,0h512v512H0V0Z');
@@ -190,15 +193,15 @@ function drawBg() {
 
             // Scale image according to shorter side
             const shorterWidth = (background.img.width < background.img.height) ? true : false;
-            const scale = (shorterWidth) ? canvas.width / background.img.width : canvas.height / background.img.height;
+            const scale = (shorterWidth) ? canvasWidth / background.img.width : canvasHeight / background.img.height;
 
             const width = scale * background.img.width;
             const height = scale * background.img.height;
 
             if (shorterWidth)
-                ctx.drawImage(background.img, 0, (height - canvas.height) / -2, width, height);
+                ctx.drawImage(background.img, 0, (height - canvasHeight) / -2, width, height);
             else
-                ctx.drawImage(background.img, (width - canvas.width) / -2, 0, width, height);
+                ctx.drawImage(background.img, (width - canvasWidth) / -2, 0, width, height);
 
             return;
 
@@ -241,9 +244,9 @@ function drawBg() {
             ctx.lineWidth = 30;
             ctx.strokeStyle = background.color2;
 
-            for (let x = 0; x <= canvas.width; x += stripeSize) {
+            for (let x = 0; x <= canvasWidth; x += stripeSize) {
                 ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height * 2);
+                ctx.lineTo(x, canvasHeight);
             }
 
             ctx.stroke();
@@ -260,9 +263,9 @@ function drawBg() {
             ctx.lineWidth = 30;
             ctx.strokeStyle = background.color2;
 
-            for (let y = 0; y <= canvas.height  * 2; y += stripeSize) {
+            for (let y = 0; y <= canvasHeight ; y += stripeSize) {
                 ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
+                ctx.lineTo(canvasWidth, y);
             }
 
             ctx.stroke();
@@ -283,11 +286,11 @@ function drawBg() {
 
             let row = true;
 
-            for (let y = 20; y < canvas.height * 2 + ySpacing; y += ySpacing) {
+            for (let y = 20; y < canvasHeight + ySpacing; y += ySpacing) {
 
                 row = !row; // Alternate spacing between rows
 
-                for (let x = 20; x < canvas.width  * 2 + xSpacing; x += xSpacing) {
+                for (let x = 20; x < canvasWidth  + xSpacing; x += xSpacing) {
 
                     let xPosition = (row) ? x : x + xSpacing / 2;
                     ctx.beginPath();

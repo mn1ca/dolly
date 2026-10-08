@@ -10,22 +10,21 @@ const today = new Date().toDateString();
 const lastOpened = localStorage.getItem('opened');
 const openedToday = (today === lastOpened);
 
-document.addEventListener('DOMContentLoaded', () => {
-
+document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.getElementById('canvas');
-    onload();
+    await onload();
     drawAll(true);
-
-    /*const img = canvas.toDataURL('image/png');
-    document.write('<img src="'+img+'"/>');*/
 });
 
 
 // Loads all the stuff
-function onload() {
+async function onload() {
 
     if (!openedToday)
         localStorage.setItem('opened', today);
+
+    if (parts.background.src && parts.background.variant === -1)
+            parts.background.img = await loadImage(parts.background.src);
 
     showNarrowNotice();
     imageInput();
@@ -135,6 +134,7 @@ function showNarrowNotice() {
     if (localStorage.getItem('seenNotice') && openedToday) {
         document.getElementById('narrow-notice').style.display = 'none';
         document.getElementById('narrow-notice').remove;
+        document.body.style.overflow = 'auto';
         return;
     }
 
@@ -152,6 +152,27 @@ function showNarrowNotice() {
 }
 
 
+// Converts image to base64 string
+// https://stackoverflow.com/questions/22172604/convert-image-from-url-to-base64
+function getBase64Image(img) {
+    const c = document.createElement('canvas');
+    c.width = img.width;
+    c.height = img.height;
+    const ctx_c = c.getContext('2d');
+    ctx_c.drawImage(img, 0, 0);
+
+    const dataURL = c.toDataURL('image/png');
+    return dataURL;
+}
+
+// Converts base64 string to image
+function loadImage(src) {
+    const img = new Image();
+    img.src = src;
+    return img;
+}
+
+
 // Add event handler for background image input
 function imageInput() {
     const imageInput = document.getElementById('image-input');
@@ -163,6 +184,13 @@ function imageInput() {
         const file = e.target.files[0];
         if (!file) return;
 
+        const size = Math.round(file.size / 1028); // kB
+        console.log(file.size);
+        if (size > 10280) { // > 10 mB
+            alert('file too big ! :(');
+            return;
+        }
+
         const img = new Image();
         img.src = URL.createObjectURL(file);
 
@@ -170,6 +198,7 @@ function imageInput() {
             URL.revokeObjectURL(img.src);
             parts.background.variant = -1;
             parts.background.img = img;
+            parts.background.src = getBase64Image(img);
             drawAll();
         };
     });
