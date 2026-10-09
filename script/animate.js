@@ -27,7 +27,8 @@ async function createGIF() {
         width: canvas.width,
         height: canvas.height,
         workerScript: '/script/gif/gif.worker.js',
-        transparent: 0xe1eaf5
+        transparent: 0xe1eaf5,
+        globalPalette: true
     });
 
     for (let i = 0; i < totalFrames; i++) {
