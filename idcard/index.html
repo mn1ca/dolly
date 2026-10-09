@@ -1,6 +1,6 @@
 <html data-theme="6">
     <head>
-        <meta name='viewport' content='width=600px'>
+        <meta name='viewport' content='width=600'>
         <meta charset='UTF-8'>
 
         <title></title>
@@ -253,27 +253,38 @@
     import {drawAll} from '/script/draw.js';
     import {parts} from '/script/state.js';
 
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let idVariant;
-        let fields = {
-            'name': '',
-            'birth': '',
-            'location': ''
-        }
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let first = true;
+    let idVariant;
+    let fields = {
+        'name': '',
+        'birth': '',
+        'location': ''
+    }
+    const idImgs = {};
 
-        function loadImage(src) {
-            const img = new Image();
-            img.src = src;
-            return img;
+    function loadIDs() {
+        for (let i = 0; i < 12; i++) {
+            idImgs[i] = loadImage(`/assets/id/${i}.svg`);
         }
+    }
+
+
+    function loadImage(src) {
+        const img = new Image();
+        img.src = src;
+        return img;
+    }
 
 
     window.addEventListener('DOMContentLoaded', async () => {
 
         if (parts.background.src && parts.background.variant === -1)
             parts.background.img = await loadImage(parts.background.src);
-
+        
+        await loadIDs();
+        
         idVariant = localStorage.getItem('idVariant');
         if (!idVariant) idVariant = rollID();
         document.documentElement.setAttribute('data-theme', idVariant);
@@ -340,12 +351,23 @@
     }
 
 
-    function drawID(text = '') {
+    async function drawID(text = '') {
 
-        const img = new Image();
-        img.src = `/assets/id/${idVariant}.svg`;
-        img.onload = function() {
+        let img;
+        if (first) {
+            
+            img = new Image();
+            img.src = `/assets/id/${idVariant}.svg`;
+            img.onload = () => {drawComponents(img)};
+            first = false;
+        
+        } else {
+            const img = idImgs[idVariant];
+            if (img) drawComponents(img);
+        }
+            
 
+        function drawComponents(img) {
             // ID card
             ctx.reset();
             ctx.drawImage(img, 0, 0, 512, 341);
