@@ -5,6 +5,7 @@ export let parts = {
         'color': '#f3de7f',
         'color2': '#fffee8',
         'img': '',
+        'src': ''
     },
 
     'outline': {
@@ -151,12 +152,18 @@ export let parts = {
 
     'accessoryHead': {
         'variant': 0,
-        'color': '#d4d4d4',
+        'color': '#8f8f8f',
         'offset': [0, 0],
 
         'transform': 30,
         'excludeTransform': true
-    }
+    },
+
+    'animation': {
+        'variant': 'angry',
+        'frame': 0,
+    },
+
 };
 
 

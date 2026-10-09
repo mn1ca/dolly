@@ -1,0 +1,23 @@
+{
+    "angry": {
+        "numFrames": 4,
+
+        "0": {
+            "eyebrows": {
+                "translate": [0, -10]
+            }
+        },
+
+        "1": {
+            "eyebrows": {
+                "translate": [0, -20]
+            }
+        },
+
+        "4": {
+            "eyebrows": {
+                "translate": [0, -30]
+            }
+        }
+    }
+}

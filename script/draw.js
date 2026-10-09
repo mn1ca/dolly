@@ -1,29 +1,34 @@
 import data from '/assets/parts/data.json' with { type: 'json' };
+import anims from '/assets/parts/animation.json' with { type: 'json' };
 import {parts} from '/script/state.js';
 
-export function drawAll(excludeBg = false) {
+let prevFrame = 0;
+
+export function drawAll(excludeBg = false, animation = false) {
     if (!excludeBg) {
         const ctx = canvas.getContext('2d');
         ctx.reset();
         ctx.fillStyle = '#e1eaf5';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.beginPath();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = '#c3d8fa';
+        if (!animation) {
+            /*ctx.beginPath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = '#c3d8fa';
 
-        const width = 512;
-        const height = 512;
-        const gridCellSize = 52;
+            const width = 512;
+            const height = 512;
+            const gridCellSize = 52;
 
-        for (let x = 0; x <= canvas.width; x += gridCellSize) {
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-        }
+            for (let x = 0; x <= canvas.width; x += gridCellSize) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvas.height);
+            }
 
-        for (let y = 0; y <= canvas.height; y += gridCellSize) {
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
+            for (let y = 0; y <= canvas.height; y += gridCellSize) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(canvas.width, y);
+            }*/
         }
 
         ctx.stroke();
@@ -31,31 +36,49 @@ export function drawAll(excludeBg = false) {
         ctx.restore();
     }
 
-    const forbidden = ['background', 'eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
+    const forbidden = ['background', 'eyes', 'hair', 'outline', 'animation'];  // Parts not meant to be drawn in normal process
 
     drawBg();
 
     // Outline
-    if (parts['outline'].variant) {
+    if (parts.outline.variant) {
         for (const p of Object.keys(parts)) {
             if (!forbidden.includes(p))
-                drawPart(p, true);
+                drawPart(p, true, animation);
         }
     }
 
     for (const p of Object.keys(parts)) {
         if (!forbidden.includes(p))
-            drawPart(p);
+            drawPart(p, false, animation);
     }
-
 
     localStorage.setItem('parts', JSON.stringify(parts));
 }
 
 
-function drawPart(p, outline = false) {
+function drawPart(p, outline = false, animation = false) {
 
     const ctx = canvas.getContext('2d');
+
+    if (animation) {
+        const currentAnimation = parts.animation.variant;
+        let currentFrame = parts.animation.frame;
+
+        if (!anims[currentAnimation][currentFrame]) {
+            currentFrame = prevFrame;
+        } else {
+            prevFrame = currentFrame;
+        }
+
+        const partAnimation = anims[currentAnimation][currentFrame][p];
+        if (partAnimation) {
+            ctx.save();
+            for (const [operation, coords] of Object.entries(partAnimation)) {
+                ctx[operation](...coords);
+            }
+        }
+    }
 
     draw(p, outline);
 
@@ -71,6 +94,8 @@ function drawPart(p, outline = false) {
         draw(p, outline, secondColor);
         ctx.restore();
     }
+
+    if (animation) ctx.restore();
 
     return;
 }
@@ -93,19 +118,22 @@ function draw(p, stroke = false, secondColor = false) {
         ctx.scale(-1, 1);
     }
 
-    if (part.offset && p !== 'face') {
+    if (p !== 'face') {
 
         // Calculate offset from
         // Part
         // Face
         // Part's "family" (parts containing current part)
-        let offset = [part.offset[0], part.offset[1]];
+        let offset = [0, 0];
+
+        if (part.offset)
+            offset = [offset[0] + part.offset[0], offset[1] + part.offset[1]];
 
         if (part.family)
             part.family.forEach((i) => { offset[0] += parts[i].offset[0]; offset[1] += parts[i].offset[1]; });
 
         if (!part.excludeTransform)
-            offset = [offset[0] + parts['face'].offset[0], offset[1] + parts['face'].offset[1]];
+            offset = [offset[0] + parts.face.offset[0], offset[1] + parts.face.offset[1]];
 
         if (shape.preventOffset)
             offset[shape.preventOffset - 1] = 0;
@@ -123,7 +151,7 @@ function draw(p, stroke = false, secondColor = false) {
 
     //ctx.translate(0, -20);
     if (stroke) {
-        const outlineSettings = parts['outline'];
+        const outlineSettings = parts.outline;
         ctx.lineWidth = 16 * outlineSettings.scale ** 2;
         ctx.strokeStyle = outlineSettings.color;
         ctx.lineJoin = ctx.lineCap = 'round';
