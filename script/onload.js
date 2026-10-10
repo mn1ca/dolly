@@ -13,7 +13,7 @@ const openedToday = (today === lastOpened);
 document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.getElementById('canvas');
     await onload();
-    drawAll(true);
+    drawAll();
 });
 
 
@@ -89,7 +89,7 @@ async function onload() {
 window.addEventListener('beforeprint', () => {
     const ctx = canvas.getContext('2d');
     ctx.reset();
-    drawAll(true);
+    drawAll();
 
     const colors = ['cf5fa4', 'f491b0', 'f37576', 'c6805d', 'fcb772', 'f9d565', 'b1c949', '59b7a5', '4bbde9', '9190c6', 'ac62a7', '829ab9']
 

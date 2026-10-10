@@ -6,6 +6,7 @@ import '/script/gif/gif.js';
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
+ctx.imageSmoothingEnabled = false;
 
 const totalFrames = anims[parts.animation.variant].numFrames
 const frameDelay = 1000 / 12; // 12 FPS
@@ -49,12 +50,12 @@ function previewAnimation() {
 async function createGIF() {
     const gif = new GIF({
         workers: 2,
-        quality: 5,
+        quality: 10,
         width: canvas.width,
         height: canvas.height,
         workerScript: '/script/gif/gif.worker.js',
-        transparent: 0xe1eaf5,
-        globalPalette: true
+        transparent: 0x0000FF
+        //globalPalette: true
     });
 
     for (let i = 0; i < totalFrames; i++) {
@@ -78,7 +79,7 @@ async function createGIF() {
 
 function drawFrame(frame, grid) {
     parts.animation.frame = frame;
-    drawAll(false, grid, true);
+    drawAll(true);
 }
 
 

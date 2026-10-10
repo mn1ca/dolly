@@ -7,7 +7,7 @@
         fill: url(#linear-gradient);
       }
     </style>
-    <linearGradient id="linear-gradient" x1="4.9" y1="16" x2="33.4" y2="16" gradientTransform="translate(32) rotate(90)" gradientUnits="userSpaceOnUse">
+    <linearGradient id="linear-gradient" x1="4.9" y1="16" x2="33.4" y2="16" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#6b4137"/>
       <stop offset="1" stop-color="#e2cdb3"/>
     </linearGradient>

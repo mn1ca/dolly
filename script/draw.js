@@ -7,44 +7,18 @@ let prevFrame = 0;
 let currentFrame, currentAnimation;
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-export function drawAll(excludeBg = false, excludeGrid = false, a = false) {
+export function drawAll(a = false, reset = true) {
 
     animation = a;
     currentAnimation = parts.animation.variant;
     currentFrame = parts.animation.frame;
 
-    if (!excludeBg) {
-        ctx.reset();
-        ctx.fillStyle = '#e1eaf5';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        if (!excludeGrid) {
-            ctx.beginPath();
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = '#c3d8fa';
-
-            const width = 512;
-            const height = 512;
-            const gridCellSize = 52;
-
-            for (let x = 0; x <= canvas.width; x += gridCellSize) {
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, canvas.height);
-            }
-
-            for (let y = 0; y <= canvas.height; y += gridCellSize) {
-                ctx.moveTo(0, y);
-                ctx.lineTo(canvas.width, y);
-            }
-        }
-
-        ctx.stroke();
-        ctx.closePath();
-        ctx.restore();
-    }
-
     const forbidden = ['background', 'eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
 
+    if (reset) ctx.reset();
+
+    ctx.fillStyle = '#e1eaf5';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     drawBg();
 
     // Outline
@@ -273,36 +247,28 @@ function drawBg() {
             return;
 
         case 0:
-            return;
-        case 1:
             ctx.fillStyle = background.color;
             break;
-        case 2:
+        case 1:
             gradient = ctx.createLinearGradient(0, 0, 0, 512);
             gradient.addColorStop(0, background.color);
             gradient.addColorStop(1, background.color2);
             ctx.fillStyle = gradient;
             break;
-        case 3:
+        case 2:
             gradient = ctx.createLinearGradient(0, 0, 512, 0);
             gradient.addColorStop(0, background.color);
             gradient.addColorStop(1, background.color2);
             ctx.fillStyle = gradient;
             break;
         case 3:
-            gradient = ctx.createLinearGradient(0, 0, 512, 0);
-            gradient.addColorStop(0, background.color);
-            gradient.addColorStop(1, background.color2);
-            ctx.fillStyle = gradient;
-            break;
-        case 4:
             gradient = ctx.createRadialGradient(256, 300, 120, 256, 300, 256);
             gradient.addColorStop(1, background.color);
             gradient.addColorStop(0, background.color2);
             ctx.fillStyle = gradient;
             break;
 
-        case 5: // Vertical Stripes
+        case 4: // Vertical Stripes
             ctx.save();
             ctx.fillStyle = background.color;
             ctx.fill(path);
@@ -321,7 +287,7 @@ function drawBg() {
             ctx.restore();
             return;
 
-        case 6: // Horizontal Stripes
+        case 5: // Horizontal Stripes
             ctx.save();
             ctx.fillStyle = background.color;
             ctx.fill(path);
@@ -340,7 +306,7 @@ function drawBg() {
             ctx.restore();
             return;
 
-        case 7: // Polka dots
+        case 6: // Polka dots
 
             ctx.save();
             ctx.fillStyle = background.color;

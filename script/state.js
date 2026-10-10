@@ -17,7 +17,7 @@ export let parts = {
     'hairBack': {
         'variant': 0,
         'color': '#756e63',
-        'excludeTransform': true
+        //'excludeTransform': true
     },
 
     'neck': {
@@ -100,15 +100,6 @@ export let parts = {
         'family': ['eyes', 'eyelashes']
     },
 
-    'eyebrows': {
-       'variant': 4,
-        'color': '#756e63',
-        'offset': [0, 0],
-        'mirrored': true,
-
-        'transform': 10,
-    },
-
     'eyelashes': {
         'variant': 1,
         'color': '#000000',
@@ -118,6 +109,15 @@ export let parts = {
         'transform': 10,
 
         'family': ['eyes']
+    },
+
+    'eyebrows': {
+       'variant': 4,
+        'color': '#756e63',
+        'offset': [0, 0],
+        'mirrored': true,
+
+        'transform': 10,
     },
 
     'mouth': {
