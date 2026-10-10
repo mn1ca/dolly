@@ -56,6 +56,10 @@ body {
     display: none !important;
 }
 
+.pointer-lock, .pointer-lock * {
+    pointer-events: none !important;
+}
+
 p, ul {
     margin: 0 0 8px;
     user-select: text;

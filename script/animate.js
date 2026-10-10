@@ -9,13 +9,39 @@ const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
 const totalFrames = anims[parts.animation.variant].numFrames
 const frameDelay = 1000 / 12; // 12 FPS
+let currentFrame = 0;
 
 
 // Animate in canvas
 function previewAnimation() {
-    for (let i = 0; i < totalFrames; i++) {
-        setTimeout(() => {drawFrame(i)}, i * frameDelay);
+    document.getElementById('ugh').classList.add('pointer-lock');
+
+    currentFrame = 0;
+    let lastTime = performance.now();
+
+    function loop(currentTime) {
+
+        const elapsed = currentTime - lastTime;
+        if (elapsed >= frameDelay) {
+
+            lastTime = currentTime - (elapsed % frameDelay);
+
+            if (currentFrame < totalFrames) {
+                drawFrame(currentFrame, false);
+                currentFrame++;
+                requestAnimationFrame(loop);
+            } else {
+                document.getElementById('ugh').classList.remove('pointer-lock');
+                drawAll();
+
+            }
+
+        } else {
+            requestAnimationFrame(loop);
+        }
     }
+
+    requestAnimationFrame(loop);
 }
 
 
@@ -23,7 +49,7 @@ function previewAnimation() {
 async function createGIF() {
     const gif = new GIF({
         workers: 2,
-        quality: 1,
+        quality: 5,
         width: canvas.width,
         height: canvas.height,
         workerScript: '/script/gif/gif.worker.js',
@@ -32,10 +58,11 @@ async function createGIF() {
     });
 
     for (let i = 0; i < totalFrames; i++) {
-        await drawFrame(i);
+        await drawFrame(i, true);
         gif.addFrame(ctx, {copy: true, delay: frameDelay, dither: false});
     }
 
+    drawAll();
     gif.render();
 
     gif.on('finished', (blob) => {
@@ -49,9 +76,9 @@ async function createGIF() {
 }
 
 
-function drawFrame(frame) {
+function drawFrame(frame, grid) {
     parts.animation.frame = frame;
-    drawAll(false, true);
+    drawAll(false, grid, true);
 }
 
 

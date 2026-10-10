@@ -16,17 +16,20 @@ export let parts = {
 
     'hairBack': {
         'variant': 0,
-        'color': '#756e63'
+        'color': '#756e63',
+        'excludeTransform': true
     },
 
     'neck': {
         'variant': 0,
         'color': '#b8b8b8',
+        'excludeTransform': true
     },
 
     'clothes': {
         'variant': 0,
-        'color': '#969696'
+        'color': '#969696',
+        'excludeTransform': true
     },
 
     'ears': {
@@ -147,7 +150,8 @@ export let parts = {
 
     'hairFront': {
         'variant': 0,
-        'color': '#756e63'
+        'color': '#756e63',
+        'excludeTransform': true
     },
 
     'accessoryHead': {
@@ -156,11 +160,12 @@ export let parts = {
         'offset': [0, 0],
 
         'transform': 30,
-        'excludeTransform': true
+        //'excludeTransform': true
     },
 
     'animation': {
         'variant': 'angry',
+        'color': '#c1331c',
         'frame': 0,
     },
 
@@ -172,4 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let stored = localStorage.getItem('parts');
     if (stored)
         parts = JSON.parse(stored);
+
+    // parts.animation.variant = 'none';
+    parts.animation.frame = 0;
 });

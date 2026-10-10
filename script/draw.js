@@ -2,17 +2,24 @@ import data from '/assets/parts/data.json' with { type: 'json' };
 import anims from '/assets/parts/animation.json' with { type: 'json' };
 import {parts} from '/script/state.js';
 
+let animation;
 let prevFrame = 0;
+let currentFrame, currentAnimation;
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-export function drawAll(excludeBg = false, animation = false) {
+export function drawAll(excludeBg = false, excludeGrid = false, a = false) {
+
+    animation = a;
+    currentAnimation = parts.animation.variant;
+    currentFrame = parts.animation.frame;
+
     if (!excludeBg) {
-        const ctx = canvas.getContext('2d');
         ctx.reset();
         ctx.fillStyle = '#e1eaf5';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        if (!animation) {
-            /*ctx.beginPath();
+        if (!excludeGrid) {
+            ctx.beginPath();
             ctx.lineWidth = 2;
             ctx.strokeStyle = '#c3d8fa';
 
@@ -28,7 +35,7 @@ export function drawAll(excludeBg = false, animation = false) {
             for (let y = 0; y <= canvas.height; y += gridCellSize) {
                 ctx.moveTo(0, y);
                 ctx.lineTo(canvas.width, y);
-            }*/
+            }
         }
 
         ctx.stroke();
@@ -36,7 +43,7 @@ export function drawAll(excludeBg = false, animation = false) {
         ctx.restore();
     }
 
-    const forbidden = ['background', 'eyes', 'hair', 'outline', 'animation'];  // Parts not meant to be drawn in normal process
+    const forbidden = ['background', 'eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
 
     drawBg();
 
@@ -44,43 +51,65 @@ export function drawAll(excludeBg = false, animation = false) {
     if (parts.outline.variant) {
         for (const p of Object.keys(parts)) {
             if (!forbidden.includes(p))
-                drawPart(p, true, animation);
+                drawPart(p, true);
         }
     }
 
     for (const p of Object.keys(parts)) {
         if (!forbidden.includes(p))
-            drawPart(p, false, animation);
+            drawPart(p, false);
     }
 
     localStorage.setItem('parts', JSON.stringify(parts));
 }
 
 
-function drawPart(p, outline = false, animation = false) {
+function applyAnimationTransforms(partAnimation) {
 
-    const ctx = canvas.getContext('2d');
+    if (!partAnimation) return;
 
-    if (animation) {
-        const currentAnimation = parts.animation.variant;
-        let currentFrame = parts.animation.frame;
+    for (let [operation, coords] of Object.entries(partAnimation)) {
+        if (/^\d/.test(operation))
+            operation = operation.slice(1);
+        if (typeof ctx[operation] === 'function')
+            ctx[operation](...coords);
+    }
+}
 
-        if (!anims[currentAnimation][currentFrame]) {
+
+function drawPart(p, outline = false) {
+
+    let partAnimation, faceAnimation;
+    let mirrorAnimation = false;
+    if (animation && p !== 'face') {
+
+        if (!anims[currentAnimation][currentFrame])
             currentFrame = prevFrame;
-        } else {
+        else
             prevFrame = currentFrame;
-        }
 
-        const partAnimation = anims[currentAnimation][currentFrame][p];
+        const reference = anims[currentAnimation][currentFrame].reference
+        if (reference) currentFrame = reference;
+
+        partAnimation = anims[currentAnimation][currentFrame][p];
+
+        if (!parts[p].excludeTransform)
+            faceAnimation = anims[currentAnimation][currentFrame]['face'];
+    }
+
+    if (partAnimation || faceAnimation) {
+        ctx.save();
+
         if (partAnimation) {
-            ctx.save();
-            for (const [operation, coords] of Object.entries(partAnimation)) {
-                ctx[operation](...coords);
-            }
+            mirrorAnimation = !partAnimation.notMirrored;
+            applyAnimationTransforms(partAnimation);
         }
+        if (faceAnimation) applyAnimationTransforms(faceAnimation);
     }
 
     draw(p, outline);
+
+    if (partAnimation || faceAnimation) ctx.restore(); // Reset animation transforms
 
     // Mirror if mirror setting is active & current part does not prevent mirror
     // Or if current part requires mirroring
@@ -91,25 +120,32 @@ function drawPart(p, outline = false, animation = false) {
 
         const secondColor = (p === 'pupils') ? parts[p].heterochromia : false;
 
+        if (mirrorAnimation) applyAnimationTransforms(partAnimation);
+        if (faceAnimation) applyAnimationTransforms(faceAnimation);
+
         draw(p, outline, secondColor);
         ctx.restore();
     }
-
-    if (animation) ctx.restore();
 
     return;
 }
 
 
-function draw(p, stroke = false, secondColor = false) {
+function draw(p, stroke = false, secondColor = false, animate) {
 
-    const ctx = canvas.getContext('2d');
     ctx.save();
 
     const part = parts[p];
 
+    let shape;
+    if (animation && p === 'animation' && anims[currentAnimation][currentFrame].animation) {
+        const animationVariant = anims[currentAnimation][currentFrame].animation;
+        shape = data[p][currentAnimation][animationVariant];
+    } else {
+        shape = data[p][part.variant];
+    }
+
     // Get path info.
-    const shape = data[p][part.variant];
     const path = new Path2D(shape.d);
 
     // Flip single-sided parts if toggled
@@ -117,6 +153,10 @@ function draw(p, stroke = false, secondColor = false) {
         ctx.translate(canvas.width, 0);
         ctx.scale(-1, 1);
     }
+
+    //ctx.translate(256, 256);
+    //ctx.rotate(1.5);
+    //ctx.translate(-256, -256);
 
     if (p !== 'face') {
 
@@ -210,7 +250,6 @@ function drawBg() {
     const canvasHeight = 512;
 
     const background = parts.background;
-    const ctx = canvas.getContext('2d');
     const path = new Path2D('M0,0h512v512H0V0Z');
 
     let gradient;
