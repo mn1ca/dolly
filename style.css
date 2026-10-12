@@ -97,6 +97,12 @@ h2::after {
     border-top: 3px dashed var(--e);
 }
 
+#canvas-back, .right-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .spacer {
     display: flex;
     justify-content: space-around;
@@ -211,9 +217,14 @@ hr {
     border-radius: 1000px;
     opacity: .5;
 
+    display: none;
+
 }
 
 canvas {
+    width: calc(512px * .6);
+    height: calc(512px * .6);
+
     background-size: 52px 52px;
     background-image:
     linear-gradient(to right, #c3d8fa 2px, transparent 1px),
@@ -221,23 +232,49 @@ canvas {
 
     border: 3px solid var(--e);
     border-radius: 2px;
-
-    position: relative;
-    top: -92px;
-    left: -92px;
-    transform: scale(.6);
 }
 
-.tape {
+#tape {
     width: 120px;
     height: 38px;
 
     position: absolute;
-    top: 70px;
-    left: 32px;
+    top: 0;
+    left: -15px;
     transform: rotate(-205deg);
 
     opacity: .9;
+}
+
+#reset {
+    width: 105px;
+    height: 105px;
+    border-radius: 1000px;
+
+    filter: drop-shadow(5px 5px 7px rgba(60,10,0,0.5));
+
+    background-image: url(assets/icons/reset.svg);
+    background-image: cover;
+
+    cursor: var(--c2);
+
+    position: relative;
+    left: 314px;
+}
+
+#reset:hover {
+    transform: scale(1.05);
+    transition-duration: .1s;
+
+    background-image: url(assets/icons/hover.svg);
+    background-image: cover;
+}
+
+#reset-bubble {
+    width: 80px;
+    height: 80px;
+
+    background-color: white;
 }
 
 .highlighter {
@@ -294,7 +331,7 @@ a:hover {
     z-index: -5;
 }
 
-.left-page {
+#left-page {
     width: 450px;
     height: 655px;
 
@@ -310,7 +347,7 @@ a:hover {
 }
 
 .right-page {
-    width: 675px;
+    width: 635px;
     height: 90%;
 
     background-color: var(--a);
@@ -325,7 +362,7 @@ a:hover {
     z-index: -2;
 
     border-radius: 10px;
-    padding: 30px 65px 30px;
+    padding: 30px 35px 30px;
 
     pointer-events: all;
 }
@@ -344,12 +381,8 @@ a:hover {
 }
 
 .content {
-    width: 85%;
+    width: 100%;
     height: 100%;
-    padding: auto 15px;
-
-    position: absolute;
-    margin: -10px 0 0 10px;
 }
 
 .content > :first-child {
@@ -1040,12 +1073,12 @@ input:checked + .slider:before {
     color: var(--e);
 }
 
-#reset {
+#clear {
     text-decoration: underline;
     cursor: var(--c2);
 }
 
-#reset:hover {
+#clear:hover {
     color: var(--e);
 }
 
@@ -1149,11 +1182,195 @@ button:hover {
     display: none;
 }
 
+@media only screen and (max-width: 1000px) and (max-aspect-ratio: 1) {
+    #left-page {
+        position: fixed;
+    }
+}
 
-@media (max-aspect-ratio: 1/1) {
 
-    body {
+@media only screen and (max-width: 1000px) {
+
+    #wrapper {
+        width: 95vw;
+        position: relative;
+        margin: 0;
+
+        top: 2vh;
+    }
+
+    #back-cover {
+        width: 100%;
+        margin: auto;
+        top: 0;
+        left: 0;
+
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    #left-page {
+        width: 90vw;
+        max-width: 400px;
+        height: 30vh;
+        min-height: 220px;
+
+        right: 6vw;
+
+        transform: rotate(2deg);
+
+
+        display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .right-page, #tabs {
+        top: max(220px, 30vh);
+    }
+
+    .right-page {
+        width: 80vw;
+        min-width: 240px;
+        max-width: 600px;
+        height: 55vh;
+        min-height: 400px;
+
+        left: -3vw;
+        margin: 0;
+
+        transform: rotate(-1.5deg);
+
         overflow: hidden;
+        padding: 0;
+    }
+
+    .right-page.back {
+        height: 40vh;
+    }
+
+    #tabs {
+        height: 50vh;
+        min-height: 380px;
+        width: 30vw;
+        max-width: 140px;
+
+        position: relative;
+        left: clamp(240px, 68vw, 550px);
+
+        margin-top: 50px;
+
+        display: block;
+        background-color: var(--f);
+        padding: 10px 0 40px;
+
+        transform: rotate(4deg);
+
+        border-radius: 8px;
+        clip-path: polygon(
+            0% 0%,
+            100% 0%,
+            100% 100%,
+            50% calc(100% - 30px),
+            0% 100%
+        );
+    }
+
+    #tabs-shadow {
+        filter: drop-shadow(5px 5px 7px rgba(60,10,0,0.5));
+    }
+
+    .tab {
+        width: fit-content !important;
+
+        z-index: 2;
+        background-color: transparent;
+        border: 0;
+        padding: 0 !important;
+        margin: auto;
+
+        text-align: center;
+        color: white;
+        display: block;
+
+        box-shadow: none !important;
+        border-radius: 0;
+    }
+
+    .tab.active {
+        border-bottom: 3px dotted white;
+    }
+
+    #tape {
+       width: 60px;
+        height: 20px;
+
+        top: 10%;
+        left: 0;
+
+    }
+
+    .content {
+        width: 95%;
+        height: 95%;
+        overflow-x: auto;
+    }
+
+    .spacer {
+        width: 100%;
+        display: block;
+    }
+
+    .color-card {
+        width: 70%;
+        height: 95% !important;
+        position: absolute;
+        top: 0 !important;
+        left: 30%;
+        margin: 0 !important;
+
+    }
+
+    .palette {
+        gap: 0;
+        max-height: 20%;
+    }
+
+    .palette div {
+        aspect-ratio: 1/1;
+        box-shadow: 2px 2px 2px 1px rgba(60,10,0,0.2);
+
+        background-color: lightblue;
+        transition-duration: .05s;
+}
+
+    .palette div::after {
+        font-size: 6px;
+    }
+
+    .color-card .spacer {
+    }
+
+    .gallery {
+       grid-template-columns: 1fr 1fr 1fr 1fr !important;
+        padding: 1vw;
+    }
+
+    #canvas-back {
+        width: auto;
+        height: 80%;
+        min-height: 150px;
+
+        aspect-ratio: 1;
+
+        margin: 0;
+        top: 10%;
+        left: 5vw;
+    }
+
+    canvas {
+        width: 90%;
+        height: 90%;
     }
 
     #narrow-notice {
@@ -1177,6 +1394,10 @@ button:hover {
         z-index: 5000000 !important;
 
         pointer-events: all;
+    }
+
+    #reset {
+        display: none;
     }
 
     #narrow-notice img {
@@ -1227,7 +1448,7 @@ button:hover {
         background-color: #fff;
     }
 
-    .left-page, #canvas-back {
+    #left-page, #canvas-back {
         width: 0 !important;
         height: 0 !important;
         font-size: 0 !important;
@@ -1237,7 +1458,7 @@ button:hover {
         z-index: 1000 !important;
     }
 
-    #narrow-notice, #cover, #back-cover, .circle, .container, .tab, .right-page, .tape {
+    #narrow-notice, #cover, #back-cover, .circle, .container, .tab, .right-page, #tape {
         display: none !important;
     }
 

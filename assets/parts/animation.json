@@ -8,6 +8,9 @@
            "face": {
                 "translate": [0, -10]
             },
+            "hairBack": {
+                "translate": [0, -10]
+            },
 
             "mouth": {
                "translate": [0, -3]
@@ -20,6 +23,9 @@
 
         "4": {
             "face": {
+                "translate": [0, 5]
+            },
+            "hairBack": {
                 "translate": [0, 5]
             },
 
@@ -39,6 +45,9 @@
             "face": {
                 "translate": [0, 10]
             },
+            "hairBack": {
+                "translate": [0, 10]
+            },
 
             "hairAhoge": {
                "translate": [0, 8]
@@ -56,6 +65,10 @@
             "face": {
                 "translate": [0, 10]
             },
+            "hairBack": {
+                "translate": [0, 10]
+            },
+
             "hairAhoge": {
                "translate": [0, 5]
             },
@@ -78,6 +91,10 @@
             "face": {
                 "translate": [0, 10]
             },
+            "hairBack": {
+                "translate": [0, 10]
+            },
+
             "hairAhoge": {
                "translate": [0, 5]
             },

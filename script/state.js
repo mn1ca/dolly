@@ -2,7 +2,7 @@ export let parts = {
 
     'background': {
         'variant': 0,
-        'color': '#f3de7f',
+        'color': '#ffeba3',
         'color2': '#fffee8',
         'img': '',
         'src': ''
@@ -17,7 +17,7 @@ export let parts = {
     'hairBack': {
         'variant': 0,
         'color': '#756e63',
-        //'excludeTransform': true
+        'excludeTransform': true
     },
 
     'neck': {
@@ -38,7 +38,8 @@ export let parts = {
         'color': '#b8b8b8',
         'mirrored': true,
 
-        'matchPart': 'face'
+        'matchPart': 'face',
+        'excludeTransform': true
     },
 
     'hairAhoge': {
@@ -160,7 +161,7 @@ export let parts = {
         'offset': [0, 0],
 
         'transform': 30,
-        //'excludeTransform': true
+        'excludeTransform': true
     },
 
     'animation': {

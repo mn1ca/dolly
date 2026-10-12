@@ -37,7 +37,7 @@ async function onload() {
         document.getElementById(c).onclick = () => {changeTabs(c)};
     }
 
-    document.getElementById('reset').addEventListener('click', () => {
+    document.getElementById('clear').addEventListener('click', () => {
         localStorage.clear();
         location.reload();
     });
