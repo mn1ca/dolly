@@ -88,15 +88,17 @@ export function colorSettings(p, settings) {
 
         // Add general preset swatches
         const swatches =
-        ['#ffffff', '#decdac', '#f5f497', '#cef498', '#b2eba3', '#7bdbad', '#98dcf9', '#cbbee2', '#f5b3bd', '#fa9775',
+        ['#ffffff', '#b8b8b8', '#76757a', '#756e63', '#000000',
+         '#decdac', '#dfbb75', '#cb9f45', '#a65016', '#5f390c',
+         '#f5f497', '#f3de7f', '#f8e147', '#feb562', '#4b3d0b',
+         '#cef498', '#cbd466', '#c2bc36', '#a09260', '#5d6033',
+         '#b2eba3', '#93da3e', '#56a630', '#53782e', '#003b32',
+         '#7bdbad', '#72bc9a', '#47a4a4', '#1a615e', '#072c32',
+         '#98dcf9', '#7eb7f1', '#81a1f1', '#4c599e', '#1e3164',
+         '#cbbee2', '#e6b9ef', '#a38fc3', '#815cb1', '#461845',
+         '#f5b3bd', '#f67790', '#af557d', '#9a2037', '#702f37',
+         '#fa9775', '#ff7560', '#e51c10', '#ab140c', '#300901'];
 
-        '#b8b8b8', '#dfbb75', '#f3de7f', '#cbd466', '#93da3e', '#72bc9a', '#7eb7f1', '#e6b9ef', '#f67790', '#ff7560',
-
-        '#76757a', '#cb9f45', '#f8e147', '#c2bc36', '#56a630', '#47a4a4', '#81a1f1', '#a38fc3', '#af557d', '#e51c10',
-
-        '#756e63', '#a65016', '#feb562', '#a09260', '#53782e', '#1a615e', '#4c599e', '#815cb1', '#9a2037', '#ab140c',
-
-        '#000000', '#5f390c', '#4b3d0b', '#5d6033', '#003b32', '#072c32', '#1e3164', '#461845', '#702f37', '#300901'];
 
         const palette = document.createElement('div');
         palette.classList.add('palette');

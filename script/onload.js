@@ -26,7 +26,7 @@ async function onload() {
     if (parts.background.src && parts.background.variant === -1)
             parts.background.img = await loadImage(parts.background.src);
 
-    //showNarrowNotice();
+    hideNarrowNotice();
     imageInput();
     populateParts();
     loadingScreen();
@@ -129,7 +129,7 @@ function loadingScreen() {
 
 
 // Allows closing functionality for the narrow screen size notice
-function showNarrowNotice() {
+function hideNarrowNotice() {
 
     if (localStorage.getItem('seenNotice') && openedToday) {
         document.getElementById('narrow-notice').style.display = 'none';
