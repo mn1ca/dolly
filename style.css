@@ -1196,6 +1196,10 @@ button:hover {
         position: fixed;
     }
 
+    .gallery {
+        grid-template-columns: 1fr 1fr 1fr 1fr; !important;
+    }
+
     .spacer input[type='range'] {
         width: 40vw;
     }
@@ -1255,7 +1259,7 @@ button:hover {
         width: 80vw;
         min-width: 240px;
         max-width: 600px;
-        height: 55vh;
+        height: 52vh;
         min-height: 400px;
 
         left: -2vw;
@@ -1276,13 +1280,13 @@ button:hover {
     #tabs {
         height: 50vh;
         min-height: 380px;
-        width: 24vw;
+        width: 26vw;
         max-width: 140px;
 
         position: relative;
-        left: clamp(240px, 68vw, 580px);
+        left: clamp(240px, 65vw, 580px);
 
-        margin-top: 50px;
+        margin-top: 20px;
 
         display: block;
         background-color: var(--f);
@@ -1349,11 +1353,11 @@ button:hover {
     }
 
     .color-card {
-        width: 70%;
+        width: 78%;
         height: 100% !important;
         position: absolute;
         top: 0 !important;
-        left: 30%;
+        right: 0;
         margin: 0 !important;
 
         border-radius: 16px 0 0 16px;
@@ -1383,7 +1387,7 @@ button:hover {
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
 
         gap: 2px;
-        width: 100%;
+        width: 95%;
         height: 45%;
         margin: auto;
     }
@@ -1414,7 +1418,7 @@ button:hover {
     }
 
     .color-sliders {
-        width: 90%;
+        width: 85%;
     }
 
     .block {
