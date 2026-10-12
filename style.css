@@ -1190,12 +1190,8 @@ button:hover {
 
 
 @media only screen and (max-width: 1000px) {
-    body {
-        overflow-x: hidden;
-    }
-
     #wrapper {
-        width: 95vw;
+        width: 100vw;
         position: relative;
         margin: 0;
 
@@ -1259,7 +1255,7 @@ button:hover {
         max-width: 140px;
 
         position: relative;
-        left: clamp(240px, 68vw, 550px);
+        left: clamp(240px, 66vw, 540px);
 
         margin-top: 50px;
 
@@ -1407,7 +1403,7 @@ button:hover {
     }
 
     .spacer input[type='range'] {
-        width: 18vw;
+        width: 16vw;
     }
 
     .color {
