@@ -26,7 +26,7 @@ async function onload() {
     if (parts.background.src && parts.background.variant === -1)
             parts.background.img = await loadImage(parts.background.src);
 
-    showNarrowNotice();
+    //showNarrowNotice();
     imageInput();
     populateParts();
     loadingScreen();

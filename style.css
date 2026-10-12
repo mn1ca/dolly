@@ -821,7 +821,7 @@ textarea {
 }
 
 input[type='text'] {
-    width: 85px;
+    width: 80px;
 
     border: none;
     outline: none;
@@ -1190,6 +1190,9 @@ button:hover {
 
 
 @media only screen and (max-width: 1000px) {
+    body {
+        overflow-x: hidden;
+    }
 
     #wrapper {
         width: 95vw;
@@ -1236,7 +1239,7 @@ button:hover {
         height: 55vh;
         min-height: 400px;
 
-        left: -3vw;
+        left: -1.5vw;
         margin: 0;
 
         transform: rotate(-1.5deg);
@@ -1301,11 +1304,18 @@ button:hover {
         border-bottom: 3px dotted white;
     }
 
+    .tab.special {
+        background-color: transparent !important;
+        color: #ffa7a1 !important;
+        border-color: #ffa7a1 !important;
+        text-transform: uppercase;
+    }
+
     #tape {
        width: 60px;
         height: 20px;
 
-        top: 10%;
+        top: 0;
         left: 0;
 
     }
@@ -1313,12 +1323,8 @@ button:hover {
     .content {
         width: 95%;
         height: 95%;
-        overflow-x: auto;
-    }
-
-    .spacer {
-        width: 100%;
-        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     .color-card {
@@ -1331,13 +1337,36 @@ button:hover {
 
     }
 
+    .skin.color-card .palette {
+        display: none;
+    }
+
+    .skin.color-card .skin.palette {
+        display: grid;
+    }
+
+    .skin.palette {
+        grid-template-columns: 1fr 1fr 1fr !important;
+        width: 95%;
+        overflow: hidden;
+    }
+
+    .skin.palette div {
+        width: min(110px, 14vw);
+        height: 30px;
+    }
+
     .palette {
         gap: 0;
-        max-height: 20%;
+        width: 100%;
+        height: 50%;
+        margin: auto;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 
     .palette div {
-        aspect-ratio: 1/1;
+        height: 29px;
         box-shadow: 2px 2px 2px 1px rgba(60,10,0,0.2);
 
         background-color: lightblue;
@@ -1349,11 +1378,50 @@ button:hover {
     }
 
     .color-card .spacer {
+        display: block;
+        position: absolute;
+        bottom: 4vh;
+        width: 80%;
+    }
+
+    .color-sliders {
+        width: 100%;
+    }
+
+    .spacer:has(> :nth-child(3 of .setting)) {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .spacer:has(> :nth-child(3 of .setting)) > :first-child {
+        margin-right: 100%;
+    }
+
+    .setting.short {
+        margin-right: 0 !important;
+    }
+
+    .container.spacer {
+        width: 95%;
+        overflow: hidden;
+    }
+
+    .spacer input[type='range'] {
+        width: 18vw;
+    }
+
+    .color {
+
     }
 
     .gallery {
-       grid-template-columns: 1fr 1fr 1fr 1fr !important;
+       grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
         padding: 1vw;
+        max-height: none !important;
+    }
+
+    .tall.gallery {
+        max-height: none !important;
     }
 
     #canvas-back {
@@ -1374,6 +1442,7 @@ button:hover {
     }
 
     #narrow-notice {
+        display: none !important;
         width: 100%;
         height: 100%;
         position: fixed;
