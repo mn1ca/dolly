@@ -1,7 +1,8 @@
 import data from '/assets/parts/data.json' with { type: 'json' };
-import {parts} from '/script/state.js';
+import {parts, resetParts} from '/script/state.js';
 import {colorSettings, changeColor} from '/script/color.js';
 import {drawAll} from '/script/draw.js';
+import {previewAnimation} from '/script/animate.js';
 
 let activeTab = 'face';
 let idVariant;
@@ -30,6 +31,8 @@ async function onload() {
     imageInput();
     populateParts();
     loadingScreen();
+    resetCharacter();
+    toggleDownloadFormat();
 
     // Add tab change functionality
     const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about'];
@@ -41,6 +44,8 @@ async function onload() {
         localStorage.clear();
         location.reload();
     });
+
+    document.getElementById('download-button').addEventListener('click', () => {window.location.href = '/download';});
 
     // Tooltips
     tippy('.tooltip', {
@@ -63,6 +68,7 @@ async function onload() {
         },
 
         theme: 'dolly',
+        appendTo: () => document.body,
       });
 
     tippy('.buttons img', {
@@ -113,16 +119,18 @@ function sameDay(d1, d2) {
 function loadingScreen() {
 
     // Force people to look at the loading animation cause I spent a lot of time on it!
-    const timeout = (openedToday) ? 0 : 2300;
+    const timeout = (openedToday) ? 100 : 2300;
     setTimeout( () => {
 
         const tabs = document.getElementById('tabs');
         tabs.style.display = 'flex';
 
         const cover = document.getElementById('cover');
-        cover.style.transitionDuration = '4s';
+        const slideaway = (openedToday) ? /*200*/0 : 4000;
+
+        cover.style.transitionDuration = `${slideaway / 1000}s`;
         cover.style.left = '-2500px';
-        setTimeout(() => {cover.remove();}, timeout);
+        setTimeout(() => {cover.remove();}, slideaway);
 
     }, timeout);
 }
@@ -140,7 +148,7 @@ function hideNarrowNotice() {
 
     const noticeChoice = document.getElementById('notice-choice');
     noticeChoice.onclick = () => {
-        document.getElementById('narrow-notice').style.pointerEvents = 'none';
+        document.getElementById('narrow-notice').classList.add('pointer-lock');
         document.getElementById('notice-response').classList.toggle('show');
         setTimeout(() => {
             document.getElementById('narrow-notice').classList.toggle('remove');
@@ -149,6 +157,52 @@ function hideNarrowNotice() {
         document.body.style.overflow = 'auto';
         localStorage.setItem('seenNotice', JSON.stringify(true));
     };
+}
+
+
+function resetCharacter() {
+
+    const reset = document.getElementById('reset-button');
+    const resetBubble = document.getElementById('reset-bubble');
+
+    reset.addEventListener('click', () => {
+        document.getElementById('reset-bubble').classList.remove('hide');
+        document.getElementById('download-button').classList.add('pointer-lock');
+        reset.classList.add('hovered');
+    });
+
+    function closeReset() {
+        resetBubble.classList.add('hide');
+        reset.classList.remove('hovered');
+        document.getElementById('download-button').classList.remove('pointer-lock');
+    }
+
+    document.addEventListener('mousedown', () => {
+        if (!(reset.contains(event.target) || resetBubble.contains(event.target)))
+            closeReset();
+    });
+
+    document.getElementById('reset-yes').addEventListener('click', () => {resetParts(); drawAll(); closeReset();});
+    document.getElementById('reset-no').addEventListener('click', closeReset);
+}
+
+
+function toggleDownloadFormat() {
+
+    parts.animation.format = 'png';
+    const png = document.getElementById('png');
+    const gif = document.getElementById('gif');
+
+    png.addEventListener('change', () => {
+        gif.checked = !png.checked;
+        parts.animation.format = (png.checked) ? 'png' : 'gif';
+    });
+
+    gif.addEventListener('change', () => {
+        png.checked = !gif.checked;
+        parts.animation.format = (gif.checked) ? 'gif' : 'png';
+        previewAnimation();
+    });
 }
 
 
@@ -221,6 +275,8 @@ function createSetting(setting, left = '', right = '', p, axis) {
             toggle.type = 'checkbox';
             toggle.checked = parts[p].flip;
 
+            toggle.id = `${p}-flip-toggle`;
+
             if (toggle.checked) {
                 const images = document.querySelectorAll(`#${p}-gallery img`);
                 images.forEach(i => i.classList.toggle('flipped'));
@@ -247,6 +303,8 @@ function createSetting(setting, left = '', right = '', p, axis) {
             input.classList.add('mirror', 'tooltip');
             input.checked = parts[p].mirrored;
 
+            input.id = `${p}-mirror-toggle`;
+
             input.addEventListener('change', () => {
                 parts[p].mirrored = input.checked;
                 drawAll();
@@ -261,6 +319,8 @@ function createSetting(setting, left = '', right = '', p, axis) {
             input.min = 1;
             input.max = 1.65;
             input.value = parts[p].scale;
+
+            input.id = `${p}-scale-slider`;
 
             input.addEventListener('input', (event) => {
                 parts[p].scale = parseFloat(event.target.value);

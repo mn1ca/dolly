@@ -78,10 +78,10 @@
                 "2translate": [-185, -235]
             },
             "eyelashes": {
-                "translate": [0, 12]
+                "translate": [0, 10]
             },
             "eyelids": {
-                "translate": [0, 12]
+                "translate": [0, 10]
             },
             "animation": 1
         },
@@ -104,10 +104,10 @@
                 "2translate": [-185, -235]
             },
             "eyelashes": {
-                "translate": [0, 12]
+                "translate": [0, 10]
             },
             "eyelids": {
-                "translate": [0, 12]
+                "translate": [0, 10]
             },
             "animation": 2
         },
@@ -148,28 +148,66 @@
     },
 
     "wink": {
-        "numFrames": 7,
+        "numFrames": 20,
 
         "0": {
         },
 
-        "1": {
-            "eyebrows": {
+        "2": {
+           "face": {
                 "translate": [0, -10]
             },
-            "eyelids": {
-                "translate": [0, 20],
-                "notMirrored": true
+            "ears": {
+                "translate": [0, -10]
             },
-            "eyelashes": {
-                "translate": [0, 20],
-                "notMirrored": true
+            "hairBack": {
+                "translate": [0, -5]
+            },
+
+            "mouth": {
+               "translate": [0, -3]
+            },
+
+            "hairAhoge": {
+               "translate": [0, -10]
             }
         },
 
-        "2": {
+        "4": {
+            "face": {
+                "translate": [0, 5]
+            },
+            "ears": {
+                "translate": [0, 5]
+            },
+            "hairBack": {
+                "translate": [0, 5]
+            },
+
+            "hairAhoge": {
+               "translate": [0, 20]
+            },
+
             "eyebrows": {
-                "translate": [0, -20]
+                "translate": [0, -5]
+            }
+        },
+
+        "6": {
+            "face": {
+                "translate": [0, -5]
+            },
+            "ears": {
+                "translate": [0, -5]
+            },
+            "hairBack": {
+                "translate": [0, -5]
+            },
+            "hairAhoge": {
+              "translate": [0, 10]
+            },
+            "eyebrows": {
+                "translate": [0, -15]
             },
             "eyelids": {
                 "translate": [0, 40],
@@ -183,15 +221,56 @@
                 "translate": [0, 1000],
                 "notMirrored": true
             },
-
-            "animation": 0
+            "sparkles": {
+                "translate": [0, 1000],
+                "notMirrored": true
+            }
         },
 
-        "6": {
-            "eyebrows": {
-                "translate": [0, -30]
+        "7": {
+            "face": {
+                "translate": [0, -5]
             },
-            "animation": 0
+            "ears": {
+                "translate": [0, -5]
+            },
+            "hairBack": {
+                "translate": [0, -5]
+            },
+            "eyebrows": {
+                "translate": [0, -15]
+            },
+            "eyelids": {
+                "translate": [0, 28],
+                 "notMirrored": true
+            },
+            "eyelashes": {
+                "translate": [0, 28],
+                "notMirrored": true
+            },
+            "pupils": {
+                "translate": [0, 1000],
+                "notMirrored": true
+            },
+            "sparkles": {
+                "translate": [0, 1000],
+                "notMirrored": true
+            }
+        },
+
+        "19": {
+            "eyebrows": {
+                "translate": [0, -10]
+            },
+            "eyelids": {
+                "translate": [0, 10],
+                 "notMirrored": true
+            },
+            "eyelashes": {
+                "translate": [0, 10],
+                "notMirrored": true
+            }
+
         }
     }
 }

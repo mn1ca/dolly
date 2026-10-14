@@ -1,4 +1,4 @@
-export let parts = {
+const defaultParts = {
 
     'background': {
         'variant': 0,
@@ -165,16 +165,39 @@ export let parts = {
     },
 
     'animation': {
-        'variant': 'angry',
+        'variant': 'wink',
         'color': '#c1331c',
         'frame': 0,
+        'format': 'png'
     },
 
 };
+export let parts = JSON.parse(JSON.stringify(defaultParts));
+
+export function resetParts() {
+    parts = JSON.parse(JSON.stringify(defaultParts));
+    resetSettings();
+}
+
+
+function resetSettings() {
+    for (const p of Object.keys(parts)) {
+        if (document.getElementById(`${p}-flip-toggle`)) document.getElementById(`${p}-flip-toggle`).checked = false;
+        const images = document.querySelectorAll(`#${p}-gallery img`);
+        images.forEach(i => i.classList.remove('flipped'));
+        if (document.getElementById(`${p}-mirror-toggle`)) document.getElementById(`${p}-mirror-toggle`).checked = false;
+        if (document.getElementById(`${p}-scale-slider`)) document.getElementById(`${p}-scale-slider`).value = defaultParts[p].scale;
+        if (document.getElementById(`${p}-x-slider`)) document.getElementById(`${p}-x-slider`).value = defaultParts[p].offset[0];
+        if (document.getElementById(`${p}-y-slider`)) document.getElementById(`${p}-y-slider`).value = defaultParts[p].offset[1];
+        if (document.getElementById(`${p}-color-button`)) document.getElementById(`${p}-color-button`).style.backgroundColor = defaultParts[p].color;
+        if (document.getElementById(`${p}-color-button2`)) document.getElementById(`${p}-color-button2`).style.backgroundColor = defaultParts[p].color2;
+    }
+
+    document.querySelectorAll(`.hc`).forEach(t => t.checked = false);
+}
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
     let stored = localStorage.getItem('parts');
     if (stored)
         parts = JSON.parse(stored);

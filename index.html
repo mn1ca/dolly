@@ -6,7 +6,8 @@
         <title></title>
 
         <!-- css -->
-        <link href='style.css' rel='stylesheet' type='text/css' media='all'>
+        <link href='/css/style.css' rel='stylesheet' type='text/css' media='all'>
+        <link href='/css/narrow.css' rel='stylesheet' type='text/css' media='all'>
 
         <!-- favicon -->
         <link rel='icon' href='assets/cursor/default.svg'>
@@ -100,6 +101,7 @@
                         <div class='tall gallery' id='hairBack-gallery'></div>
                         <div class='small spacer'>
                             <div class='setting' id='hairBack-mirror'></div>
+                            <div class='small block'></div>
                             <div class='setting' id='hairBack-flip'></div>
                         </div>
                     </div>
@@ -286,13 +288,13 @@
 
                         <h1 class='highlighter'>info.</h1>
                         <div class='short scroll'>
-                        <p>This dollmaker can be used to export 512x512 <span class='capitals'>png</span> and <span class='capitals'>gif</span> files of a customizable character.
-                        Feel free to use graphics for personal use without credit.</p>
-                        <p>Do not use for commercial or GenAI purposes. Or I will be very sad. And possibly quite angry.</p>
+                        <p>This site can be used to create 512x512 <span class='capitals'>png</span> and <span class='capitals'>gif</span> files of a customizable character.
+                        Graphics may be used for personal purposes without attribution.</p>
+                        <p>Do not use any content for commercial or GenAI purposes. Or I will be very sad. And possibly quite angry.</p>
                         <br>
                         <div class='note'>
                             <span class='capitals'><span class='asterisk'></span>note: </span>
-                            <p>Character settings and other site information are stored in the browser, meaning they persist even after reloading the page. You can reset this by clearing your localStorage, or by clicking <span id='clear'>here</span>.</p>
+                            <p>Character settings and other site information are stored in the browser, which means they persist even after reloading the page. You can reset this by clearing your localStorage, or by clicking <span id='clear'>here</span>.</p>
                         </div>
                             </div>
                         <hr>
@@ -331,11 +333,8 @@
                                 </li>
 
                                 <li><a href='https://css-tricks.com/stripes-css/' target='_blank'>
-                                    striped</a>
-                                    <span class='capitals'>(CSS Tricks)</span> /
-                                    <a href='https://stackoverflow.com/questions/3540194/how-to-make-a-grid-like-graph-paper-grid-with-just-css' target='_blank'>
-                                    grid</a>
-                                    <span class='capitals'>(Stack Overflow)</span> backgrounds
+                                    striped backgrounds</a>
+                                    <span class='capitals'>(CSS Tricks)</span>
                                 </li>
 
                                 <li><a href='https://www.jameslmilner.com/posts/converting-rgb-hex-hsl-colors/' target='_blank'>
@@ -455,8 +454,10 @@
                     </div>
 
                 </div>
+        </div>
 
-        </div></div>
+            <div id='copyright'>If found, please return to <span id='name'>MN1CA</span></div>
+        </div>
 
 
         <!--Left side-->
@@ -467,12 +468,31 @@
                 <div class='circle'></div>
             </div>
 
+            <div id='download-button' class='thing'></div>
+            <div class='download thing'>
 
-            <div id='agh' style='border: 2px solid black; width: 100px'>gif</div>
-            <div id='ugh' style='border: 2px solid black; width: 100px'>preview</div>
+                <div class='capitals'>Select file format:</div>
 
-            <div id='reset'></div>
-            <!--<div id='reset-bubble'></div>-->
+                <div class='choice'>
+                    <input type='checkbox' id='png' checked>
+                    <label for='png'><strong>.png</strong> (static)</label>
+                </div>
+
+                <div class='choice'>
+                    <input type='checkbox' id='gif'>
+                    <label for='gif'><strong>.gif</strong> (moving)</label>
+                </div>
+            </div>
+            <div class='reset'>
+                <div id='reset-bubble' class='hide'>
+                    <p>Are you sure you want to reset your character?</p>
+                    <div class='spacer' style='margin-top: 12px'>
+                        <div id='reset-yes'>yes</div>
+                        <div id='reset-no'>no</div>
+                    </div>
+                </div>
+                <div id='reset-button' class='thing'></div>
+            </div>
         </div>
 
 

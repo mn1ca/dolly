@@ -14,8 +14,8 @@ let currentFrame = 0;
 
 
 // Animate in canvas
-function previewAnimation() {
-    document.getElementById('ugh').classList.add('pointer-lock');
+export function previewAnimation() {
+    //document.getElementById('ugh').classList.add('pointer-lock');
 
     currentFrame = 0;
     let lastTime = performance.now();
@@ -32,7 +32,7 @@ function previewAnimation() {
                 currentFrame++;
                 requestAnimationFrame(loop);
             } else {
-                document.getElementById('ugh').classList.remove('pointer-lock');
+                //document.getElementById('ugh').classList.remove('pointer-lock');
                 drawAll();
 
             }
@@ -47,10 +47,10 @@ function previewAnimation() {
 
 
 // Create downloadable GIF
-async function createGIF() {
+export async function createGIF() {
     const gif = new GIF({
         workers: 2,
-        quality: 10,
+        quality: 5,
         width: canvas.width,
         height: canvas.height,
         workerScript: '/script/gif/gif.worker.js',
@@ -71,8 +71,8 @@ async function createGIF() {
         const img = document.createElement('img');
         img.onload = () => {URL.revokeObjectURL(img.src)};
         img.src = url;
-        document.body.appendChild(img);
-        img.style.pointerEvents = 'default';
+        document.getElementById('wrapper').appendChild(img);
+        return img;
     });
 }
 
@@ -81,7 +81,3 @@ function drawFrame(frame, grid) {
     parts.animation.frame = frame;
     drawAll(true);
 }
-
-
-document.getElementById('agh').addEventListener('click', createGIF);
-document.getElementById('ugh').addEventListener('click', previewAnimation);
