@@ -165,7 +165,7 @@ const defaultParts = {
     },
 
     'animation': {
-        'variant': 'wink',
+        'variant': 'angry',
         'color': '#c1331c',
         'frame': 0,
         'format': 'png'
