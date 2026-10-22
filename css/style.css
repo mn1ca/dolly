@@ -548,55 +548,29 @@ a:hover {
     cursor: var(--c1);
 }
 
-.page-turner {
-
-    width: 200px;
-    height: 40px;
-
-    display: flex;
-    align-items: center;
-    font-size: 22px;
-    font-weight: bold;
-    color: var(--d);
-
-    cursor: var(--c2);
-
-    position: absolute;
-    bottom: 20px;
-    right: -28px;
-
-    z-index: 100;
+#special-links a {
+    text-decoration: none !important;
 }
 
-.page-turner::after {
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 8px;
-    letter-spacing: -10px;
-    content: '———>';
+#special-links a:hover {
+    transform: scale(1.025);
+    color: var(--text);
 }
 
-.page-turner:hover {
-    opacity: .5;
-}
+#special-links a:after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background-color: var(--text);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-external-link'%3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' %3E%3Cpath d='M15 3h6v6'/%3E%3Cpath d='M10 14 21 3'/%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
 
-.page-turner:hover + .page-corner {
-    background-image: url(/assets/pagination/corner-hover.svg);
-}
-
-.page-corner {
-    height: 73px;
-    width: 98px;
-    background-image: url(/assets/pagination/corner-default.svg);
-    background-size: cover;
-
-    position: absolute;
-    bottom: 20px;
-    right: -26.5px;
-}
-
-.page-corner:hover {
-    background-image: url(/assets/pagination/corner-hover.svg);
+    margin-left: 5px;
 }
 
 #buttons {
@@ -1025,7 +999,7 @@ input[type='text'] {
     height: 95px;
     border-radius: 1000px;
 
-    background-image: url(/assets/icons/reset/default.svg);
+    background-image: url(/assets/leftpage/reset/default.svg);
     background-image: cover;
     background-image: cover;
 
@@ -1035,7 +1009,7 @@ input[type='text'] {
 
 #reset-button:hover, .reset .hovered {
     transform: scale(1.1) rotate(14deg);
-    background-image: url(/assets/icons/reset/hover.svg) !important;
+    background-image: url(/assets/leftpage/reset/hover.svg) !important;
 }
 
 .reset .hovered {

@@ -163,8 +163,8 @@
        width: 105px;
         height: 30px;
 
-        top: 8%;
-        left: 0;
+        top: 0;
+        left: -5%;
     }
 
     #download-button {
@@ -199,11 +199,16 @@
         height: 82%;
         margin: 0;
     }
+
     .content {
         width: 95%;
         height: 95%;
         overflow-x: hidden;
         overflow-y: auto;
+    }
+
+    #about-content .container {
+        padding-right: 30px;
     }
 
     .color-card {

@@ -1,10 +1,11 @@
 <html>
     <head>
-        <meta name='viewport' content='width=device-width'>
         <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width'>
+        <meta name='description' content='make something cute !'>
         <meta name='robots' content='noai, noimageai'>
 
-        <title></title>
+        <title>Dollymaker</title>
 
         <!-- css -->
         <link href='/css/style.css' rel='stylesheet' type='text/css' media='all'>
@@ -43,7 +44,6 @@
                 <div class='tab' id='accessory'>accessory</div>
                 <div class='tab' id='background'>background</div>
                 <div class='special tab' id='about'>about</div>
-                <!--<div class='special tab' id='gallery'><div class='asterisk'></div> gallery</div>-->
 
             </div></div>
             <div class='book right-page back'></div>
@@ -287,9 +287,10 @@
                             </div>
                         <hr>
 
-                        <div class='spacer'>
+                        <div id='special-links' class='spacer'>
                             <a href='https://github.com/mn1ca/dolly' target='_blank'>source code</a>
-                            <span>documentation</span>
+
+                            <span><s>documentation</s></span>
                         </div>
                     </div>
 
@@ -407,10 +408,11 @@
                             <h2>special&nbsp;thanks&nbsp;♡</h2>
                             <div class='special-thanks spacer'>
                                 <div><a href='https://instagram.com/910o4' target='_blank'><img style='width: 100%' src='assets/special-thanks/910o4.png'>
-                                kat</a>
-                                </div>
-                                <div><img style='width: 100%' src='assets/special-thanks/selina.png'>
-                                selina</div>
+                                    kat
+                                </a></div>
+                                <div><a href='https://ploscky.github.io/selinas-room/' target='_blank'><img style='width: 100%' src='assets/special-thanks/selina.png'>
+                                    selina
+                                </a></div>
 
                             </div>
                         </div>
@@ -474,7 +476,7 @@
             <div id='download-button' class='thing'></div>
             <div class='download thing'>
 
-                <div class='capitals'>Select file format:</div>
+                <div class='capitals' style='color: var(--g)'>Select file format:</div>
 
                 <div class='choice'>
                     <input type='checkbox' id='png' checked>
@@ -522,7 +524,7 @@
         <script src='https://unpkg.com/@popperjs/core@2'></script>
         <script src='https://unpkg.com/tippy.js@6'></script>
         <script type='module' src='script/onload.js'></script>
-    <script type='module' src='script/animate.js'></script>
+        <script type='module' src='script/animate.js'></script>
         <!--<script defer src='/_vercel/insights/script.js'></script>-->
 
 

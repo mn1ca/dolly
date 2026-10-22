@@ -2,7 +2,7 @@ const defaultParts = {
 
     'background': {
         'variant': 0,
-        'color': '#dde899',
+        'color': '#badeff',
         'color2': '#fffee8',
         'img': '',
         'src': ''

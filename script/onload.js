@@ -80,7 +80,7 @@ async function onload() {
         },
 
         theme: 'dolly',
-        appendTo: () => document.body,
+        touch: false
       });
 
     tippy('#buttons img', {
@@ -98,7 +98,8 @@ async function onload() {
             }
         },
 
-        theme: 'about'
+        theme: 'about',
+        touch: false
       });
 
     tippy('#animation-gallery div', {
@@ -127,7 +128,8 @@ async function onload() {
         theme: 'animation',
         followCursor: 'true',
         offset: [0, -1.5],
-        arrow: false
+        arrow: false,
+        touch: false
       });
 }
 
