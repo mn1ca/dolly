@@ -859,8 +859,10 @@ input[type='text'] {
     height: 90px;
 
     position: absolute;
-    top: 345px;
-    left: 90px;
+    top: 342px;
+    left: 88px;
+
+    transform: rotate(3deg);
 
     background-image: url(/assets/leftpage/download/button.svg);
     background: cover;
@@ -880,10 +882,8 @@ input[type='text'] {
     height: 104.5px;
 
     position: absolute;
-    top: 360px;
-    left: 162px;
-
-    transform: rotate(-5deg);
+    top: 355px;
+    left: 159px;
 
     background-image: url(/assets/leftpage/download/background.svg);
     background: cover;
@@ -894,7 +894,7 @@ input[type='text'] {
 
 .download .choice {
     outline: none;
-    margin-left: 41px;
+    margin-left: 41.5px;
     width: 160px;
     height: 31px;
     cursor: var(--c1);
@@ -985,7 +985,7 @@ input[type='text'] {
 .reset {
     position: absolute;
     top: 390px;
-    left: 12px;
+    left: 8px;
 
     display: flex;
     flex-direction: column;
@@ -1065,7 +1065,7 @@ input[type='text'] {
     background-color: var(--a);
 
     position: absolute;
-    top: 465px;
+    top: 470px;
     left: 20px;
 
     border-radius: 10px;
@@ -1083,6 +1083,35 @@ input[type='text'] {
 
 #animation-gallery .active {
     background-color: white;
+}
+
+#stickers {
+    position: relative;
+    z-index: 5;
+}
+
+#stickers img {
+    position: absolute;
+    height: 75px;
+    max-width: 85px;
+
+    filter: drop-shadow(2px 2px 5px rgba(60,10,0,0.5));
+    pointer-events: none;
+}
+
+#stickers > :nth-child(1) {
+    top: -280px;
+    left: 280px;
+}
+
+#stickers > :nth-child(2) {
+    top: -220px;
+    left: 325px;
+}
+
+#stickers > :nth-child(3) {
+    top: -40px;
+    left: -5px;
 }
 
 .flipped {
@@ -1404,8 +1433,6 @@ button:hover {
 #narrow-notice, #idcard, #text {
     display: none;
 }
-
-
 
 
 @media print {

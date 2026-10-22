@@ -1,6 +1,6 @@
 <html>
     <head>
-        <meta name='viewport' content='width=800'>
+        <meta name='viewport' content='width=850'>
         <meta charset='UTF-8'>
 
         <title></title>
@@ -16,6 +16,8 @@
                 background-color: #ede0ce;
                 color: #6b4136;
                 cursor: url(/assets/cursor/default.svg), default;
+
+                overflow-x: hidden;
 
                 -webkit-user-select: none;
                 user-select: none;
@@ -63,7 +65,7 @@
                 width: 325px;
                 position: absolute;
                 inset: 0;
-                margin: 60px auto;
+                margin: 50px auto;
             }
 
             #bottom {
@@ -80,7 +82,8 @@
             }
 
             .return {
-                margin-top: 10px;
+                margin: 12px auto;
+                width: 100px;
             }
 
             .return:hover {
@@ -95,6 +98,45 @@
 
             .hide {
                 display: none;
+            }
+
+            #stickers {
+                position: absolute;
+                width: 100%;
+
+                z-index: 1000;
+                pointer-events: none;
+            }
+
+            #stickers img {
+                position: absolute;
+                height: 90px;
+                filter: drop-shadow(2px 2px 5px rgba(60,10,0,0.5));
+            }
+
+            #stickers > :nth-child(1) {
+                top: 0px;
+                left: -380px;
+            }
+
+            #stickers > :nth-child(2) {
+                top: 125px;
+                left: -500px;
+            }
+
+            #stickers > :nth-child(3) {
+                top: -40px;
+                right: -300px;
+            }
+
+            #stickers > :nth-child(4) {
+                top: 50px;
+                right: -460px;
+            }
+
+            #stickers > :nth-child(5) {
+                top: 200px;
+                right: -360px;
             }
 
         </style>
@@ -114,6 +156,14 @@
         <a href='/'><div class='return'>go back</div></a>
         </div>
         <canvas id='canvas' height='512' width='512'></canvas>
+
+        <div id='stickers'>
+            <img src='/assets/stickers/0.svg'>
+            <img src='/assets/stickers/1.svg'>
+            <img src='/assets/stickers/2.svg'>
+            <img src='/assets/stickers/3.svg'>
+            <img src='/assets/stickers/4.svg'>
+        </div>
     </div>
 
 </body>
@@ -121,6 +171,7 @@
 
 <script type='module'>
     import anims from '/assets/parts/animation.json' with { type: 'json' };
+    import {generateStickers} from '/script/useful.js';
     import {drawAll} from '/script/draw.js';
     import {createGIF} from '/script/animate.js';
     import {parts} from '/script/state.js';
@@ -129,15 +180,9 @@
     const ctx = canvas.getContext('2d');
 
 
-    function loadImage(src) {
-        const img = new Image();
-        img.src = src;
-        URL.revokeObjectURL(src);
-        return img;
-    }
-
-
     window.addEventListener('DOMContentLoaded', async () => {
+
+        generateStickers(5);
 
         if (parts.background.src && parts.background.variant === -1)
             parts.background.img = await loadImage(parts.background.src);
@@ -154,14 +199,21 @@
     });
 
 
+    function loadImage(src) {
+        const img = new Image();
+        img.src = src;
+        URL.revokeObjectURL(src);
+        return img;
+    }
+
+
     function download() {
-        console.log(parts.animation.format);
         if (parts.animation.format === 'png') {
             const dataURL = canvas.toDataURL('image/png');
             const img = document.createElement('img');
             img.src = dataURL;
             document.getElementById('wrapper').append(img);
-        } else {
+        } else if (parts.animation.format === 'gif') {
             createGIF();
         }
 

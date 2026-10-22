@@ -250,6 +250,7 @@
 
 
 <script type='module'>
+    import {loadImage, rollID} from '/script/useful.js';
     import {drawAll} from '/script/draw.js';
     import {parts} from '/script/state.js';
 
@@ -268,14 +269,6 @@
         for (let i = 0; i < 12; i++) {
             idImgs[i] = loadImage(`/assets/id/${i}.svg`);
         }
-    }
-
-
-    function loadImage(src) {
-        const img = new Image();
-        img.src = src;
-        URL.revokeObjectURL(src);
-        return img;
     }
 
 
@@ -329,26 +322,6 @@
 
         document.getElementById('main-menu').classList.add('hide');
         document.getElementById('download-menu').classList.remove('hide');
-    }
-
-
-    function rollID() {
-        const roll = Math.random();
-        const lucky = 0.007;
-        let variant;
-        while (true) {
-
-            if (roll < lucky)
-                variant = 11;
-            else
-               variant = Math.floor(Math.random() * 11);
-
-            if (variant.toString() !== localStorage.getItem('idVariant'))
-                break;
-        }
-
-        localStorage.setItem('idVariant', variant);
-        return variant;
     }
 
 

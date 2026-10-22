@@ -1,5 +1,6 @@
 import data from '/assets/parts/data.json' with { type: 'json' };
 import anims from '/assets/parts/animation.json' with { type: 'json' };
+import {getBase64Image, loadImage, rollID, generateStickers} from '/script/useful.js';
 import {parts, resetParts} from '/script/state.js';
 import {colorSettings, changeColor} from '/script/color.js';
 import {drawAll} from '/script/draw.js';
@@ -37,6 +38,7 @@ async function onload() {
     loadingScreen();
     resetCharacter();
     toggleDownloadFormat();
+    generateStickers(3);
 
     // Add tab change functionality
     const tabs = ['face', 'hair', 'eyebrows', 'eyes', 'nose', 'accessory', 'background', 'about'];
@@ -142,7 +144,7 @@ window.addEventListener('beforeprint', () => {
 
     const colors = ['cf5fa4', 'f491b0', 'f37576', 'c6805d', 'fcb772', 'f9d565', 'b1c949', '59b7a5', '4bbde9', '9190c6', 'ac62a7', '829ab9']
 
-    rollID();
+    idVariant = rollID();
     document.getElementById('idcard').src = `assets/id/${idVariant}.svg`;
     const chance = (idVariant === 11) ? ' 1/144' : ` ${idVariant + 1 }/11`;
     document.getElementById('roll').textContent = chance;
@@ -246,28 +248,6 @@ function toggleDownloadFormat() {
         parts.animation.format = (gif.checked) ? 'gif' : 'png';
         previewAnimation();
     });
-}
-
-
-// Converts image to base64 string
-// https://stackoverflow.com/questions/22172604/convert-image-from-url-to-base64
-function getBase64Image(img) {
-    const c = document.createElement('canvas');
-    c.width = img.width;
-    c.height = img.height;
-    const ctx_c = c.getContext('2d');
-    ctx_c.drawImage(img, 0, 0);
-
-    const dataURL = c.toDataURL('image/png');
-    return dataURL;
-}
-
-
-// Converts base64 string to image
-function loadImage(src) {
-    const img = new Image();
-    img.src = src;
-    return img;
 }
 
 
@@ -506,19 +486,6 @@ function populateParts() {
             colorSettings(p, settings);
         }
     }
-}
-
-
-function rollID() {
-    const roll = Math.random();
-    const lucky = 0.0069;
-
-    if (roll < lucky)
-        idVariant = 11;
-    else
-       idVariant = Math.floor(Math.random() * 11);
-
-    localStorage.setItem('idVariant', idVariant);
 }
 
 
