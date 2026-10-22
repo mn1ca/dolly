@@ -2,14 +2,14 @@ const defaultParts = {
 
     'background': {
         'variant': 0,
-        'color': '#ffeba3',
+        'color': '#dde899',
         'color2': '#fffee8',
         'img': '',
         'src': ''
     },
 
     'outline': {
-        'variant': 1,
+        'variant': 0,
         'color': '#ffffff',
         'scale': 1,
     },
@@ -49,10 +49,15 @@ const defaultParts = {
         'excludeTransform': true
     },
 
-    'face': {
+    'head': {
         'variant': 0,
         'color': '#b8b8b8',
-        'offset': [0, 0],
+        'excludeTransform': true
+    },
+
+    'face': {
+        'color': '#b8b8b8',
+        'offset': [0, 0]
     },
 
     'faceMarkings': {
@@ -165,7 +170,7 @@ const defaultParts = {
     },
 
     'animation': {
-        'variant': 'angry',
+        'variant': 1,
         'color': '#c1331c',
         'frame': 0,
         'format': 'png'
@@ -177,6 +182,9 @@ export let parts = JSON.parse(JSON.stringify(defaultParts));
 export function resetParts() {
     parts = JSON.parse(JSON.stringify(defaultParts));
     resetSettings();
+
+    parts.animation.variant = 0;
+    parts.animation.frame = 0;
 }
 
 
@@ -201,7 +209,4 @@ document.addEventListener('DOMContentLoaded', () => {
     let stored = localStorage.getItem('parts');
     if (stored)
         parts = JSON.parse(stored);
-
-    // parts.animation.variant = 'none';
-    parts.animation.frame = 0;
 });

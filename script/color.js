@@ -191,7 +191,7 @@ export function changeColor(hex, p, sliderChange = true, secondColor = false) {
 
         // Recolor neck and eyelids to skintone
         if (p === 'face') {
-            parts['neck'].color = parts['eyelids'].color = hex;
+            parts['head'].color = parts['neck'].color = parts['eyelids'].color = hex;
 
             // Recolor ears if they must match, or if they match the previous skintone
             if (data.ears[parts.ears.variant].mustMatch || parts.ears.color === parts[p].color)

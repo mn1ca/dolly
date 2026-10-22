@@ -52,7 +52,7 @@ body {
     display: none !important;
 }
 
-.pointer-lock, .pointer-lock * {
+.pointer-lock {
     pointer-events: none !important;
 }
 
@@ -116,6 +116,27 @@ h2::after {
 
 .small.block {
     width: 20px;
+}
+
+.special-thanks.spacer {
+    justify-content: space-around;
+}
+
+.special-thanks.spacer img {
+    border: 2px solid var(--text);
+    border-radius: 3px;
+}
+
+.special-thanks.spacer div {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+    gap: 4px;
+
+    font-family: var(--f1);
+    font-size: 120%;
+    text-align: center;
 }
 
 hr {
@@ -197,7 +218,7 @@ hr {
     border-radius: 6px;
 
     position: relative;
-    top: 55px;
+    top: 35px;
     margin: auto;
 
     z-index: 5;
@@ -207,7 +228,7 @@ canvas {
     width: 90%;
     height: auto;
 
-    background-size: 52px 52px;
+    background-size: 30px 30px;
     background-image:
     linear-gradient(to right, #c3d8fa 2px, transparent 1px),
     linear-gradient(to bottom, #c3d8fa 2px, transparent 1px);
@@ -227,9 +248,13 @@ a, a:visited {
     cursor: var(--c2);
 }
 
+a img:hover, #buttons img:hover {
+    transform: scale(1.03);
+    transition-duration: .15s;
+}
+
 a:hover {
     text-decoration: underline 2px;
-    filter: brightness(1.1);
     color: var(--g);
 }
 
@@ -459,6 +484,8 @@ a:hover {
     transform: scale(1.1);
 }
 
+
+
 #tabs {
     width: 145px;
     height: 85%;
@@ -497,7 +524,7 @@ a:hover {
 }
 
 .fat.tab {
-    padding: 8px 15px;
+    padding: 8px 20px;
 }
 
 .tab:hover {
@@ -572,18 +599,13 @@ a:hover {
     background-image: url(/assets/pagination/corner-hover.svg);
 }
 
-.buttons {
+#buttons {
     margin: -8px 15px;
 }
 
-.buttons img {
+#buttons img {
     margin: 0 4px;
     cursor: var(--c2);
-}
-
-.buttons img:hover {
-    transform: scale(1.05);
-    transition-duration: .15s;
 }
 
 summary {
@@ -863,14 +885,14 @@ input[type='text'] {
     height: 90px;
 
     position: absolute;
-    top: 350px;
-    left: 225px;
-
-    transform: rotate(8deg);
+    top: 345px;
+    left: 90px;
 
     background-image: url(/assets/leftpage/download/button.svg);
     background: cover;
     z-index: 6;
+
+    cursor: var(--c2);
 }
 
 #download-button:hover {
@@ -884,8 +906,8 @@ input[type='text'] {
     height: 104.5px;
 
     position: absolute;
-    top: 400px;
-    left: 15px;
+    top: 360px;
+    left: 162px;
 
     transform: rotate(-5deg);
 
@@ -915,9 +937,7 @@ input[type='text'] {
 }
 
 #png:hover {
-    background-image: url(/assets/leftpage/download/static.svg);
-    background-size: cover;
-    opacity: .35;
+    opacity: 0.5;
 }
 
 #png:hover + label {
@@ -952,6 +972,8 @@ input[type='text'] {
     background-image: url(/assets/leftpage/download/moving.svg);
     background-size: cover;
     opacity: 1;
+
+    pointer-events: none;
 }
 
 #gif:checked + label {
@@ -988,8 +1010,8 @@ input[type='text'] {
 
 .reset {
     position: absolute;
-    top: 400px;
-    left: 295px;
+    top: 390px;
+    left: 12px;
 
     display: flex;
     flex-direction: column;
@@ -1034,7 +1056,7 @@ input[type='text'] {
 
     filter: drop-shadow(5px 5px 7px rgba(60,10,0,0.5));
 
-    font-size: 95%;
+    font-size: 90%;
 }
 
 #reset-yes, #reset-no {
@@ -1061,6 +1083,32 @@ input[type='text'] {
     border-top: 15px solid white;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
+}
+
+#animations {
+    width: 360px;
+    height: 120px;
+    background-color: var(--a);
+
+    position: absolute;
+    top: 465px;
+    left: 20px;
+
+    border-radius: 10px;
+}
+
+#animation-gallery {
+    width: 95%;
+    height: 90%;
+
+    overflow: auto;
+    grid-auto-flow: column;
+    grid-template-rows: auto;
+    padding: 10px 0;
+}
+
+#animation-gallery .active {
+    background-color: white;
 }
 
 .flipped {
@@ -1359,7 +1407,7 @@ button:hover {
     transform: scale(.75);
 }
 
-.tippy-box[data-theme~='dolly'] {
+.tippy-box[data-theme~='dolly'], .tippy-box[data-theme~='animation'] {
     background: linear-gradient(rgba(256,256,256,0.6), white);
     border-radius: 100px;
     color: var(--text);
@@ -1411,8 +1459,13 @@ button:hover {
         visibility: hidden;
     }
 
-    canvas, #idcard, #text, #roll, strong {
+    canvas, #idcard, #text, #roll {
          visibility: visible !important;
+    }
+
+    .site {
+        visibility: visible !important;
+        font-weight: bold;
     }
 
     canvas {
@@ -1424,8 +1477,8 @@ button:hover {
         transform: scale(.8);
 
         position: absolute;
-        top: -10px;
-        left: 250px;
+        top: 20px;
+        left: 260px;
 
         border-width: 3px;
         border-radius: 8px;

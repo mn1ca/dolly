@@ -4,76 +4,14 @@
   <defs>
     <style>
       .st0 {
-        display: none;
-        fill: #56322f;
+        fill: #775b5b;
       }
 
       .st1 {
-        font-size: 20px;
-      }
-
-      .st1, .st2, .st3 {
-        font-family: BalsamiqSans-Bold, 'Balsamiq Sans';
-        font-weight: 700;
-      }
-
-      .st2 {
-        font-size: 16.1px;
-      }
-
-      .st4 {
-        fill: #fff;
-      }
-
-      .st3 {
-        font-size: 9.1px;
-      }
-
-      .st5 {
-        stroke: #79a5ed;
-        stroke-width: 1.3px;
-      }
-
-      .st5, .st6, .st7 {
-        fill: none;
-        stroke-miterlimit: 10;
-      }
-
-      .st8 {
-        fill: #79a5ed;
-      }
-
-      .st6, .st7 {
-        stroke: #6b4136;
-        stroke-width: 4.6px;
-      }
-
-      .st7 {
-        stroke-dasharray: 7.8 7.8;
+        fill: #ffdcdc;
       }
     </style>
   </defs>
-  <path class="st0" d="M3.2,3.2H0V0h3.2v3.2Z"/>
-  <text/>
-  <rect class="st4" x="352.4" y="662.2" width="411.1" height="193.9" rx="19.7" ry="19.7"/>
-  <rect class="st8" x="352.4" y="662.2" width="78.6" height="193.9"/>
-  <text class="st3" transform="translate(450.4 695.7)"><tspan x="0" y="0">Select a file </tspan><tspan x="0" y="11">format and </tspan><tspan x="0" y="21.9">press the </tspan><tspan x="0" y="32.9">DOWNLOAD </tspan><tspan x="0" y="43.8">button to </tspan><tspan x="0" y="54.8">save your </tspan><tspan x="0" y="65.7">image. </tspan><tspan x="0" y="87.7">Please note</tspan><tspan x="0" y="98.6">that .gif files </tspan><tspan x="0" y="109.6">work best with</tspan><tspan x="0" y="120.5">limited color</tspan><tspan x="0" y="131.5">palettes.</tspan></text>
-  <path d="M444.2,662.2c0,7.2-5.8,13-13,13-7.2,0-13-5.8-13-13h25.9Z"/>
-  <path d="M443.8,856.9c0-7.2-5.8-13-13-13s-13,5.8-13,13h25.9Z"/>
-  <g>
-    <path d="M428.7,667.1c0,68,0,136,0,203.9"/>
-    <g>
-      <path class="st6" d="M428.7,667.1c0,1.3,0,2.6,0,3.9"/>
-      <path class="st7" d="M428.7,678.9c0,61.5,0,122.9,0,184.4"/>
-      <path class="st6" d="M428.7,867.1v3.9"/>
-    </g>
-  </g>
-  <rect class="st5" x="548.4" y="707.6" width="34.4" height="34.4" rx="8.1" ry="8.1"/>
-  <rect class="st5" x="582.8" y="707.6" width="152.5" height="34.4" rx="7.5" ry="7.5"/>
-  <text class="st2" transform="translate(596 729.8)"><tspan x="0" y="0">.png (static)</tspan></text>
-  <rect class="st5" x="548.4" y="742" width="34.4" height="34.4" rx="8.1" ry="8.1"/>
-  <rect class="st5" x="582.8" y="742" width="152.5" height="34.4" rx="7.5" ry="7.5"/>
-  <rect class="st8" x="548.4" y="776.3" width="186.8" height="34.4" rx="8.3" ry="8.3"/>
-  <text class="st2" transform="translate(596 800)"><tspan x="0" y="0">DOWNLOAD</tspan></text>
-  <text class="st1" transform="translate(816.1 614.9)"><tspan x="0" y="0">n</tspan></text>
+  <path class="st0" d="M89.55,362.12l-.93-8.93c-.08-.74-.5-1.4-1.13-1.79l-7.66-4.68c-2.52-1.54-2.28-5.29.42-6.49l8.2-3.65c.68-.3,1.18-.91,1.35-1.63l2.08-8.73c.69-2.88,4.32-3.8,6.3-1.6l6,6.67c.5.55,1.23.84,1.97.78l8.95-.72c2.95-.24,4.95,2.93,3.47,5.5l-4.49,7.77c-.37.64-.42,1.43-.14,2.11l3.45,8.29c1.14,2.73-1.26,5.62-4.15,5l-8.78-1.87c-.73-.16-1.49.04-2.05.52l-6.82,5.84c-2.25,1.92-5.73.54-6.04-2.41Z"/>
+  <path class="st1" d="M95.48,323.41c.98,0,1.96.38,2.71,1.22l6,6.67c.46.51,1.1.79,1.78.79.06,0,.13,0,.19,0l8.95-.72c.1,0,.21-.01.31-.01,2.78,0,4.59,3.04,3.16,5.51l-4.49,7.77c-.37.64-.42,1.43-.14,2.11l3.45,8.29c1.03,2.48-.85,5.08-3.37,5.08-.26,0-.52-.03-.79-.08l-8.78-1.87c-.17-.04-.33-.05-.5-.05-.56,0-1.12.2-1.56.57l-6.82,5.84c-.71.61-1.55.89-2.37.89-1.77,0-3.46-1.28-3.67-3.29l-.93-8.93c-.08-.74-.5-1.4-1.13-1.79l-7.66-4.68c-2.52-1.54-2.28-5.29.42-6.49l8.2-3.65c.68-.3,1.18-.91,1.35-1.63l2.08-8.73c.43-1.79,1.99-2.82,3.59-2.82h0ZM95.48,318.41c-4.04,0-7.52,2.74-8.45,6.66l-1.78,7.48-7.02,3.12c-2.95,1.31-4.92,4.13-5.13,7.36-.21,3.23,1.37,6.28,4.13,7.96l6.56,4.01.8,7.64c.46,4.43,4.18,7.77,8.64,7.77,2.05,0,4.05-.74,5.62-2.09l5.84-5,7.52,1.6c.6.13,1.22.19,1.83.19,2.89,0,5.58-1.45,7.2-3.87,1.61-2.41,1.9-5.45.79-8.13l-2.95-7.1,3.85-6.65c1.57-2.71,1.57-5.96,0-8.67-1.54-2.68-4.42-4.34-7.5-4.34-.23,0-.47,0-.71.03l-7.66.61-5.14-5.72c-1.64-1.83-3.99-2.88-6.43-2.88h0Z"/>
 </svg>

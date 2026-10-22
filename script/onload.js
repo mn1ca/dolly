@@ -1,4 +1,5 @@
 import data from '/assets/parts/data.json' with { type: 'json' };
+import anims from '/assets/parts/animation.json' with { type: 'json' };
 import {parts, resetParts} from '/script/state.js';
 import {colorSettings, changeColor} from '/script/color.js';
 import {drawAll} from '/script/draw.js';
@@ -11,6 +12,7 @@ const today = new Date().toDateString();
 const lastOpened = localStorage.getItem('opened');
 const openedToday = (today === lastOpened);
 
+
 document.addEventListener('DOMContentLoaded', async () => {
     const canvas = document.getElementById('canvas');
     await onload();
@@ -20,6 +22,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Loads all the stuff
 async function onload() {
+
+    console.log('who want me');
 
     if (!openedToday)
         localStorage.setItem('opened', today);
@@ -45,7 +49,15 @@ async function onload() {
         location.reload();
     });
 
+    document.getElementById('animation-gallery').addEventListener('wheel', (e) => {
+        document.getElementById('animation-gallery').scrollLeft += e.deltaY / 2;
+    });
+
     document.getElementById('download-button').addEventListener('click', () => {window.location.href = '/download';});
+
+    document.querySelector(`#animation-gallery :nth-child(1)`).classList.add('active');
+    parts.animation.variant = 0;
+    parts.animation.frame = 0;
 
     // Tooltips
     tippy('.tooltip', {
@@ -71,7 +83,7 @@ async function onload() {
         appendTo: () => document.body,
       });
 
-    tippy('.buttons img', {
+    tippy('#buttons img', {
         content(reference) {
             if (reference.classList.contains('me')) {
               return 'i made this!';
@@ -87,6 +99,35 @@ async function onload() {
         },
 
         theme: 'about'
+      });
+
+    tippy('#animation-gallery div', {
+        content(reference) {
+            if (reference.matches(':nth-child(1)')) {
+              return 'none';
+            }
+
+            else if (reference.matches(':nth-child(2)')) {
+              return 'angry';
+            }
+
+            else if (reference.matches(':nth-child(3)')) {
+              return 'wink';
+            }
+
+            else if (reference.matches(':nth-child(4)')) {
+              return 'sleepy';
+            }
+
+            else if (reference.matches(':nth-child(5)')) {
+              return 'confused';
+            }
+        },
+
+        theme: 'animation',
+        followCursor: 'true',
+        offset: [0, -1.5],
+        arrow: false
       });
 }
 
@@ -126,7 +167,7 @@ function loadingScreen() {
         tabs.style.display = 'flex';
 
         const cover = document.getElementById('cover');
-        const slideaway = (openedToday) ? /*200*/0 : 4000;
+        const slideaway = (openedToday) ? 0 : 4000;
 
         cover.style.transitionDuration = `${slideaway / 1000}s`;
         cover.style.left = '-2500px';
@@ -219,6 +260,7 @@ function getBase64Image(img) {
     return dataURL;
 }
 
+
 // Converts base64 string to image
 function loadImage(src) {
     const img = new Image();
@@ -239,7 +281,6 @@ function imageInput() {
         if (!file) return;
 
         const size = Math.round(file.size / 1028); // kB
-        console.log(file.size);
         if (size > 10280) { // > 10 mB
             alert('file too big ! :(');
             return;
@@ -383,7 +424,7 @@ function populateParts() {
                 if (i === 0) img.classList.add('unflippable');
 
                 div.append(img);
-                div.onclick = () => {
+                div.addEventListener('click', () => {
                     parts[p].variant = i;
 
                     // Hide color button if option is not colorable
@@ -420,7 +461,17 @@ function populateParts() {
                     }
 
                     drawAll();
-                };
+                });
+                if (p === 'animation') {
+                    div.addEventListener('click', () => {
+
+                        document.querySelectorAll('#animation-gallery div').forEach(i => i.classList.remove('active'));
+                        document.querySelector(`#animation-gallery :nth-child(${i + 1})`).classList.add('active');
+
+                        parts.animation.frame = 0;
+                        parts.animation.color = data.animation[i].color;
+                        previewAnimation()});
+                }
                 document.getElementById(`${p}-gallery`).append(div);
             }
 

@@ -2,6 +2,7 @@
     <head>
         <meta name='viewport' content='width=device-width'>
         <meta charset='UTF-8'>
+        <meta name='robots' content='noai, noimageai'>
 
         <title></title>
 
@@ -29,8 +30,8 @@
 
         <img id='idcard' src='assets/id/2.svg'>
         <div id='text'>
-            <div><strong>card variant ✦</strong><span id='roll'></span></div>—<br>
-            You can also download your ID as an image at <strong style='text-decoration: underline'>dolly.mn1ca.fish/idcard</strong> !</div>
+            <div><span class='site'>card variant ✦</span><span id='roll'></span></div>—<br>
+            You can also download your ID as an image at <span class='site' style='text-decoration: underline'>dolly.mn1ca.fish/idcard</span> !</div>
 
         <div id='back-cover' class='book'>
             <div id='tabs-shadow'><div id='tabs'>
@@ -38,7 +39,7 @@
                 <div class='tab' id='hair'>hair</div>
                 <div class='tab' id='eyes'>eyes</div>
                 <div class='tab' id='eyebrows'>eyebrows</div>
-                <div class='fat tab' id='nose'>nose &<br>mouth</div>
+                <div class='fat tab' id='nose'>nose&nbsp;&<br>mouth</div>
                 <div class='tab' id='accessory'>accessory</div>
                 <div class='tab' id='background'>background</div>
                 <div class='special tab' id='about'>about</div>
@@ -59,7 +60,7 @@
                     </div>
 
                     <div class='container'>
-                        <div class='big gallery' id='face-gallery'></div>
+                        <div class='big gallery' id='head-gallery'></div>
                     </div>
 
                     <div class='container'>
@@ -225,13 +226,6 @@
 
                         </div>
                     </div>
-
-                    <!--
-                    <div class='page-turner'><span class='capitals'>page</span>&nbsp;1/2</div>
-                    <div class='page-corner'></div>
-                    </div>-->
-
-                    <!--<div id='accessory-page2' class='hide'>-->
                     <div class='container'>
                         <div class='scroll gallery' id='clothes-gallery'></div>
 
@@ -241,12 +235,6 @@
                             <div class='setting' id='clothes-flip'></div>
                         </div>
                     </div>
-
-
-                    <!--
-                    <div class='page-turner'><span class='capitals'>page</span>&nbsp;2/2</div>
-                    <div class='page-corner'></div>
-                    </div>-->
 
                 </div>
 
@@ -300,7 +288,7 @@
                         <hr>
 
                         <div class='spacer'>
-                            <span>source code</span>
+                            <a href='https://github.com/mn1ca/dolly' target='_blank'>source code</a>
                             <span>documentation</span>
                         </div>
                     </div>
@@ -382,6 +370,11 @@
                                     <span class='capitals'>(@pin2o /Codepen)</span>
                                 </li>
 
+                                <li><a href='https://baccyflap.com/res/robots/#robots' target='_blank'>
+                                    robots.txt</a>
+                                    <span class='capitals'>(Baccyflap)</span>
+                                </li>
+
                             </ul>
 
                             <h2>libraries</h2>
@@ -410,10 +403,20 @@
                                     Rascal
                                 </a></li>
                             </ul>
+
+                            <h2>special&nbsp;thanks&nbsp;♡</h2>
+                            <div class='special-thanks spacer'>
+                                <div><a href='https://instagram.com/910o4' target='_blank'><img style='width: 100%' src='assets/special-thanks/910o4.png'>
+                                kat</a>
+                                </div>
+                                <div><img style='width: 100%' src='assets/special-thanks/selina.png'>
+                                selina</div>
+
+                            </div>
                         </div>
                     </div>
 
-                    <div class='buttons'>
+                    <div id='buttons'>
                         <a href='https://mn1ca.fish' target='_blank'>
                         <img src='/assets/buttons/mn1ca.gif' class='me' alt='mn1ca site button' style='image-rendering: pixelated'></a>
 
@@ -422,7 +425,7 @@
 
                         <details>
                             <summary><img src='/assets/buttons/dolly.gif' class='site' alt='site button'></summary>
-                            <div class='t'><textarea readonly>&lt;a href='https://dolly.' target='_blank'&gt;&lt;img src= '★'&gt;&lt;/a&gt;</textarea></div>
+                            <textarea readonly>&lt;a href='https://dolly.mn1ca.fish' target='_blank'&gt;&lt;img src= '★'&gt;&lt;/a&gt;</textarea>
                         </details>
                     </div>
                 </div>
@@ -494,6 +497,12 @@
                 </div>
                 <div id='reset-button' class='thing'></div>
             </div>
+
+           <div id='animations' class='center thing'>
+                    <div id='animation-gallery' class='gallery'>
+                    </div>
+            </div>
+
         </div>
 
 
@@ -510,11 +519,11 @@
 </div></body>
 
     <!--script-->
-        <script src="https://unpkg.com/@popperjs/core@2"></script>
-        <script src="https://unpkg.com/tippy.js@6"></script>
+        <script src='https://unpkg.com/@popperjs/core@2'></script>
+        <script src='https://unpkg.com/tippy.js@6'></script>
         <script type='module' src='script/onload.js'></script>
     <script type='module' src='script/animate.js'></script>
-        <!--<script defer src="/_vercel/insights/script.js"></script>-->
+        <!--<script defer src='/_vercel/insights/script.js'></script>-->
 
 
 </html>

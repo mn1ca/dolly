@@ -8,19 +8,26 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
 ctx.imageSmoothingEnabled = false;
 
-const totalFrames = anims[parts.animation.variant].numFrames
+let totalFrames;
 const frameDelay = 1000 / 12; // 12 FPS
 let currentFrame = 0;
-
+let started = 0;
 
 // Animate in canvas
 export function previewAnimation() {
-    //document.getElementById('ugh').classList.add('pointer-lock');
+    totalFrames = anims[parts.animation.variant].numFrames;
+
+    started++;
+    const current = started;
 
     currentFrame = 0;
     let lastTime = performance.now();
 
     function loop(currentTime) {
+
+        // Cancel current animation if new one is started
+        if (started !== current)
+            return;
 
         const elapsed = currentTime - lastTime;
         if (elapsed >= frameDelay) {
@@ -28,18 +35,13 @@ export function previewAnimation() {
             lastTime = currentTime - (elapsed % frameDelay);
 
             if (currentFrame < totalFrames) {
-                drawFrame(currentFrame, false);
+                drawFrame(currentFrame);
                 currentFrame++;
                 requestAnimationFrame(loop);
-            } else {
-                //document.getElementById('ugh').classList.remove('pointer-lock');
-                drawAll();
 
-            }
+            } else drawAll();
 
-        } else {
-            requestAnimationFrame(loop);
-        }
+        } else requestAnimationFrame(loop);
     }
 
     requestAnimationFrame(loop);
@@ -48,6 +50,10 @@ export function previewAnimation() {
 
 // Create downloadable GIF
 export async function createGIF() {
+
+    totalFrames = anims[parts.animation.variant].numFrames;
+    console.log(totalFrames, parts.animation.variant );
+
     const gif = new GIF({
         workers: 2,
         quality: 5,
@@ -59,7 +65,7 @@ export async function createGIF() {
     });
 
     for (let i = 0; i < totalFrames; i++) {
-        await drawFrame(i, true);
+        await drawFrame(i);
         gif.addFrame(ctx, {copy: true, delay: frameDelay, dither: false});
     }
 
@@ -77,7 +83,7 @@ export async function createGIF() {
 }
 
 
-function drawFrame(frame, grid) {
+function drawFrame(frame) {
     parts.animation.frame = frame;
     drawAll(true);
 }

@@ -13,7 +13,7 @@ export function drawAll(a = false, reset = true) {
     currentAnimation = parts.animation.variant;
     currentFrame = parts.animation.frame;
 
-    const forbidden = ['background', 'eyes', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
+    const forbidden = ['background', 'eyes', 'face', 'hair', 'outline'];  // Parts not meant to be drawn in normal process
 
     if (reset) ctx.reset();
 
@@ -55,14 +55,21 @@ function drawPart(p, outline = false) {
 
     let partAnimation, faceAnimation;
     let mirrorAnimation = false;
+    let sameDirection = false;
     if (animation && p !== 'face') {
-
         if (!anims[currentAnimation][currentFrame])
             currentFrame = prevFrame;
         else
             prevFrame = currentFrame;
 
-        const reference = anims[currentAnimation][currentFrame].reference
+        // Reset frame back to beginning if it does not exist
+        // Typically triggers when animation variant is switched mid-animation,
+        // causing the variant to update mid frame
+        if (!anims[currentAnimation][currentFrame])
+            currentFrame = 0;
+
+        // Duplicate previous frame
+        const reference = anims[currentAnimation][currentFrame].reference;
         if (reference) currentFrame = reference;
 
         partAnimation = anims[currentAnimation][currentFrame][p];
@@ -76,6 +83,7 @@ function drawPart(p, outline = false) {
 
         if (partAnimation) {
             mirrorAnimation = !partAnimation.notMirrored;
+            sameDirection = partAnimation.sameDirection;
             applyAnimationTransforms(partAnimation);
         }
         if (faceAnimation) applyAnimationTransforms(faceAnimation);
@@ -88,16 +96,20 @@ function drawPart(p, outline = false) {
     // Mirror if mirror setting is active & current part does not prevent mirror
     // Or if current part requires mirroring
     if ((parts[p].mirrored && !data[p][parts[p].variant].preventMirror) || data[p][parts[p].variant].mirrored) {
+
         ctx.save();
+        if (sameDirection) applyAnimationTransforms(partAnimation);
+
         ctx.translate(canvas.width, 0);
         ctx.scale(-1, 1);
 
         const secondColor = (p === 'pupils') ? parts[p].heterochromia : false;
 
-        if (mirrorAnimation) applyAnimationTransforms(partAnimation);
+        if (mirrorAnimation && !sameDirection) applyAnimationTransforms(partAnimation);
         if (faceAnimation) applyAnimationTransforms(faceAnimation);
 
         draw(p, outline, secondColor);
+
         ctx.restore();
     }
 
@@ -128,11 +140,7 @@ function draw(p, stroke = false, secondColor = false, animate) {
         ctx.scale(-1, 1);
     }
 
-    //ctx.translate(256, 256);
-    //ctx.rotate(1.5);
-    //ctx.translate(-256, -256);
-
-    if (p !== 'face') {
+    if (p !== 'head') {
 
         // Calculate offset from
         // Part
@@ -151,6 +159,12 @@ function draw(p, stroke = false, secondColor = false, animate) {
 
         if (shape.preventOffset)
             offset[shape.preventOffset - 1] = 0;
+
+        // Invert translation if shape is reflected
+        if (animation && anims[currentAnimation][currentFrame][p]) {
+            const reflect = anims[currentAnimation][currentFrame][p].reflected;
+            if (reflect) offset[1] *= -1;
+        }
 
         ctx.translate(-1 * offset[0], offset[1]);
     }

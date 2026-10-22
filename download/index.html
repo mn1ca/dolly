@@ -1,6 +1,6 @@
 <html>
     <head>
-        <meta name='viewport' content='width=600'>
+        <meta name='viewport' content='width=800'>
         <meta charset='UTF-8'>
 
         <title></title>
@@ -120,6 +120,7 @@
 
 
 <script type='module'>
+    import anims from '/assets/parts/animation.json' with { type: 'json' };
     import {drawAll} from '/script/draw.js';
     import {createGIF} from '/script/animate.js';
     import {parts} from '/script/state.js';
@@ -140,7 +141,15 @@
 
         if (parts.background.src && parts.background.variant === -1)
             parts.background.img = await loadImage(parts.background.src);
-        drawAll();
+
+        const animation = parts.animation.variant;
+        if (animation) {
+            parts.animation.frame = anims[animation].keyframe;
+            drawAll(true);
+        } else {
+            drawAll();
+        }
+
         download();
     });
 
