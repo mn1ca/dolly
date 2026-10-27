@@ -9,7 +9,7 @@ const defaultParts = {
     },
 
     'outline': {
-        'variant': 0,
+        'variant': 1,
         'color': '#ffffff',
         'scale': 1,
     },

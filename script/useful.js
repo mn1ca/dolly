@@ -51,7 +51,7 @@ export function generateStickers(numStickers) {
     for (const s of stickers) {
         const sticker = document.querySelector(`#stickers :nth-child(${i})`);
         const direction = (i % 2) ? -1 : 1;
-        sticker.src = `/assets/stickers/${s}.svg`;
+        sticker.src = `/assets/stickers/${s}.png`;
         sticker.style.transform = `rotate(${random(8, 20) * direction}deg)`;
 
         i++;
