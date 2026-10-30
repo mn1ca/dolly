@@ -480,6 +480,11 @@ a:hover {
     transition-duration: .15s;
 }
 
+.content .gallery div {
+    min-width: 0;
+    display: flex;
+}
+
 .gallery div:hover {
     transform: scale(1.1);
 }
@@ -1075,7 +1080,8 @@ input[type='text'] {
     width: 95%;
     height: 90%;
 
-    overflow: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
     grid-auto-flow: column;
     grid-template-rows: auto;
     padding: 10px 0;
@@ -1153,17 +1159,14 @@ input[type='range']::-webkit-slider-thumb {
 
 input[type='range']::before, input[type='range']::after {
 
+    display: block;
+    width: 8px;
+    height: 8px;
+    content: '';
+
     border-radius: 100px;
     background-color: var(--d);
     color: var(--d);
-
-    content: '';
-    font-size: 9px;
-    padding: 0 5.5px;
-
-    position: relative;
-    top: -2px;
-    margin: -2px;
 }
 
 

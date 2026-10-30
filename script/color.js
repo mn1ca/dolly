@@ -15,7 +15,7 @@ export function colorSettings(p, settings) {
 
         const button = document.createElement('div');
         button.classList.add('color');
-        button.style.backgroundColor = color;
+        button.style.backgroundColor = `#${color}`;
         button.id = `${p}-color-button${second}`;
 
         const card = document.createElement('div');

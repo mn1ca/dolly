@@ -1,5 +1,5 @@
 # ✎ dollymaker
-**Dollymaker** is a character creator website built with HTML, CSS, and vanilla JavaScript. It can be used to export 512x512 .png images and .gif animations of a customizable character.
+**Dollymaker** is a character creator website built with HTML, CSS, and vanilla JavaScript. It can be used to make customizable 512x512 .png and animated .gif icons.
 
 All data is processed and stored locally in the browser.
 
