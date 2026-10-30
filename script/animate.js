@@ -1,6 +1,6 @@
 import data from '/assets/parts/data.json' with { type: 'json' };
 import anims from '/assets/parts/animation.json' with { type: 'json' };
-import {parts} from '/script/state.js';
+import {parts, setBlobURL} from '/script/state.js';
 import {drawAll} from '/script/draw.js';
 import '/script/gif/gif.js';
 
@@ -72,13 +72,17 @@ export async function createGIF() {
     drawAll();
     gif.render();
 
+    let url;
     gif.on('finished', (blob) => {
-        const url = URL.createObjectURL(blob);
+        url = URL.createObjectURL(blob);
+        setBlobURL(url);
         const img = document.createElement('img');
-        img.onload = () => {URL.revokeObjectURL(img.src)};
         img.src = url;
         document.getElementById('wrapper').appendChild(img);
-        return img;
+
+        /*if (document.getElementById('download-img'))
+            document.getElementById('download-img').href = url;
+            document.getElementById('download-img').download = 'animation.gif';*/
     });
 }
 

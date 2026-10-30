@@ -210,3 +210,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (stored)
         parts = JSON.parse(stored);
 });
+
+
+// Used to revoke GIF blob after download
+export let blobURL = null;
+export function setBlobURL(url) {
+    blobURL = url;
+}

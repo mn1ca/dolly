@@ -2,7 +2,7 @@
 <html lang='en-US'>
     <head>
         <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width'>
+        <meta name='viewport' content='width=850'>
         <meta name='description' content='a character creator that can be used to make & animate customizable icons'>
         <meta name='robots' content='noai, noimageai'>
 
@@ -77,19 +77,17 @@
                 text-align: center;
             }
 
-            a, a:visited {
+            #return {
+                margin: 12px auto;
+                width: 100px;
+
                 cursor: url(/assets/cursor/pointer.svg), pointer;
                 text-decoration: none;
                 color: #c1331c;
                 font-weight: bold;
             }
 
-            .return {
-                margin: 12px auto;
-                width: 100px;
-            }
-
-            .return:hover {
+            #return:hover {
                 transform: scale(1.15);
                 transition: .5s;
             }
@@ -157,16 +155,16 @@
         </div>
         <div id='bottom'>
             right click / long press on the image to save it
-        <a href='/'><div class='return'>go back</div></a>
+        <div id='return'>go back</div>
         </div>
         <canvas id='canvas' height='512' width='512'></canvas>
 
         <div id='stickers'>
-            <img src='/assets/stickers/0.svg'>
-            <img src='/assets/stickers/1.svg'>
-            <img src='/assets/stickers/2.svg'>
-            <img src='/assets/stickers/3.svg'>
-            <img src='/assets/stickers/4.svg'>
+            <img src='/assets/stickers/0.png'>
+            <img src='/assets/stickers/1.png'>
+            <img src='/assets/stickers/2.png'>
+            <img src='/assets/stickers/3.png'>
+            <img src='/assets/stickers/4.png'>
         </div>
     </div>
 
@@ -178,12 +176,18 @@
     import {generateStickers} from '/script/useful.js';
     import {drawAll} from '/script/draw.js';
     import {createGIF} from '/script/animate.js';
-    import {parts} from '/script/state.js';
+    import {parts, blobURL, setBlobURL} from '/script/state.js';
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
+    let url;
 
-
+    document.getElementById('return').addEventListener('click', () => {
+        console.log(blobURL);
+        if (blobURL) URL.revokeObjectURL(blobURL);  // Revoke blob object
+        setBlobURL(null);
+        window.location.href = '/';
+    });
     window.addEventListener('DOMContentLoaded', async () => {
 
         generateStickers(5);
@@ -218,9 +222,8 @@
             img.src = dataURL;
             document.getElementById('wrapper').append(img);
         } else if (parts.animation.format === 'gif') {
-            createGIF();
+            url = createGIF();
         }
-
     }
 
 </script>
