@@ -3,7 +3,7 @@
 
 All data is processed and stored locally in the browser.
 
-## live @
+## visit the site !
 [https://dolly.mn1ca.fish](https://dolly.mn1ca.fish)
 
 ## usage

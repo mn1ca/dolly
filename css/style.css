@@ -407,6 +407,7 @@ a:hover {
 
 #hair-content .gallery {
     margin-top: -8px;
+    max-height: 100px;
 }
 
 #hair-content .container {
@@ -443,17 +444,19 @@ a:hover {
     width: 100%;
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
-    gap: 8px;
+    gap: 10px;
 
-    margin-bottom: 8px !important;
+    margin-bottom: 10px !important;
     padding: 10px 20px;
 }
 
 .scroll.gallery {
     max-height: 90px;
     overflow-y: auto;
+
+    scrollbar-width: thin;
 }
 
 .scroll.big.gallery {
@@ -480,6 +483,10 @@ a:hover {
     transition-duration: .15s;
 }
 
+.gallery div img {
+    width: 100%;
+}
+
 .content .gallery div {
     min-width: 0;
     display: flex;
@@ -488,7 +495,6 @@ a:hover {
 .gallery div:hover {
     transform: scale(1.1);
 }
-
 
 
 #tabs {
@@ -916,7 +922,7 @@ input[type='text'] {
 }
 
 #png:hover {
-    opacity: 0.5;
+    opacity: .5;
 }
 
 #png:hover + label {
@@ -1099,15 +1105,14 @@ input[type='text'] {
 #stickers img {
     position: absolute;
     width: 75px;
-    height: auto;
 
     filter: drop-shadow(2px 2px 5px rgba(60,10,0,0.5));
     pointer-events: none;
 }
 
 #stickers > :nth-child(1) {
-    top: -280px;
-    left: 280px;
+    top: -295px;
+    left: 300px;
 }
 
 #stickers > :nth-child(2) {
@@ -1118,6 +1123,7 @@ input[type='text'] {
 #stickers > :nth-child(3) {
     top: -40px;
     left: -5px;
+    display: none;
 }
 
 .flipped {

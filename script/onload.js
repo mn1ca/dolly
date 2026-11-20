@@ -142,13 +142,13 @@ window.addEventListener('beforeprint', () => {
     ctx.reset();
     drawAll();
 
-    const colors = ['cf5fa4', 'f491b0', 'f37576', 'c6805d', 'fcb772', 'f9d565', 'b1c949', '59b7a5', '4bbde9', '9190c6', 'ac62a7', '829ab9']
+    const colors = ['cf5fa4', 'f491b0', 'f37576', 'c6805d', 'fcb772', 'f9d565', 'b1c949', '59b7a5', '4bbde9', '9190c6', 'ac62a7', '829ab9'];
 
     idVariant = rollID();
     document.getElementById('idcard').src = `assets/id/${idVariant}.svg`;
     const chance = (idVariant === 11) ? ' 1/144' : ` ${idVariant + 1 }/11`;
     document.getElementById('roll').textContent = chance;
-    document.getElementById('idcard').style.borderColor = canvas.style.borderColor = colors[idVariant];
+    document.getElementById('idcard').style.borderColor = canvas.style.borderColor = `#${colors[idVariant]}`;
 });
 
 window.addEventListener('afterprint', () => {canvas.style.borderColor = 'var(--e)'})

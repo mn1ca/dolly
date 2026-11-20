@@ -13,43 +13,59 @@
         "0": {},
 
         "2": {
-           "face": {
+            "head": {
+                "translate": [0, -5]
+            },
+            "face": {
                 "translate": [0, -10]
             },
             "hairBack": {
                 "translate": [0, -10]
             },
-
+            "hairFront": {
+                "translate": [0, -5]
+            },
+            "hairAhoge": {
+               "translate": [0, -10]
+            },
             "mouth": {
                "translate": [0, -3]
             },
-
-            "hairAhoge": {
-               "translate": [0, -10]
+            "accessoryHead": {
+                "translate": [0, -5]
             }
         },
 
         "4": {
+            "head": {
+                "translate": [0, 3]
+            },
             "face": {
                 "translate": [0, 5]
             },
             "hairBack": {
                 "translate": [0, 5]
             },
-
+            "hairFront": {
+                "translate": [0, 3]
+            },
             "hairAhoge": {
                "translate": [0, 20]
             },
-
             "eyebrows": {
                 "translate": [200, 240],
                 "rotate": [0.15],
                 "2translate": [-195, -256]
+            },
+            "accessoryHead": {
+                "translate": [0, 3]
             }
         },
 
         "5": {
-
+            "head": {
+                "translate": [0, 8]
+            },
             "face": {
                 "translate": [0, 10]
             },
@@ -59,20 +75,26 @@
             "hairBack": {
                 "translate": [0, 10]
             },
-
+            "hairFront": {
+                "translate": [0, 8]
+            },
             "hairAhoge": {
                "translate": [0, 8]
             },
-
             "eyebrows": {
                 "translate": [200, 240],
                 "rotate": [0.4],
                 "2translate": [-175, -256]
+            },
+            "accessoryHead": {
+                "translate": [0, 8]
             }
         },
 
         "6": {
-
+            "head": {
+                "translate": [0, 8]
+            },
             "face": {
                 "translate": [0, 10]
             },
@@ -82,7 +104,9 @@
             "hairBack": {
                 "translate": [0, 10]
             },
-
+            "hairFront": {
+                "translate": [0, 8]
+            },
             "hairAhoge": {
                "translate": [0, 5]
             },
@@ -96,12 +120,17 @@
             },
             "eyelids": {
                 "translate": [0, 10]
+            },
+            "accessoryHead": {
+                "translate": [0, 8]
             },
             "animation": 1
         },
 
         "8": {
-
+            "head": {
+                "translate": [0, 8]
+            },
             "face": {
                 "translate": [0, 10]
             },
@@ -111,7 +140,9 @@
             "hairBack": {
                 "translate": [0, 10]
             },
-
+            "hairFront": {
+                "translate": [0, 8]
+            },
             "hairAhoge": {
                "translate": [0, 5]
             },
@@ -125,6 +156,9 @@
             },
             "eyelids": {
                 "translate": [0, 10]
+            },
+            "accessoryHead": {
+                "translate": [0, 8]
             },
             "animation": 2
         },
@@ -173,19 +207,26 @@
         },
 
         "2": {
-           "face": {
+            "head": {
+                "translate": [0, -5]
+            },
+            "face": {
                 "translate": [0, -10]
             },
             "hairBack": {
                 "translate": [0, -5]
             },
-
+            "hairFront": {
+                "translate": [0, -5]
+            },
+            "hairAhoge": {
+               "translate": [0, -10]
+            },
             "mouth": {
                "translate": [0, -3]
             },
-
-            "hairAhoge": {
-               "translate": [0, -10]
+            "accessoryHead": {
+                "translate": [0, -5]
             }
         },
 
@@ -202,13 +243,17 @@
             "hairBack": {
                 "translate": [0, 5]
             },
-
+            "hairFront": {
+               "translate": [0, 5]
+            },
             "hairAhoge": {
                "translate": [0, 20]
             },
-
             "eyebrows": {
                 "translate": [0, -5]
+            },
+            "accessoryHead": {
+                "translate": [0, 5]
             }
         },
 
@@ -542,6 +587,9 @@
             "hairBack": {
                 "translate": [0, 5]
             },
+            "hairFront": {
+                "translate": [0, 2]
+            },
             "hairAhoge": {
                  "translate": [0, 10]
             },
@@ -562,6 +610,9 @@
             },
             "sparkles": {
                 "translate": [1000, 0]
+            },
+            "accessoryHead": {
+                "translate": [0, 2]
             },
             "animation": 2
         },
@@ -578,6 +629,9 @@
             "hairBack": {
                 "translate": [0, 5]
             },
+            "hairFront": {
+                "translate": [0, 2]
+            },
             "hairAhoge": {
                  "translate": [0, 10]
             },
@@ -599,6 +653,9 @@
             "sparkles": {
                 "translate": [1000, 0]
             },
+            "accessoryHead": {
+                "translate": [0, 2]
+            },
             "animation": 3
         },
         "22": {
@@ -613,6 +670,9 @@
             },
             "hairAhoge": {
                  "translate": [0, 5]
+            },
+            "hairFront": {
+                "translate": [0, 2]
             },
             "eyebrows": {
                  "translate": [0, 20]
@@ -631,6 +691,9 @@
             },
             "sparkles": {
                 "translate": [1000, 0]
+            },
+            "accessoryHead": {
+                "translate": [0, 2]
             },
             "animation": 3
         },

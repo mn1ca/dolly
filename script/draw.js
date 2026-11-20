@@ -246,6 +246,9 @@ function drawBg() {
     switch(background.variant) {
         case -1:
 
+            ctx.fillStyle = background.color;
+            ctx.fill(path);
+
             // Scale image according to shorter side
             const shorterWidth = (background.img.width < background.img.height) ? true : false;
             const scale = (shorterWidth) ? canvasWidth / background.img.width : canvasHeight / background.img.height;

@@ -79,10 +79,6 @@ export async function createGIF() {
         const img = document.createElement('img');
         img.src = url;
         document.getElementById('wrapper').appendChild(img);
-
-        /*if (document.getElementById('download-img'))
-            document.getElementById('download-img').href = url;
-            document.getElementById('download-img').download = 'animation.gif';*/
     });
 }
 
