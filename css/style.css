@@ -218,8 +218,9 @@ hr {
     border-radius: 6px;
 
     position: relative;
-    top: 35px;
+    top: 28px;
     margin: auto;
+    transform: rotate(1.75deg);
 
     z-index: 5;
 }
@@ -330,7 +331,7 @@ a:hover {
     left: -60px;
 
     background-color: var(--b);
-    transform: rotate(-1deg);
+    transform: rotate(-1.75deg);
 
     z-index: -1;
 
@@ -561,11 +562,17 @@ a:hover {
 
 #special-links a {
     text-decoration: none !important;
+    text-transform: uppercase;
+    font-size: 80%;
+    font-weight: bold;
 }
 
 #special-links a:hover {
-    transform: scale(1.025);
-    color: var(--text);
+    color: var(--e);
+}
+
+#special-links a:hover:after {
+    background-color: var(--e);
 }
 
 #special-links a:after {
@@ -870,10 +877,10 @@ input[type='text'] {
     height: 90px;
 
     position: absolute;
-    top: 342px;
-    left: 88px;
+    top: 378px;
+    left: 82px;
 
-    transform: rotate(3deg);
+    transform: rotate(12deg);
 
     background-image: url(/assets/leftpage/download/button.svg);
     background: cover;
@@ -883,7 +890,7 @@ input[type='text'] {
 }
 
 #download-button:hover {
-    transform: scale(1.1) rotate(18deg);
+    transform: scale(1.1) rotate(-8deg);
     z-index: 7;
     transition-duration: .1s;
 }
@@ -894,7 +901,7 @@ input[type='text'] {
 
     position: absolute;
     top: 355px;
-    left: 159px;
+    left: 165px;
 
     background-image: url(/assets/leftpage/download/background.svg);
     background: cover;
@@ -995,7 +1002,7 @@ input[type='text'] {
 
 .reset {
     position: absolute;
-    top: 390px;
+    top: 315px;
     left: 8px;
 
     display: flex;
@@ -1076,7 +1083,7 @@ input[type='text'] {
     background-color: var(--a);
 
     position: absolute;
-    top: 470px;
+    top: 485px;
     left: 20px;
 
     border-radius: 10px;
@@ -1111,18 +1118,16 @@ input[type='text'] {
 }
 
 #stickers > :nth-child(1) {
-    top: -295px;
+    top: -300px;
     left: 300px;
 }
 
 #stickers > :nth-child(2) {
-    top: -220px;
-    left: 325px;
+    top: -230px;
+    left: 345px;
 }
 
 #stickers > :nth-child(3) {
-    top: -40px;
-    left: -5px;
     display: none;
 }
 

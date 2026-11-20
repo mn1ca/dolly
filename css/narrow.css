@@ -52,8 +52,8 @@
     }
 
     .right-page {
-        width: 95%;
-        height: 400px;
+        width: 90%;
+        height: 350px;
 
         top: 385px;
         left: -20px;
@@ -71,7 +71,7 @@
         height: 350px;
 
         top: 380px;
-        right: -55px;
+        right: -52px;
 
         display: block;
         background-color: var(--g);
@@ -208,8 +208,8 @@
     }
 
     #stickers > :nth-child(3) {
-        top: -80px;
-        left: -10px;
+        top: 120px;
+        left: -12px;
 
         display: block;
     }

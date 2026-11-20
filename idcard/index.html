@@ -184,13 +184,15 @@
             .menu div {
                 color: var(--text);
                 cursor: url(/assets/cursor/pointer.svg), pointer;
-                border-bottom: 3px dotted;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 90%;
+                line-height: 1.75;
             }
 
             .menu div:hover {
-                transform: scale(1.05);
-                filter: brightness(1.15);
-                transition-duration: .5s;
+                filter: brightness(1.5);
+                border-bottom: 2px solid var(--text);
             }
 
             .arrow::after {
